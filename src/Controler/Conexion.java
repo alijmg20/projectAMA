@@ -12,7 +12,7 @@ public class Conexion {
     {
         try{
             Class.forName("org.postgresql.Driver");
-            con = DriverManager.getConnection(jdbc+"farmacia","postgres","password");
+            con = DriverManager.getConnection(jdbc+"universidad","postgres","password");
             System.out.println("Conexion exitosa");
         }catch(ClassNotFoundException | SQLException ex){
             JOptionPane.showMessageDialog(null,"Error: "+ex.getMessage());
