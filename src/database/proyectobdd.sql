@@ -1,13 +1,14 @@
 --DOMINIOS NECESARIOS 
 
-CREATE DOMAIN dom_descripcion AS VARCHAR(30);
-CREATE DOMAIN dom_nombre AS VARCHAR(30);
+CREATE DOMAIN dom_descripcion AS VARCHAR(100);
+CREATE DOMAIN dom_nombre AS VARCHAR(40);
 CREATE DOMAIN dom_fechas AS DATE;
+CREATE DOMAIN dom_codigo AS VARCHAR(8);
 --1)------------------------------TABLA UNIDADES---------------------------------------------
 CREATE TABLE unidades(
-	codunidades VARCHAR(8) NOT NULL,
+	codunidades dom_codigo NOT NULL,
 	nombreu dom_nombre NOT NULL,
-	c_costo VARCHAR(20) NOT NULL
+	c_costo VARCHAR(30) NOT NULL
 );
 ALTER TABLE unidades 
 ADD CONSTRAINT PK_codUnidades 
@@ -19,7 +20,7 @@ UNIQUE(nombreu);
 
 --2)------------------------TABLA LINEAS---------------------------------------------------
 CREATE TABLE lineas(
-	codlineas VARCHAR(8) NOT NULL,
+	codlineas dom_codigo NOT NULL,
 	descripcionl dom_descripcion NOT NULL
 );
 ALTER TABLE lineas 
@@ -32,12 +33,12 @@ UNIQUE(descripcionl);
 
 --3)--------------------------------TABLA ITEMS----------------------------------------------------------
 CREATE TABLE items(
-	coditem VARCHAR(8) NOT NULL,
-	nombrei VARCHAR(20) NOT NULL,
+	coditem dom_codigo NOT NULL,
+	nombrei dom_nombre NOT NULL,
 	descripcioni dom_descripcion NOT NULL,
 	umedida CHAR(3) NOT NULL,
 	preciou FLOAT NOT NULL,
-	codlineas VARCHAR(8) NOT NULL --FK
+	codlineas dom_codigo NOT NULL --FK
 );
 
 ALTER TABLE items 
@@ -48,14 +49,18 @@ ALTER TABLE items
 ADD CONSTRAINT FK_codlineas
 FOREIGN KEY(codlineas) 
 REFERENCES lineas(codlineas)
-ON DELETE NO ACTION 
+ON DELETE RESTRICT 
 ON UPDATE CASCADE;
+
+ALTER TABLE items 
+ADD CONSTRAINT CK_preciou
+CHECK (items.preciou >= 0);
 
 --4)-------------------------TABLA PROVEEDORES-------------------------------------------------
 CREATE TABLE proveedores(
 	rif INT NOT NULL,
-	r_social VARCHAR(30) NOT NULL,
-	direccion VARCHAR(60)
+	r_social VARCHAR(40) NOT NULL,
+	direccion VARCHAR(100)
 );
 
 ALTER TABLE proveedores 
@@ -81,14 +86,14 @@ ALTER TABLE correos
 ADD CONSTRAINT FK_rifproveedor
 FOREIGN KEY(rifproveedor)
 REFERENCES proveedores(rif)
-ON DELETE NO ACTION
+ON DELETE RESTRICT
 ON UPDATE CASCADE;
 
 --6)----------------------------TELEFONOS DE LOS PROVEEDORES-------------------------------------------
 
 CREATE TABLE telefonos(
 	rifproveedor INT NOT NULL, --FK
-	telefonos VARCHAR(11) NOT NULL 
+	telefonos VARCHAR(20) NOT NULL 
 );
 
 ALTER TABLE telefonos 
@@ -99,14 +104,14 @@ ALTER TABLE telefonos
 ADD CONSTRAINT FK_rif_proveedor
 FOREIGN KEY(rifproveedor)
 REFERENCES proveedores(rif)
-ON DELETE NO ACTION
+ON DELETE RESTRICT
 ON UPDATE CASCADE;
 
 --7)----------------------LINEAS QUE SUMINISTRAN LOS PROVEEDORES--------------------------
 
 CREATE TABLE suministran(
 	rifproveedor INT NOT NULL, --FK
-	codlineas VARCHAR(8) NOT NULL --FK
+	codlineas dom_codigo NOT NULL --FK
 );
 
 ALTER TABLE suministran 
@@ -117,14 +122,14 @@ ALTER TABLE suministran
 ADD CONSTRAINT FK_rif_proveedor_1
 FOREIGN KEY(rifproveedor)
 REFERENCES proveedores(rif)
-ON DELETE NO ACTION
+ON DELETE RESTRICT
 ON UPDATE CASCADE;
 
 ALTER TABLE suministran
 ADD CONSTRAINT FK_codlineas_1
 FOREIGN KEY(codlineas)
 REFERENCES lineas(codlineas)
-ON DELETE NO ACTION
+ON DELETE RESTRICT
 ON UPDATE CASCADE;
 
 --8)----------------------- TABLA DE EMPLEADOS--------------------------------------------
@@ -133,7 +138,7 @@ CREATE TABLE empleados(
 	cedula INT NOT NULL,
 	nombre dom_nombre NOT NULL,
 	tipoe CHAR(1) NOT NULL,
-	codunidades VARCHAR(8) NOT NULL --FK
+	codunidades dom_codigo NOT NULL --FK
 );
 
 
@@ -145,7 +150,9 @@ PRIMARY KEY(cedula);
 ALTER TABLE empleados
 ADD CONSTRAINT FK_codunidades 
 FOREIGN KEY (codunidades)
-REFERENCES unidades(codunidades);
+REFERENCES unidades(codunidades)
+ON DELETE RESTRICT
+ON UPDATE CASCADE;
 
 ALTER TABLE empleados 
 ADD CONSTRAINT CK_tipoE 
@@ -164,7 +171,9 @@ PRIMARY KEY(fichaj);
 ALTER TABLE jefes
 ADD CONSTRAINT FK_jefes
 FOREIGN KEY(fichaj)
-REFERENCES empleados(cedula);
+REFERENCES empleados(cedula)
+ON DELETE RESTRICT
+ON UPDATE CASCADE;
 
 --10)-------------------------TABLA DE DIRECTORES FINANCIERO-----------------------------------------------
 
@@ -179,7 +188,9 @@ PRIMARY KEY(fichad);
 ALTER TABLE directores
 ADD CONSTRAINT FK_fichad
 FOREIGN KEY(fichad)
-REFERENCES empleados(cedula);
+REFERENCES empleados(cedula)
+ON DELETE RESTRICT
+ON UPDATE CASCADE;
 
 --11)------------------------------REQUISICIONES DE LAS UNIDADES--------------------------------------------
 
@@ -187,10 +198,10 @@ CREATE TABLE requisiciones(
 	nrorequisicion SERIAL NOT NULL,
 	f_emision dom_fechas NOT NULL,
 	cotizada CHAR(1),
-	codunidades VARCHAR(8) NOT NULL, --FK
+	codunidades dom_codigo NOT NULL, --FK
 	ficha_director INT NOT NULL, --FK
 	ficha_jefeu INT NOT NULL,  --FK
-	codlineas VARCHAR(8) NOT NULL --FK
+	codlineas dom_codigo NOT NULL --FK
 );
 --NOTA: EL ATRIBUTO TOTAL DEBE SER UN ATRIBUTO CALCULADO
 
@@ -202,28 +213,28 @@ ALTER TABLE requisiciones
 ADD CONSTRAINT FK_codunidades
 FOREIGN KEY(codunidades)
 REFERENCES unidades(codunidades)
-ON DELETE NO ACTION
+ON DELETE RESTRICT
 ON UPDATE CASCADE;
 
 ALTER TABLE requisiciones
 ADD CONSTRAINT FK_ficha_director_financiero
 FOREIGN KEY(ficha_director)
 REFERENCES directores(fichad)
-ON DELETE NO ACTION
+ON DELETE RESTRICT
 ON UPDATE CASCADE;
 
 ALTER TABLE requisiciones
 ADD CONSTRAINT FK_ficha_jefe_unidad
 FOREIGN KEY(ficha_jefeu)
 REFERENCES jefes(fichaj)
-ON DELETE NO ACTION
+ON DELETE RESTRICT
 ON UPDATE CASCADE;
 
 ALTER TABLE requisiciones
 ADD CONSTRAINT FK_codlineas_2
 FOREIGN KEY(codlineas)
 REFERENCES lineas(codlineas)
-ON DELETE NO ACTION
+ON DELETE RESTRICT
 ON UPDATE CASCADE;
 
 ALTER TABLE requisiciones
@@ -234,7 +245,7 @@ CHECK (cotizada='S' or cotizada='N');
 
 CREATE TABLE detalles_requisicion(
 	nrorequisicion SERIAL NOT NULL, --FK
-	coditem VARCHAR(8) NOT NULL, --FK
+	coditem dom_codigo NOT NULL, --FK
 	cantidad INT NOT NULL,
 	precioAprox FLOAT NOT NULL
 );
@@ -248,28 +259,31 @@ ALTER TABLE detalles_requisicion
 ADD CONSTRAINT FK_nrorequisicion_detalles
 FOREIGN KEY(nrorequisicion)
 REFERENCES requisiciones(nrorequisicion)
-ON DELETE NO ACTION
+ON DELETE RESTRICT
 ON UPDATE CASCADE;
 
 ALTER TABLE detalles_requisicion
 ADD CONSTRAINT FK_coditem_detalle
 FOREIGN KEY(coditem)
 REFERENCES items(coditem)
-ON DELETE NO ACTION
+ON DELETE RESTRICT
 ON UPDATE CASCADE;
 
 ALTER TABLE detalles_requisicion
 ADD CONSTRAINT CK_cantidad
 CHECK (cantidad>=0);
 
+ALTER TABLE detalles_requisicion 
+ADD CONSTRAINT CK_precioAprox
+CHECK (detalles_requisicion.precioAprox >=0);
 
 --13)---------------------------COTIZACIONES DE LA REQUISICION---------------------------------------------
 
 CREATE TABLE cotizaciones(
-	codigocot VARCHAR(8) NOT NULL,
+	codigocot dom_codigo NOT NULL,
 	f_emision dom_fechas NOT NULL,
 	observaciones VARCHAR(100),
-	codlineas VARCHAR(8) NOT NULL, --FK 
+	codlineas dom_codigo NOT NULL, --FK 
 	rifproveedor INT NOT NULL --FK
 );
 
@@ -281,22 +295,22 @@ ALTER TABLE cotizaciones
 ADD CONSTRAINT FK_codlineas_cot
 FOREIGN KEY(codlineas)
 REFERENCES lineas(codlineas)
-ON DELETE NO ACTION
+ON DELETE RESTRICT
 ON UPDATE CASCADE;
 
 ALTER TABLE cotizaciones
 ADD CONSTRAINT FK_codProveedor_3
 FOREIGN KEY(rifproveedor)
 REFERENCES proveedores(rif)
-ON DELETE NO ACTION
+ON DELETE RESTRICT
 ON UPDATE CASCADE;
 
 --14)---------------------------DETALLES COTIZACIONES--------------------------------------------------------
 
 CREATE TABLE detalles_cotizacion(
-	codigocot VARCHAR(8) NOT NULL, --FK
+	codigocot dom_codigo NOT NULL, --FK
 	nrorequisicion SERIAL NOT NULL, --FK
-	coditem VARCHAR(8) NOT NULL, --FK
+	coditem dom_codigo NOT NULL, --FK
 	rifproveedor INT NOT NULL, --FK
 	condicionesc VARCHAR(80), 
 	precioa FLOAT,
@@ -311,22 +325,30 @@ ALTER TABLE detalles_cotizacion
 ADD CONSTRAINT FK_codcot_2
 FOREIGN KEY(codigocot)
 REFERENCES cotizaciones(codigocot)
-ON DELETE NO ACTION
+ON DELETE RESTRICT
 ON UPDATE CASCADE;
 
 ALTER TABLE detalles_cotizacion
 ADD CONSTRAINT FK_nrorequisicion_coditem_detcot
 FOREIGN KEY(nrorequisicion,coditem)
 REFERENCES detalles_requisicion(nrorequisicion,coditem)
-ON DELETE NO ACTION
+ON DELETE RESTRICT
 ON UPDATE CASCADE;
 
 ALTER TABLE detalles_cotizacion
 ADD CONSTRAINT FK_proveedor_detcot
 FOREIGN KEY(rifproveedor)
 REFERENCES proveedores(rif)
-ON DELETE NO ACTION
+ON DELETE RESTRICT
 ON UPDATE CASCADE;
+
+ALTER TABLE detalles_cotizacion 
+ADD CONSTRAINT CK_precioa
+CHECK (precioa >=0);
+
+ALTER TABLE detalles_cotizacion 
+ADD CONSTRAINT CK_cantidada
+CHECK (cantidada >=0);
 
 
 --15)-----------------------------ORDENES DE COMPRA---------------------------------------------------
@@ -351,14 +373,14 @@ ALTER TABLE ordenes
 ADD CONSTRAINT FK_rifproveedor_3
 FOREIGN KEY(rifproveedor)
 REFERENCES proveedores(rif)
-ON DELETE NO ACTION
+ON DELETE RESTRICT
 ON UPDATE CASCADE;
 
 ALTER TABLE ordenes
 ADD CONSTRAINT FK_ficha_director_3
 FOREIGN KEY(ficha_director)
 REFERENCES directores(fichad)
-ON DELETE NO ACTION
+ON DELETE RESTRICT
 ON UPDATE CASCADE;
 
 ALTER TABLE ordenes
@@ -373,9 +395,9 @@ CHECK(condicionp='E' or condicionp='T');
 
 CREATE TABLE detalles_compra(
 	nroorden VARCHAR(6) NOT NULL, --FK
-	codigocot VARCHAR(8) NOT NULL, --FK
+	codigocot dom_codigo NOT NULL, --FK
 	nrorequisicion SERIAL NOT NULL, --FK
-	coditem VARCHAR(8) NOT NULL, --FK
+	coditem dom_codigo NOT NULL, --FK
 	rifproveedor INT NOT NULL --FK
 );
 
@@ -389,14 +411,14 @@ ALTER TABLE detalles_compra
 ADD CONSTRAINT FK_nroorden_detcomp
 FOREIGN KEY(nroorden)
 REFERENCES ordenes(nroorden)
-ON DELETE NO ACTION
+ON DELETE RESTRICT
 ON UPDATE CASCADE;
 
 ALTER TABLE detalles_compra
 ADD CONSTRAINT FK_codcot_nroreq_coditem_rifp_detcomp
 FOREIGN KEY(codigocot,nrorequisicion,coditem,rifproveedor)
 REFERENCES detalles_cotizacion(codigocot,nrorequisicion,coditem,rifproveedor)
-ON DELETE NO ACTION
+ON DELETE RESTRICT
 ON UPDATE CASCADE;
 
 
