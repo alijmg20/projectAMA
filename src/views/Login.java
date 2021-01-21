@@ -2,6 +2,7 @@ package views;
 
 import com.placeholder.PlaceHolder;
 import javafx.scene.paint.Color;
+import javax.swing.JOptionPane;
 
 public class Login extends javax.swing.JFrame {
 
@@ -35,13 +36,15 @@ public class Login extends javax.swing.JFrame {
             //Usuario administrador    
         } else if (tipo == 2) {
             this.tipo = tipo;
-            this.jPanel2.setBackground(java.awt.Color.decode("#7ee866"));
+            this.jPanel2.setBackground(java.awt.Color.decode("#d7fec5"));
             pl = new PlaceHolder(this.txtUsuario, "admin");
             pl = new PlaceHolder(this.txtPassword, "******");
             this.lbAdministrador.setText("Modo Administrador");
+            this.lbAdministrador.setForeground(java.awt.Color.black);
             this.jLabel4.setText("Bienvenido al sistema AMA Administrador");
             this.LabelOlvidoPassword.setVisible(false);
             this.lbAdministrador.setText("Modo Administrador");
+            this.LabelRegistrar.setForeground(java.awt.Color.black);
         }
 
     }
@@ -93,7 +96,7 @@ public class Login extends javax.swing.JFrame {
 
         LabelRegistrar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         LabelRegistrar.setForeground(new java.awt.Color(255, 255, 255));
-        LabelRegistrar.setText("Registrar Jefe");
+        LabelRegistrar.setText("Registrar como Jefe o Director");
         LabelRegistrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         LabelRegistrar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -199,7 +202,7 @@ public class Login extends javax.swing.JFrame {
                                 .addComponent(lbAdministrador, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(LabelRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(LabelRegistrar, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
                                 .addGap(11, 11, 11)
                                 .addComponent(LabelOlvidoPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)))))
                 .addGap(12, 12, 12))
@@ -222,7 +225,7 @@ public class Login extends javax.swing.JFrame {
 
     private void LabelRegistrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LabelRegistrarMouseClicked
         this.dispose();
-
+            
     }//GEN-LAST:event_LabelRegistrarMouseClicked
 
     private void LabelOlvidoPasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LabelOlvidoPasswordMouseClicked
@@ -243,6 +246,11 @@ public class Login extends javax.swing.JFrame {
         } else if (this.tipo == 2) { // Administrador
             if(this.txtUsuario.getText().equals("admin") && this.txtPassword.getText().equals("password")){
                 new MainMenu(tipo).setVisible(true);
+                this.txtUsuario.setText("");
+                this.txtPassword.setText("");
+                this.dispose();
+            }else{
+                JOptionPane.showMessageDialog(null, "Las credenciales ingresadas son erroneas","Invalido",JOptionPane.ERROR_MESSAGE);
             }
         }
 

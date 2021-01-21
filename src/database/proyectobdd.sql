@@ -8,7 +8,7 @@ CREATE DOMAIN dom_codigo AS VARCHAR(8);
 CREATE TABLE unidades(
 	codunidades dom_codigo NOT NULL,
 	nombreu dom_nombre NOT NULL,
-	c_costo VARCHAR(30) NOT NULL
+	c_costo FLOAT NOT NULL
 );
 ALTER TABLE unidades 
 ADD CONSTRAINT PK_codUnidades 

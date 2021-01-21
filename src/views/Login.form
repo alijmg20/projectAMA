@@ -136,7 +136,7 @@
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <EmptySpace min="-2" max="-2" attributes="0"/>
-                                  <Component id="LabelRegistrar" min="-2" pref="28" max="-2" attributes="0"/>
+                                  <Component id="LabelRegistrar" pref="28" max="32767" attributes="0"/>
                                   <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                                   <Component id="LabelOlvidoPassword" pref="29" max="32767" attributes="0"/>
                               </Group>
@@ -193,7 +193,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Registrar Jefe"/>
+            <Property name="text" type="java.lang.String" value="Registrar como Jefe o Director"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursor de Mano"/>
             </Property>
