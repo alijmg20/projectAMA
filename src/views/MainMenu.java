@@ -5,15 +5,18 @@ import javax.swing.JOptionPane;
 public class MainMenu extends javax.swing.JFrame {
 
     private int tipo;
-
+    private String username;
     public MainMenu() {
         initComponents();
     }
     
-    public MainMenu(int tipo) {
+    public MainMenu(int tipo,String username) {
         initComponents();
         this.tipo = tipo;
+        this.username = username;
         this.jLabel1.setText("Usuario del tipo: " + tipo);
+        this.jLabel3.setText("Bienvenido al sistema AMA "+username);
+        this.setExtendedState(MAXIMIZED_BOTH);
     }
     
     @SuppressWarnings("unchecked")
@@ -164,6 +167,8 @@ public class MainMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_unidadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_unidadesActionPerformed
+        this.dispose();
+        new VUnidades().setVisible(true);
         
     }//GEN-LAST:event_btn_unidadesActionPerformed
 

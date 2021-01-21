@@ -239,19 +239,21 @@ public class Login extends javax.swing.JFrame {
 
     private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
         
-        if (this.tipo == 0) { //usuario jefe
+        if (this.tipo == 0) { //0 = usuario jefe
             
-        } else if (this.tipo == 1) { //proveedor
+        } else if (this.tipo == 1) { //1 = proveedor
 
-        } else if (this.tipo == 2) { // Administrador
+        } else if (this.tipo == 2) { //2 = Administrador
+            
             if(this.txtUsuario.getText().equals("admin") && this.txtPassword.getText().equals("password")){
-                new MainMenu(tipo).setVisible(true);
+                new MainMenu(tipo,"Admin").setVisible(true);
                 this.txtUsuario.setText("");
                 this.txtPassword.setText("");
                 this.dispose();
             }else{
                 JOptionPane.showMessageDialog(null, "Las credenciales ingresadas son erroneas","Invalido",JOptionPane.ERROR_MESSAGE);
             }
+            
         }
 
 
