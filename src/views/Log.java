@@ -3,13 +3,13 @@ package views;
 import com.placeholder.PlaceHolder;
 import javax.swing.JOptionPane;
 
-public class Login extends javax.swing.JFrame {
+public class Log extends javax.swing.JFrame {
 
     private PlaceHolder pl;
     private int tipo;
 
     //Usuario Jefe
-    public Login() {
+    public Log() {
         initComponents();
         pl = new PlaceHolder(this.txtUsuario, "Ficha");
         pl = new PlaceHolder(this.txtPassword, "******");
@@ -17,7 +17,7 @@ public class Login extends javax.swing.JFrame {
         tipo = 0;
     }
 
-    public Login(int tipo) {
+    public Log(int tipo) {
         initComponents();
         
         //Usuario proveedor
@@ -273,21 +273,23 @@ public class Login extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Log.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Log.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Log.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Log.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Login().setVisible(true);
+                new Log().setVisible(true);
             }
         });
     }

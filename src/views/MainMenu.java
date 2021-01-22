@@ -39,6 +39,8 @@ public class MainMenu extends javax.swing.JFrame {
         setTitle("Menu Principal");
         setResizable(false);
 
+        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setPreferredSize(new java.awt.Dimension(1280, 720));
 
@@ -216,7 +218,7 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_unidadesActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        new Login(tipo).setVisible(true);
+        new Log(tipo).setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
     
     public static void main(String args[]) {
