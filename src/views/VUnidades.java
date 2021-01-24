@@ -9,13 +9,9 @@ public class VUnidades extends javax.swing.JFrame {
 
     private final Conexion conexion = new Conexion();
     private final Munidades unidades = new Munidades(conexion.conectar());
-    private PlaceHolder pl;
 
     public VUnidades() {
         initComponents();
-        pl = new PlaceHolder(this.txtNombre, "Nombre unidad");
-        pl = new PlaceHolder(this.txtCodigo, "Codigo unidad");
-        pl = new PlaceHolder(this.txtCosto, "Centro de costo");
         this.tableUnidades.setModel(unidades.mostrarDatosUnidades());
     }
 
@@ -33,6 +29,7 @@ public class VUnidades extends javax.swing.JFrame {
         btn_Actualizar = new javax.swing.JButton();
         btn_Eliminar = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
+        btn_Nuevo = new javax.swing.JButton();
         btnVolver = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         txtCodigo = new javax.swing.JTextField();
@@ -64,9 +61,9 @@ public class VUnidades extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tableUnidades);
 
-        jPanel2.setBackground(new java.awt.Color(153, 153, 255));
+        jPanel2.setBackground(new java.awt.Color(204, 204, 255));
 
-        jPanel3.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel3.setBackground(new java.awt.Color(153, 153, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Opciones"));
 
         btn_guardar.setText("Guardar");
@@ -101,31 +98,44 @@ public class VUnidades extends javax.swing.JFrame {
             }
         });
 
+        btn_Nuevo.setText("Nuevo");
+        btn_Nuevo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_Nuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_NuevoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btn_guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
-                .addComponent(btn_Actualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btn_Eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnLimpiar)
-                .addContainerGap())
+                .addGap(33, 33, 33)
+                .addComponent(btn_Nuevo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btn_Actualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(61, 61, 61)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btn_Eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLimpiar))
+                .addGap(24, 24, 24))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(52, 52, 52)
+                .addGap(22, 22, 22)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnLimpiar)
+                    .addComponent(btn_guardar)
                     .addComponent(btn_Eliminar)
+                    .addComponent(btn_Nuevo))
+                .addGap(34, 34, 34)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_Actualizar)
-                    .addComponent(btn_guardar))
-                .addContainerGap(71, Short.MAX_VALUE))
+                    .addComponent(btnLimpiar))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         btnVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/designs/Volver.png"))); // NOI18N
@@ -137,14 +147,20 @@ public class VUnidades extends javax.swing.JFrame {
             }
         });
 
-        jPanel4.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel4.setBackground(new java.awt.Color(153, 153, 255));
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Informacion Unidades"));
+
+        txtCodigo.setEnabled(false);
+
+        txtNombre.setEnabled(false);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Codigo : ");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Nombre : ");
+
+        txtCosto.setEnabled(false);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("Centro de costo $ : ");
@@ -186,7 +202,7 @@ public class VUnidades extends javax.swing.JFrame {
                 .addGap(43, 43, 43))
         );
 
-        jPanel5.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel5.setBackground(new java.awt.Color(153, 153, 255));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -229,7 +245,7 @@ public class VUnidades extends javax.swing.JFrame {
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(55, 55, 55)
+                .addGap(79, 79, 79)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(52, 52, 52)
                 .addComponent(btnVolver)
@@ -292,6 +308,9 @@ public class VUnidades extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void tableUnidadesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableUnidadesMouseClicked
+        this.txtCodigo.disable();
+        this.txtCosto.enable();
+        this.txtNombre.enable();
         int filaSeleccionada = this.tableUnidades.rowAtPoint(evt.getPoint());
         this.txtCodigo.setText(this.tableUnidades.getValueAt(filaSeleccionada, 0).toString());
         this.txtNombre.setText(this.tableUnidades.getValueAt(filaSeleccionada, 1).toString());
@@ -305,6 +324,9 @@ public class VUnidades extends javax.swing.JFrame {
             String nombreu = this.txtNombre.getText();
             float c_costo = Float.parseFloat(this.txtCosto.getText());
             unidades.insertarDatosUnidades(codunidades, nombreu, c_costo);
+            this.txtCodigo.disable();
+            this.txtCosto.disable();
+            this.txtNombre.disable();
             this.tableUnidades.setModel(unidades.mostrarDatosUnidades());
         } else {
             JOptionPane.showMessageDialog(null, "Por favor rellene los campos faltantes", "Advertencia", JOptionPane.WARNING_MESSAGE);
@@ -326,6 +348,12 @@ public class VUnidades extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Por favor rellene los campos faltantes", "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btn_ActualizarActionPerformed
+
+    private void btn_NuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_NuevoActionPerformed
+        this.txtCodigo.enable();
+        this.txtCosto.enable();
+        this.txtNombre.enable();
+    }//GEN-LAST:event_btn_NuevoActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -365,6 +393,7 @@ public class VUnidades extends javax.swing.JFrame {
     private javax.swing.JButton btnVolver;
     private javax.swing.JButton btn_Actualizar;
     private javax.swing.JButton btn_Eliminar;
+    private javax.swing.JButton btn_Nuevo;
     private javax.swing.JButton btn_guardar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

@@ -20,13 +20,12 @@ public class Munidades {
 
     public void insertarDatosUnidades(String codunidades, String nombreu, float c_costo) {
         try {
-            String SQL = "INSERT INTO unidades (codunidades,nombreu,c_costo) VALUES(?,?,?) ";
+            String SQL = "INSERT INTO unidades (codunidades,nombreu,c_costo) VALUES (?,?,?) ";
             PreparedStatement consulta = this.conexion.prepareStatement(SQL);
 
             consulta.setString(1, codunidades);
             consulta.setString(2, nombreu);
             consulta.setFloat(3, c_costo);
-
             consulta.execute();
 
             JOptionPane.showMessageDialog(null, "Unidad registrada exitosamente", "Accion realizada", JOptionPane.INFORMATION_MESSAGE);
@@ -34,6 +33,7 @@ public class Munidades {
         } catch (SQLException | HeadlessException e) {
             JOptionPane.showMessageDialog(null, "Error al insertar datos: " + e.getMessage(), "Accion no realizada", JOptionPane.ERROR_MESSAGE);
         }
+        
     }
 
     //Mostrar datos de las unidades
