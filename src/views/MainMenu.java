@@ -4,17 +4,31 @@ public class MainMenu extends javax.swing.JFrame {
 
     private int tipo;
     private String username;
+
     public MainMenu() {
         initComponents();
     }
-    
-    public MainMenu(int tipo,String username) {
+
+    public MainMenu(int tipo, String username) {
         initComponents();
         this.tipo = tipo;
         this.username = username;
-        this.jLabel3.setText("Bienvenido al sistema AMA "+username);
+        this.jLabel3.setText("Bienvenido al sistema AMA " + username);
+        
+        if(this.tipo == 0){ //jefes
+            
+        }
+        else if (this.tipo == 1) { //1 = proveedor
+            
+            this.btn_Lineas.disable();
+            this.btn_unidades.disable();
+            
+        } else if(this.tipo == 2) {  //admin
+            //No se le bloquea nada
+        }
+        
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -716,7 +730,7 @@ public class MainMenu extends javax.swing.JFrame {
     private void btn_unidadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_unidadesActionPerformed
         this.dispose();
         new VUnidades().setVisible(true);
-        
+
     }//GEN-LAST:event_btn_unidadesActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -725,8 +739,9 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btn_LineasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_LineasActionPerformed
-        new VLineas(tipo,username).setVisible(true);
-        this.dispose();
+
+            new VLineas(tipo, username).setVisible(true);
+            this.dispose();        
     }//GEN-LAST:event_btn_LineasActionPerformed
 
     private void btn_Lineas2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Lineas2ActionPerformed
@@ -768,7 +783,7 @@ public class MainMenu extends javax.swing.JFrame {
     private void btn_unidades8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_unidades8ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_unidades8ActionPerformed
-    
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
