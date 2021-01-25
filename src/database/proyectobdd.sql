@@ -142,7 +142,6 @@ CREATE TABLE empleados(
 );
 
 
-
 ALTER TABLE empleados 
 ADD CONSTRAINT PK_cedula 
 PRIMARY KEY(cedula);
@@ -420,5 +419,11 @@ FOREIGN KEY(codigocot,nrorequisicion,coditem,rifproveedor)
 REFERENCES detalles_cotizacion(codigocot,nrorequisicion,coditem,rifproveedor)
 ON DELETE RESTRICT
 ON UPDATE CASCADE;
+
+
+
+
+ALTER TABLE empleados ADD COLUMN password VARCHAR(255);
+
 
 

@@ -238,23 +238,23 @@
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jPanel20" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jPanel15" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                       <Component id="jPanel8" alignment="0" max="32767" attributes="0"/>
                                       <Component id="jPanel19" alignment="0" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jPanel16" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jPanel21" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="jPanel21" max="32767" attributes="0"/>
+                                      <Component id="jPanel16" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jPanel20" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jPanel15" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="13" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -629,7 +629,7 @@
                                   <Component id="lbUnidades9" alignment="1" min="-2" pref="190" max="-2" attributes="0"/>
                                   <Component id="btn_unidades6" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="0" pref="50" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="23" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -691,7 +691,7 @@
                                   <Component id="lbUnidades10" alignment="1" min="-2" pref="190" max="-2" attributes="0"/>
                                   <Component id="btn_proveedores" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="0" pref="70" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1001,7 +1001,7 @@
                                   <Component id="lbUnidades15" alignment="1" min="-2" pref="190" max="-2" attributes="0"/>
                                   <Component id="btn_unidades8" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="0" pref="50" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="23" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
