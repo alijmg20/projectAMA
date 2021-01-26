@@ -16,12 +16,12 @@ public class MainMenu extends javax.swing.JFrame {
         this.jLabel3.setText("Bienvenido al sistema AMA " + username);
         
         if(this.tipo == 0){ //jefes
-            
+            this.btn_unidades.setEnabled(false);
         }
         else if (this.tipo == 1) { //1 = proveedor
             
-            this.btn_Lineas.disable();
-            this.btn_unidades.disable();
+            this.btn_Lineas.setEnabled(false);
+            this.btn_unidades.setEnabled(false);
             
         } else if(this.tipo == 2) {  //admin
             //No se le bloquea nada
@@ -761,11 +761,13 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_proveedoresActionPerformed
 
     private void btn_jefes_unidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_jefes_unidadActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
+        new VJefesUnidad(tipo,username).setVisible(true);
     }//GEN-LAST:event_btn_jefes_unidadActionPerformed
 
     private void btn_directoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_directoresActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
+        new VDirectores(tipo,username).setVisible(true);
     }//GEN-LAST:event_btn_directoresActionPerformed
 
     private void btn_Lineas4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Lineas4ActionPerformed

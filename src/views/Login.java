@@ -1,7 +1,9 @@
 package views;
 
+import Controler.Conexion;
 import com.placeholder.PlaceHolder;
 import javax.swing.JOptionPane;
+import model.MJefesDirectores;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -14,30 +16,26 @@ import javax.swing.JOptionPane;
  */
 public class Login extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Login
-     */
     private PlaceHolder pl;
     private int tipo;
-
-    
+    private final Conexion conexion = new Conexion();
+    private final MJefesDirectores jefesDirectores = new MJefesDirectores(conexion.conectar());
     public Login() {
         initComponents();
     }
 
     public Login(int tipo) {
         initComponents();
-
+        this.tipo = tipo;
             //Usuario Jefe
         if (tipo == 0) {
             pl = new PlaceHolder(this.txtUsuario, "Ficha");
             pl = new PlaceHolder(this.txtPassword, "******");
             this.labelBienvenidos.setText("Bienvenido al sistema AMA Jefe/director");
-            this.tipo = tipo;
+            
             
             //Usuario proveedor
         } else if (tipo == 1) {
-            this.tipo = tipo;
             pl = new PlaceHolder(this.txtUsuario, "RIF ");
             pl = new PlaceHolder(this.txtPassword, "******");
             this.labelUsuario.setText("RIF : ");
@@ -48,8 +46,7 @@ public class Login extends javax.swing.JFrame {
             this.lbAdministrador.setText("Ventana Proveedor");
 
             //Usuario administrador    
-        } else if (tipo == 2) {
-            this.tipo = tipo;
+        } else if (tipo == 2) {            
             pl = new PlaceHolder(this.txtUsuario, "admin");
             pl = new PlaceHolder(this.txtPassword, "******");
             this.lbAdministrador.setText("Modo Administrador");
@@ -302,7 +299,20 @@ public class Login extends javax.swing.JFrame {
     private void btnEnviarbtnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarbtnEnviarActionPerformed
 
         if (this.tipo == 0) { //0 = usuario jefe
-
+            if(!this.txtUsuario.getText().isEmpty() && !this.txtPassword.getText().isEmpty()){
+                int usuario = Integer.parseInt(this.txtUsuario.getText());
+                String password = this.txtPassword.getText();
+                if(this.jefesDirectores.ingresarJefeDirector(usuario, password)){
+                    new MainMenu(tipo, this.jefesDirectores.ConsultarJefeDirector(usuario)).setVisible(true);
+                    this.txtUsuario.setText("");
+                    this.txtPassword.setText("");
+                    this.dispose();
+                }else{
+                    JOptionPane.showMessageDialog(null, "Las credenciales ingresadas son erroneas", "Invalido", JOptionPane.ERROR_MESSAGE);
+                }
+                    
+            }
+            
         } else if (this.tipo == 1) { //1 = proveedor
 
         } else if (this.tipo == 2) { //2 = Administrador

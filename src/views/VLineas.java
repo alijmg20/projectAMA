@@ -137,6 +137,7 @@ public class VLineas extends javax.swing.JFrame {
 
         Guardar.setText("GUARDAR");
         Guardar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        Guardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         Guardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 GuardarActionPerformed(evt);
@@ -145,6 +146,7 @@ public class VLineas extends javax.swing.JFrame {
 
         Actualizar.setText("ACTUALIZAR");
         Actualizar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        Actualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         Actualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ActualizarActionPerformed(evt);
@@ -153,6 +155,7 @@ public class VLineas extends javax.swing.JFrame {
 
         Eliminar.setText("ELIMINAR");
         Eliminar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        Eliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         Eliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 EliminarActionPerformed(evt);
@@ -161,6 +164,7 @@ public class VLineas extends javax.swing.JFrame {
 
         LimpiarTodo.setText("LIMPIAR TODO");
         LimpiarTodo.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        LimpiarTodo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         LimpiarTodo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 LimpiarTodoActionPerformed(evt);
@@ -169,6 +173,7 @@ public class VLineas extends javax.swing.JFrame {
 
         Nuevo.setText("NUEVO");
         Nuevo.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        Nuevo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         Nuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 NuevoActionPerformed(evt);
@@ -321,7 +326,7 @@ public class VLineas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     
     private void GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarActionPerformed
-       if (!(this.FieldCodigo.getText().equals("")) || !(this.FieldDescripcion.getText().equals(""))) {
+       if (!(this.FieldCodigo.getText().equals("")) && !(this.FieldDescripcion.getText().equals(""))) {
             String codlineas = this.FieldCodigo.getText();
             String descripcionl = this.FieldDescripcion.getText();
             lineas.insertarDatosLineas(codlineas, descripcionl);
@@ -348,7 +353,7 @@ public class VLineas extends javax.swing.JFrame {
     }//GEN-LAST:event_EliminarActionPerformed
 
     private void ActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ActualizarActionPerformed
-        if (!(this.FieldCodigo.getText().equals("")) || !(this.FieldDescripcion.getText().equals(""))) {
+        if (!(this.FieldCodigo.getText().equals("")) && !(this.FieldDescripcion.getText().equals(""))) {
             String codlineas = this.FieldCodigo.getText();
             String descripcionl = this.FieldDescripcion.getText();
             int decision = JOptionPane.showConfirmDialog(null, "seguro que Desea Actualizar la Linea de Suministros ? ");
