@@ -28,7 +28,7 @@ public class MLineas {
             consulta.setString(2, descripcionl);
             consulta.execute();
 
-            JOptionPane.showMessageDialog(null, "Unidad registrada exitosamente", "Accion realizada", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Linea de suministros registrada exitosamente", "Accion realizada", JOptionPane.INFORMATION_MESSAGE);
 
         } catch (SQLException | HeadlessException e) {
             JOptionPane.showMessageDialog(null, "Error al insertar datos: " + e.getMessage(), "Accion no realizada", JOptionPane.ERROR_MESSAGE);
@@ -72,7 +72,7 @@ public class MLineas {
             consulta.setString(2, codlineas);
             consulta.execute();
 
-            JOptionPane.showMessageDialog(null, "Unidad actualizada exitosamente", "Accion realizada", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Linea de suministro actualizada exitosamente", "Accion realizada", JOptionPane.INFORMATION_MESSAGE);
 
         } catch (SQLException | HeadlessException e) {
             JOptionPane.showMessageDialog(null, "Error al actualizar datos: " + e.getMessage(), "Accion no realizada", JOptionPane.ERROR_MESSAGE);

@@ -22,7 +22,7 @@ public class MainMenu extends javax.swing.JFrame {
             
             this.btn_Lineas.setEnabled(false);
             this.btn_unidades.setEnabled(false);
-            
+            this.btn_items.setEnabled(false);
         } else if(this.tipo == 2) {  //admin
             //No se le bloquea nada
         }
@@ -779,7 +779,8 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_Lineas5ActionPerformed
 
     private void btn_itemsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_itemsActionPerformed
-        // TODO add your handling code here:
+        new VItems(tipo, username).setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btn_itemsActionPerformed
 
     private void btn_unidades8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_unidades8ActionPerformed

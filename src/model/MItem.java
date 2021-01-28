@@ -1,0 +1,145 @@
+package model;
+
+import java.awt.HeadlessException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
+public class MItem {
+    private final Connection conexion;
+
+    //Constructor de la clase que se conecta luego con la clase conexion en controler
+    public MItem(Connection conexion) {
+        this.conexion = conexion;
+    }
+    
+    //MUESTRAS EL DROPBOX DE LA LINEA DE SUMINISTRO
+    public void obtenerLinea(JComboBox cb) {
+        try {
+            String SQL = "SELECT * FROM lineas ORDER BY descripcionl ASC";
+            PreparedStatement consulta = conexion.prepareStatement(SQL);
+            ResultSet resultado = consulta.executeQuery();
+            cb.addItem("Seleccione una opcion");
+            while (resultado.next()) {
+                cb.addItem(resultado.getString("descripcionl"));
+            }
+        } catch (Exception ex) {
+
+        }
+    }
+    
+    //BUSCAR CON EL NOMBRE DE LINEA DE SUMINISTRO, EL CODIGO
+    private String busquedaLinea(String descripcionl) {
+
+        String SQL = "SELECT codlineas FROM lineas WHERE descripcionl = '" + descripcionl + "'";
+        try {
+            String codigolinea = "";
+            Statement consultaCodigo = this.conexion.createStatement();
+            ResultSet resultado = consultaCodigo.executeQuery(SQL);
+            resultado.next();
+            return codigolinea = resultado.getString("codlineas");
+        } catch (Exception e) {
+
+        }
+        return null;
+    }
+    
+    //INSERTAR DATOS EN ITEM
+    public void insertarDatosItem(String coditem, String nombrei, String descripcioni, String umedida, float preciou, String codlineas) {
+        try {
+            
+            //BUSCAR EL IDENTIFICADOR DE LA LINEA DE SUMINSTROS
+            String codarticulo = busquedaLinea(codlineas);
+            
+            
+            String SQL = "INSERT INTO items (coditem,nombrei,descripcioni,umedida,preciou,codlineas) VALUES (?,?,?,?,?,?) ";
+            PreparedStatement consulta = this.conexion.prepareStatement(SQL);
+
+            consulta.setString(1, coditem);
+            consulta.setString(2, nombrei);
+            consulta.setString(3, descripcioni);
+            consulta.setString(4, umedida);
+            consulta.setFloat(5, preciou);
+            consulta.setString(6, codarticulo);
+            consulta.execute();
+
+            JOptionPane.showMessageDialog(null, "Item Registrado Exitosamente", "Accion realizada", JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (SQLException | HeadlessException e) {
+            JOptionPane.showMessageDialog(null,"Error al insertar datos: " + e.getMessage(), "Accion no realizada", JOptionPane.ERROR_MESSAGE);
+        }
+        
+    }
+    
+    //MOSTRAR DATOS DE ITEM
+    public DefaultTableModel mostrarDatosItem() {
+        String[] titulos = {" Codigo Item. ", " Nombre ", " Descripcion ", " Und Medida  ", " Precio ", " Linea de Suministro "};
+        String[] registros = new String[6];
+
+        DefaultTableModel tabla = new DefaultTableModel(null, titulos);
+        String SQL = "SELECT coditem, nombrei, descripcioni, umedida, preciou, descripcionl FROM lineas, items ORDER BY descripcionl ASC, nombrei ASC";
+
+        try {
+            Statement consulta = this.conexion.createStatement();
+            ResultSet resultados = consulta.executeQuery(SQL);
+            while (resultados.next()) {
+                registros[0] = resultados.getString("coditem");
+                registros[1] = resultados.getString("nombrei");
+                registros[2] = resultados.getString("descripcioni");
+                registros[3] = resultados.getString("umedida");
+                registros[4] = resultados.getString("preciou");
+                registros[5] = resultados.getString("descripcionl");
+
+                tabla.addRow(registros);
+
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Hubo un error al mostrar datos: " + e.getMessage(), "Accion no realizada", JOptionPane.ERROR_MESSAGE);
+        }
+
+        return tabla;
+    }
+    
+    //ACTUALIZAR DATOS DE ITEM
+    public void actualizarDatosItem(String coditem, String nombrei, String descripcioni, String umedida, float preciou, String codlineas) {
+        try {
+            String SQL = "UPDATE items SET nombrei=?, descripcioni=?, umedida=?, preciou=? WHERE coditem=? ";
+            PreparedStatement consulta = this.conexion.prepareStatement(SQL);
+            
+            consulta.setString(1, nombrei);
+            consulta.setString(2, descripcioni);
+            consulta.setString(3, umedida);
+            consulta.setFloat(4, preciou);
+            consulta.setString(5, coditem);
+            consulta.setString(6, codlineas);
+            consulta.execute();
+
+            JOptionPane.showMessageDialog(null, "Item Actualizado Exitosamente", "Accion realizada", JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (SQLException | HeadlessException e) {
+            JOptionPane.showMessageDialog(null, "Error al actualizar datos: " + e.getMessage(), "Accion no realizada", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    //ELIMINAR DATOS DE LA LINEA DE SUMINISTROS
+    public void eliminarDatosItem(String coditem){
+        
+        String SQL = "DELETE FROM lineas where codlineas=?";
+        
+        try{
+            PreparedStatement consulta = conexion.prepareStatement(SQL);
+            consulta.setString(1, coditem);
+            consulta.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Item Eliminado Exitosamente ","Accion realizada",JOptionPane.INFORMATION_MESSAGE);
+        }catch(SQLException | HeadlessException e){
+            JOptionPane.showMessageDialog(null, "Error al eliminar datos: " + e.getMessage(), "Accion no realizada", JOptionPane.ERROR_MESSAGE);
+        }
+        
+    }
+}
