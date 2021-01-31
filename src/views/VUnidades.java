@@ -335,9 +335,9 @@ public class VUnidades extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void tableUnidadesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableUnidadesMouseClicked
-        this.txtCodigo.disable();
-        this.txtCosto.enable();
-        this.txtNombre.enable();
+        this.txtCodigo.setEnabled(false);
+        this.txtCosto.setEnabled(true);
+        this.txtNombre.setEnabled(true);
         int filaSeleccionada = this.tableUnidades.rowAtPoint(evt.getPoint());
         this.txtCodigo.setText(this.tableUnidades.getValueAt(filaSeleccionada, 0).toString());
         this.txtNombre.setText(this.tableUnidades.getValueAt(filaSeleccionada, 1).toString());
@@ -351,9 +351,9 @@ public class VUnidades extends javax.swing.JFrame {
             String nombreu = this.txtNombre.getText();
             float c_costo = Float.parseFloat(this.txtCosto.getText());
             unidades.insertarDatosUnidades(codunidades, nombreu, c_costo);
-            this.txtCodigo.disable();
-            this.txtCosto.disable();
-            this.txtNombre.disable();
+            this.txtCodigo.setEnabled(false);
+            this.txtCosto.setEnabled(false);
+            this.txtNombre.setEnabled(false);
             this.tableUnidades.setModel(unidades.mostrarDatosUnidades());
         } else {
             JOptionPane.showMessageDialog(null, "Por favor rellene los campos faltantes", "Advertencia", JOptionPane.WARNING_MESSAGE);
@@ -377,9 +377,9 @@ public class VUnidades extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_ActualizarActionPerformed
 
     private void btn_NuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_NuevoActionPerformed
-        this.txtCodigo.enable();
-        this.txtCosto.enable();
-        this.txtNombre.enable();
+        this.txtCodigo.setEnabled(true);
+        this.txtCosto.setEnabled(true);
+        this.txtNombre.setEnabled(true);
     }//GEN-LAST:event_btn_NuevoActionPerformed
 
     public static void main(String args[]) {

@@ -43,6 +43,7 @@ public class VJefesUnidad extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        javax.swing.ButtonGroup bg_estatus = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -58,6 +59,9 @@ public class VJefesUnidad extends javax.swing.JFrame {
         cbDepartamentos = new javax.swing.JComboBox();
         txtpassword = new javax.swing.JPasswordField();
         txtrepetirpassword = new javax.swing.JPasswordField();
+        jLabel8 = new javax.swing.JLabel();
+        rbA = new javax.swing.JRadioButton();
+        rbS = new javax.swing.JRadioButton();
         jPanel5 = new javax.swing.JPanel();
         Nuevo = new javax.swing.JButton();
         Actualizar = new javax.swing.JButton();
@@ -72,7 +76,6 @@ public class VJefesUnidad extends javax.swing.JFrame {
         txtbuscar = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1280, 720));
         setResizable(false);
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 255));
@@ -129,37 +132,56 @@ public class VJefesUnidad extends javax.swing.JFrame {
             }
         });
 
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel8.setText("Estatus :");
+
+        bg_estatus.add(rbA);
+        rbA.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        rbA.setText("A (Activo)");
+        rbA.setContentAreaFilled(false);
+
+        bg_estatus.add(rbS);
+        rbS.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        rbS.setText("S  (suspendido)");
+        rbS.setContentAreaFilled(false);
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtcedula, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtrepetirpassword, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(28, 28, 28)))
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cbDepartamentos, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtpassword, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(73, Short.MAX_VALUE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel8)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
+                            .addComponent(jLabel2)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtcedula, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
+                            .addComponent(jLabel3)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
+                            .addComponent(jLabel6)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(txtrepetirpassword, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel4Layout.createSequentialGroup()
+                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel4Layout.createSequentialGroup()
+                                    .addComponent(jLabel5)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                                    .addComponent(jLabel4)
+                                    .addGap(28, 28, 28)))
+                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(cbDepartamentos, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtpassword, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel4Layout.createSequentialGroup()
+                                    .addComponent(rbA)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(rbS))))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -176,7 +198,12 @@ public class VJefesUnidad extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbDepartamentos, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(rbA)
+                    .addComponent(rbS))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(txtpassword, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -250,7 +277,7 @@ public class VJefesUnidad extends javax.swing.JFrame {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(41, 41, 41)
                         .addComponent(Nuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                         .addComponent(Actualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(47, 47, 47)
                         .addComponent(Guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -295,8 +322,9 @@ public class VJefesUnidad extends javax.swing.JFrame {
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(btn_volver)
-                .addGap(0, 41, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -398,7 +426,7 @@ public class VJefesUnidad extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 27, Short.MAX_VALUE))
+                .addGap(0, 13, Short.MAX_VALUE))
         );
 
         pack();
@@ -411,10 +439,10 @@ public class VJefesUnidad extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_volverActionPerformed
 
     private void NuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NuevoActionPerformed
-        this.txtnombre.enable();
-        this.txtcedula.enable();
-        this.txtpassword.enable();
-        this.txtrepetirpassword.enable();
+        this.txtnombre.setEnabled(true);
+        this.txtcedula.setEnabled(true);
+        this.txtpassword.setEnabled(true);
+        this.txtrepetirpassword.setEnabled(true);
     }//GEN-LAST:event_NuevoActionPerformed
 
     private void ActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ActualizarActionPerformed
@@ -424,13 +452,18 @@ public class VJefesUnidad extends javax.swing.JFrame {
             String password = this.txtpassword.getText();
             String repetirPassword = this.txtrepetirpassword.getText();
             String departamento = this.cbDepartamentos.getSelectedItem().toString();
-
+            char estatus = 'A';
+            if(this.rbA.isSelected()){
+                estatus = 'A';
+            }else if (this.rbS.isSelected()){
+                estatus = 'S';
+            }
             if (password.equals(repetirPassword)) {
                 String encriptado = SecurityKey.Encriptar(password);
-                this.txtcedula.disable();
+                this.txtcedula.setEnabled(false);
                 int decision = JOptionPane.showConfirmDialog(null, "Seguro que desea actualizar el Jefe de la unidad ?");
                 if (decision == 0) {
-                    this.jefes.actualizarDatosJefeDirectores(cedula, nombre, departamento, encriptado);
+                    this.jefes.actualizarDatosJefeDirectores(cedula, nombre, departamento, encriptado,estatus);
                     this.tableJefesUnidades.setModel(jefes.mostrarDatosJefesDirectores('J'));
                 }
                 
@@ -450,10 +483,16 @@ public class VJefesUnidad extends javax.swing.JFrame {
             String password = this.txtpassword.getText();
             String repetirPassword = this.txtrepetirpassword.getText();
             String departamento = this.cbDepartamentos.getSelectedItem().toString();
+            char estatus = 'A';
+            if(this.rbA.isSelected()){
+                estatus = 'A';
+            }else if(this.rbS.isSelected()){
+                estatus = 'S';
+            }
             if (password.equals(repetirPassword)) {
                 String encriptado = SecurityKey.Encriptar(password);
-                this.txtcedula.disable();
-                this.jefes.insertarDatosJefesDirectores(cedula, nombre, 'J', departamento, encriptado);
+                this.txtcedula.setEnabled(false);
+                this.jefes.insertarDatosJefesDirectores(cedula, nombre, 'J',estatus, departamento, encriptado);
                 this.tableJefesUnidades.setModel(jefes.mostrarDatosJefesDirectores('J'));
 
             } else {
@@ -496,8 +535,13 @@ public class VJefesUnidad extends javax.swing.JFrame {
         this.txtcedula.setText(this.tableJefesUnidades.getValueAt(filaSeleccionada, 0).toString());
         this.txtnombre.setText(this.tableJefesUnidades.getValueAt(filaSeleccionada, 1).toString());
         this.cbDepartamentos.setSelectedItem(this.tableJefesUnidades.getValueAt(filaSeleccionada, 2).toString());
-        this.txtpassword.setText(this.tableJefesUnidades.getValueAt(filaSeleccionada, 3).toString());
-        this.txtrepetirpassword.setText(this.tableJefesUnidades.getValueAt(filaSeleccionada, 3).toString());
+                if(this.tableJefesUnidades.getValueAt(filaSeleccionada, 3).toString().equals("A")){
+            this.rbA.setSelected(true);
+        }else if(this.tableJefesUnidades.getValueAt(filaSeleccionada, 3).toString().equals("S")){
+            this.rbS.setSelected(true);
+        }
+        this.txtpassword.setText(this.tableJefesUnidades.getValueAt(filaSeleccionada, 4).toString());
+        this.txtrepetirpassword.setText(this.tableJefesUnidades.getValueAt(filaSeleccionada, 4).toString());
 
     }//GEN-LAST:event_tableJefesUnidadesMouseClicked
 
@@ -560,6 +604,7 @@ public class VJefesUnidad extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -567,6 +612,8 @@ public class VJefesUnidad extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JRadioButton rbA;
+    private javax.swing.JRadioButton rbS;
     private javax.swing.JTable tableJefesUnidades;
     private javax.swing.JTextField txtbuscar;
     private javax.swing.JTextField txtcedula;

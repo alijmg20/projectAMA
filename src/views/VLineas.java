@@ -330,8 +330,8 @@ public class VLineas extends javax.swing.JFrame {
             String codlineas = this.FieldCodigo.getText();
             String descripcionl = this.FieldDescripcion.getText();
             lineas.insertarDatosLineas(codlineas, descripcionl);
-            this.FieldCodigo.disable();
-            this.FieldDescripcion.disable();
+            this.FieldCodigo.setEnabled(false);
+            this.FieldDescripcion.setEnabled(false);
             this.tableLineas.setModel(lineas.mostrarDatosLineas());
         } else {
             JOptionPane.showMessageDialog(null, "Por favor rellene los campos faltantes", "Advertencia", JOptionPane.WARNING_MESSAGE);
@@ -367,8 +367,8 @@ public class VLineas extends javax.swing.JFrame {
     }//GEN-LAST:event_ActualizarActionPerformed
 
     private void NuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NuevoActionPerformed
-        this.FieldCodigo.enable();
-        this.FieldDescripcion.enable();
+        this.FieldCodigo.setEnabled(true);
+        this.FieldDescripcion.setEnabled(true);
     }//GEN-LAST:event_NuevoActionPerformed
 
     private void LimpiarTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LimpiarTodoActionPerformed
@@ -377,8 +377,8 @@ public class VLineas extends javax.swing.JFrame {
     }//GEN-LAST:event_LimpiarTodoActionPerformed
 
     private void tableLineasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableLineasMouseClicked
-        this.FieldCodigo.disable();
-        this.FieldDescripcion.enable();
+        this.FieldCodigo.setEnabled(false);
+        this.FieldDescripcion.setEnabled(true);
         int filaSeleccionada = this.tableLineas.rowAtPoint(evt.getPoint());
         this.FieldCodigo.setText(this.tableLineas.getValueAt(filaSeleccionada, 0).toString());
         this.FieldDescripcion.setText(this.tableLineas.getValueAt(filaSeleccionada, 1).toString());

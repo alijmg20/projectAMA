@@ -326,6 +326,9 @@ public class VItems extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tableItemMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                tableItemMouseEntered(evt);
+            }
         });
         jScrollPane1.setViewportView(tableItem);
 
@@ -359,12 +362,12 @@ public class VItems extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void NuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NuevoActionPerformed
-        this.ICodigo.enable();
-        this.INombre.enable();
-        this.IDrescipcion.enable();
-        this.IPrecioUni.enable();
-        this.IUnidadMedi.enable();
-        this.LineaSumi.enable();
+        this.ICodigo.setEnabled(true);
+        this.INombre.setEnabled(true);
+        this.IDrescipcion.setEnabled(true);
+        this.IPrecioUni.setEnabled(true);
+        this.IUnidadMedi.setEnabled(true);
+        this.LineaSumi.setEnabled(true);
     }//GEN-LAST:event_NuevoActionPerformed
 
     private void ActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ActualizarActionPerformed
@@ -399,11 +402,11 @@ public class VItems extends javax.swing.JFrame {
             
             item.insertarDatosItem(itemcod,itemnom,itemdesc,itemum,itempu,itemls);
             
-            this.ICodigo.disable();
-            this.INombre.disable();
-            this.IDrescipcion.disable();
-            this.IPrecioUni.disable();
-            this.IUnidadMedi.disable();
+            this.ICodigo.setEnabled(false);
+            this.INombre.setEnabled(false);
+            this.IDrescipcion.setEnabled(false);
+            this.IPrecioUni.setEnabled(false);
+            this.IUnidadMedi.setEnabled(false);
              this.tableItem.setModel(item.mostrarDatosItem());
         } else {
             JOptionPane.showMessageDialog(null, "Por favor rellene los campos faltantes", "Advertencia", JOptionPane.WARNING_MESSAGE);
@@ -436,12 +439,12 @@ public class VItems extends javax.swing.JFrame {
     }//GEN-LAST:event_IUnidadMediActionPerformed
 
     private void tableItemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableItemMouseClicked
-        this.ICodigo.disable();
-        this.INombre.enable();
-        this.IDrescipcion.enable();
-        this.IPrecioUni.enable();
-        this.IUnidadMedi.enable();
-        this.LineaSumi.disable();
+        this.ICodigo.setEnabled(false);
+        this.INombre.setEnabled(true);
+        this.IDrescipcion.setEnabled(true);
+        this.IPrecioUni.setEnabled(true);
+        this.IUnidadMedi.setEnabled(true);
+        this.LineaSumi.setEnabled(false);
         
         int filaSeleccionada = this.tableItem.rowAtPoint(evt.getPoint());
         this.ICodigo.setText(this.tableItem.getValueAt(filaSeleccionada, 0).toString());
@@ -450,12 +453,17 @@ public class VItems extends javax.swing.JFrame {
         this.IUnidadMedi.setText(this.tableItem.getValueAt(filaSeleccionada, 3).toString());
         this.IPrecioUni.setText(this.tableItem.getValueAt(filaSeleccionada, 4).toString());
         this.LineaSumi.setSelectedItem(this.tableItem.getValueAt(filaSeleccionada, 5).toString());
+
     }//GEN-LAST:event_tableItemMouseClicked
 
     private void btn_volverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_volverMouseClicked
        this.dispose();
        new MainMenu(tipo,username).setVisible(true);
     }//GEN-LAST:event_btn_volverMouseClicked
+
+    private void tableItemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableItemMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tableItemMouseEntered
 
     /**
      * @param args the command line arguments

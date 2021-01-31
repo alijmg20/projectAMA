@@ -70,7 +70,7 @@ public class MainMenu extends javax.swing.JFrame {
         btn_directores = new javax.swing.JButton();
         lbUnidades12 = new javax.swing.JLabel();
         jPanel19 = new javax.swing.JPanel();
-        btn_Lineas4 = new javax.swing.JButton();
+        btn_requisicion = new javax.swing.JButton();
         lbUnidades13 = new javax.swing.JLabel();
         jPanel20 = new javax.swing.JPanel();
         btn_Lineas5 = new javax.swing.JButton();
@@ -81,7 +81,6 @@ public class MainMenu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menu Principal");
-        setAlwaysOnTop(true);
         setResizable(false);
 
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -510,20 +509,20 @@ public class MainMenu extends javax.swing.JFrame {
 
         jPanel19.setBackground(new java.awt.Color(204, 204, 255));
 
-        btn_Lineas4.setBackground(new java.awt.Color(255, 255, 255));
-        btn_Lineas4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/designs/unidades.png"))); // NOI18N
-        btn_Lineas4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btn_Lineas4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn_Lineas4.setIconTextGap(6);
-        btn_Lineas4.addActionListener(new java.awt.event.ActionListener() {
+        btn_requisicion.setBackground(new java.awt.Color(255, 255, 255));
+        btn_requisicion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/designs/unidades.png"))); // NOI18N
+        btn_requisicion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_requisicion.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn_requisicion.setIconTextGap(6);
+        btn_requisicion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_Lineas4ActionPerformed(evt);
+                btn_requisicionActionPerformed(evt);
             }
         });
 
         lbUnidades13.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lbUnidades13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbUnidades13.setText("Por Rellenar");
+        lbUnidades13.setText("Requisicion");
 
         javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
         jPanel19.setLayout(jPanel19Layout);
@@ -532,7 +531,7 @@ public class MainMenu extends javax.swing.JFrame {
             .addGroup(jPanel19Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btn_Lineas4, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                    .addComponent(btn_requisicion, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
                     .addComponent(lbUnidades13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(41, Short.MAX_VALUE))
         );
@@ -542,7 +541,7 @@ public class MainMenu extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lbUnidades13, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn_Lineas4, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_requisicion, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28))
         );
 
@@ -770,9 +769,10 @@ public class MainMenu extends javax.swing.JFrame {
         new VDirectores(tipo,username).setVisible(true);
     }//GEN-LAST:event_btn_directoresActionPerformed
 
-    private void btn_Lineas4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Lineas4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_Lineas4ActionPerformed
+    private void btn_requisicionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_requisicionActionPerformed
+        new VRequisicion(tipo,username).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btn_requisicionActionPerformed
 
     private void btn_Lineas5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Lineas5ActionPerformed
         // TODO add your handling code here:
@@ -823,16 +823,13 @@ public class MainMenu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_Lineas;
     private javax.swing.JButton btn_Lineas2;
-    private javax.swing.JButton btn_Lineas4;
     private javax.swing.JButton btn_Lineas5;
     private javax.swing.JButton btn_directores;
     private javax.swing.JButton btn_items;
     private javax.swing.JButton btn_jefes_unidad;
     private javax.swing.JButton btn_proveedores;
+    private javax.swing.JButton btn_requisicion;
     private javax.swing.JButton btn_unidades;
-    private javax.swing.JButton btn_unidades2;
-    private javax.swing.JButton btn_unidades3;
-    private javax.swing.JButton btn_unidades4;
     private javax.swing.JButton btn_unidades5;
     private javax.swing.JButton btn_unidades6;
     private javax.swing.JButton btn_unidades8;
@@ -840,9 +837,6 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel11;
-    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel16;
@@ -870,9 +864,6 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JLabel lbUnidades15;
     private javax.swing.JLabel lbUnidades2;
     private javax.swing.JLabel lbUnidades3;
-    private javax.swing.JLabel lbUnidades4;
-    private javax.swing.JLabel lbUnidades5;
-    private javax.swing.JLabel lbUnidades6;
     private javax.swing.JLabel lbUnidades8;
     private javax.swing.JLabel lbUnidades9;
     // End of variables declaration//GEN-END:variables

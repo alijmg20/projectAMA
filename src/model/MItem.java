@@ -10,44 +10,15 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-public class MItem {
-    private final Connection conexion;
+public class MItem extends MUtilidades {
+    
 
     //Constructor de la clase que se conecta luego con la clase conexion en controler
     public MItem(Connection conexion) {
-        this.conexion = conexion;
+        super(conexion);
     }
     
-    //MUESTRAS EL DROPBOX DE LA LINEA DE SUMINISTRO
-    public void obtenerLinea(JComboBox cb) {
-        try {
-            String SQL = "SELECT * FROM lineas ORDER BY descripcionl ASC";
-            PreparedStatement consulta = conexion.prepareStatement(SQL);
-            ResultSet resultado = consulta.executeQuery();
-            cb.addItem("Seleccione una opcion");
-            while (resultado.next()) {
-                cb.addItem(resultado.getString("descripcionl"));
-            }
-        } catch (Exception ex) {
-
-        }
-    }
     
-    //BUSCAR CON EL NOMBRE DE LINEA DE SUMINISTRO, EL CODIGO
-    private String busquedaLinea(String descripcionl) {
-
-        String SQL = "SELECT codlineas FROM lineas WHERE descripcionl = '" + descripcionl + "'";
-        try {
-            String codigolinea = "";
-            Statement consultaCodigo = this.conexion.createStatement();
-            ResultSet resultado = consultaCodigo.executeQuery(SQL);
-            resultado.next();
-            return codigolinea = resultado.getString("codlineas");
-        } catch (Exception e) {
-
-        }
-        return null;
-    }
     
     //INSERTAR DATOS EN ITEM
     public void insertarDatosItem(String coditem, String nombrei, String descripcioni, String umedida, float preciou, String codlineas) {
@@ -58,7 +29,7 @@ public class MItem {
             
             
             String SQL = "INSERT INTO items (coditem,nombrei,descripcioni,umedida,preciou,codlineas) VALUES (?,?,?,?,?,?) ";
-            PreparedStatement consulta = this.conexion.prepareStatement(SQL);
+            PreparedStatement consulta = this.getConexion().prepareStatement(SQL);
 
             consulta.setString(1, coditem);
             consulta.setString(2, nombrei);
@@ -82,10 +53,13 @@ public class MItem {
         String[] registros = new String[6];
 
         DefaultTableModel tabla = new DefaultTableModel(null, titulos);
-        String SQL = "SELECT coditem, nombrei, descripcioni, umedida, preciou, descripcionl FROM lineas, items ORDER BY descripcionl ASC, nombrei ASC";
+        String SQL = "SELECT its.coditem, its.nombrei, its.descripcioni, its.umedida, its.preciou, ls.descripcionl "
+                + "FROM lineas AS ls, items AS its "
+                + "WHERE its.codlineas=ls.codlineas "
+                + "ORDER BY ls.descripcionl ASC, its.nombrei ASC";;
 
         try {
-            Statement consulta = this.conexion.createStatement();
+            Statement consulta = this.getConexion().createStatement();
             ResultSet resultados = consulta.executeQuery(SQL);
             while (resultados.next()) {
                 registros[0] = resultados.getString("coditem");
@@ -110,7 +84,7 @@ public class MItem {
     public void actualizarDatosItem(String coditem, String nombrei, String descripcioni, String umedida, float preciou, String codlineas) {
         try {
             String SQL = "UPDATE items SET nombrei=?, descripcioni=?, umedida=?, preciou=? WHERE coditem=? ";
-            PreparedStatement consulta = this.conexion.prepareStatement(SQL);
+            PreparedStatement consulta = this.getConexion().prepareStatement(SQL);
             
             consulta.setString(1, nombrei);
             consulta.setString(2, descripcioni);
@@ -133,7 +107,7 @@ public class MItem {
         String SQL = "DELETE FROM lineas where codlineas=?";
         
         try{
-            PreparedStatement consulta = conexion.prepareStatement(SQL);
+            PreparedStatement consulta = this.getConexion().prepareStatement(SQL);
             consulta.setString(1, coditem);
             consulta.executeUpdate();
             JOptionPane.showMessageDialog(null, "Item Eliminado Exitosamente ","Accion realizada",JOptionPane.INFORMATION_MESSAGE);

@@ -39,6 +39,7 @@ public class VRegistrarJefeDirector extends javax.swing.JFrame {
     private void initComponents() {
 
         bgEmpleados = new javax.swing.ButtonGroup();
+        javax.swing.ButtonGroup bgstatusE = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -56,6 +57,9 @@ public class VRegistrarJefeDirector extends javax.swing.JFrame {
         txtpassword = new javax.swing.JPasswordField();
         txtrepetirpassword = new javax.swing.JPasswordField();
         cbDepartamento = new javax.swing.JComboBox();
+        jLabel5 = new javax.swing.JLabel();
+        rbA = new javax.swing.JRadioButton();
+        rbS = new javax.swing.JRadioButton();
         jPanel4 = new javax.swing.JPanel();
         btn_nuevo = new javax.swing.JButton();
         btn_guardar = new javax.swing.JButton();
@@ -151,12 +155,25 @@ public class VRegistrarJefeDirector extends javax.swing.JFrame {
             }
         });
 
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel5.setText("Estatus del empleado :");
+
+        bgstatusE.add(rbA);
+        rbA.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        rbA.setText("A (Activo)");
+        rbA.setContentAreaFilled(false);
+
+        bgstatusE.add(rbS);
+        rbS.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        rbS.setText("S (suspendido)");
+        rbS.setContentAreaFilled(false);
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(80, 80, 80)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(88, 88, 88)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -168,6 +185,11 @@ public class VRegistrarJefeDirector extends javax.swing.JFrame {
                     .addComponent(cbDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 166, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(rbA)
+                        .addGap(18, 18, 18)
+                        .addComponent(rbS))
+                    .addComponent(jLabel5)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(rb_jefe)
                         .addGap(18, 18, 18)
@@ -181,35 +203,42 @@ public class VRegistrarJefeDirector extends javax.swing.JFrame {
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtrepetirpassword, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(172, Short.MAX_VALUE))
+                .addGap(164, 164, 164))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(264, 264, 264)
-                .addComponent(jLabel8)
-                .addGap(31, 31, 31)
+                .addGap(53, 53, 53)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtcedula, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6)
+                            .addComponent(txtpassword, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel7)
+                            .addComponent(txtrepetirpassword, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(55, 55, 55)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(cbDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(21, 21, 21))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(135, 135, 135)
+                        .addComponent(jLabel8)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(rb_director)
+                            .addComponent(rb_jefe))))
+                .addComponent(jLabel5)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rb_director)
-                    .addComponent(rb_jefe))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(129, 129, 129)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtcedula, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6)
-                    .addComponent(txtpassword, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel7)
-                    .addComponent(txtrepetirpassword, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(55, 55, 55)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(cbDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(rbA)
+                    .addComponent(rbS))
                 .addGap(68, 68, 68))
         );
 
@@ -364,11 +393,19 @@ public class VRegistrarJefeDirector extends javax.swing.JFrame {
             }else if(this.rb_director.isSelected()){
                 tipoe = 'D';
             }
+            
+            char statuse = 'A';
+            if(this.rbA.isSelected()){
+                statuse = 'A';
+            }else if(this.rbS.isSelected()){
+                statuse = 'S';
+            }
+            
             String unidades = this.cbDepartamento.getSelectedItem().toString();
             if(password.equals(repetirPassword)){
                 String encriptado = SecurityKey.Encriptar(password);
                 
-                this.jefes_directores.insertarDatosJefesDirectores(cedula, nombre, tipoe, unidades, encriptado);
+                this.jefes_directores.insertarDatosJefesDirectores(cedula, nombre, tipoe,statuse, unidades, encriptado);
             }else{
                 JOptionPane.showMessageDialog(null, "Las contraseñas no son iguales", "Advertencia", JOptionPane.WARNING_MESSAGE);
             }
@@ -425,6 +462,7 @@ public class VRegistrarJefeDirector extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -432,6 +470,8 @@ public class VRegistrarJefeDirector extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JRadioButton rbA;
+    private javax.swing.JRadioButton rbS;
     private javax.swing.JRadioButton rb_director;
     private javax.swing.JRadioButton rb_jefe;
     private javax.swing.JTextField txtcedula;

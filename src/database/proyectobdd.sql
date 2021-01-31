@@ -421,9 +421,9 @@ ON DELETE RESTRICT
 ON UPDATE CASCADE;
 
 
-
-
-ALTER TABLE empleados ADD COLUMN password VARCHAR(255);
-
+ALTER TABLE empleados ADD COLUMN password VARCHAR(255) NOT NULL;
+ALTER TABLE empleados ADD COLUMN statuse CHAR(1) NOT NULL;
+ALTER TABLE empleados ADD CONSTRAINT CK_statuse 
+CHECK (statuse='S' or statuse='A');
 
 

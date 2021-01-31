@@ -8,50 +8,20 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-public class MJefesDirectores {
+public class MJefesDirectores extends MUtilidades {
 
-    private final Connection conexion;
+    
 
     public MJefesDirectores(Connection conexion) {
-        this.conexion = conexion;
+        super(conexion);
     }
 
-    // Funciones necesarias
-    public void obtenerUnidades(JComboBox cb) {
-        try {
-            String SQL = "SELECT * FROM unidades ORDER BY nombreu ASC";
-            PreparedStatement consulta = conexion.prepareStatement(SQL);
-            ResultSet resultado = consulta.executeQuery();
-            cb.addItem("Seleccione una opcion");
-            while (resultado.next()) {
-                cb.addItem(resultado.getString("nombreu"));
-            }
-        } catch (Exception ex) {
 
-        }
-    }
 
-    //Funcion para buscar el codigo
-    private String busquedaUnidad(String nombreu) {
-
-        String SQL = "SELECT codunidades FROM unidades WHERE nombreu = '" + nombreu + "'";
-        try {
-            String codigou = "";
-            Statement consultaCodigo = this.conexion.createStatement();
-            ResultSet resultado = consultaCodigo.executeQuery(SQL);
-            resultado.next();
-            return codigou = resultado.getString("codunidades");
-        } catch (Exception e) {
-
-        }
-        return null;
-    }
-
-    public void insertarDatosJefesDirectores(int cedula, String nombre, char tipoe, String nombreu, String password) {
+    public void insertarDatosJefesDirectores(int cedula, String nombre, char tipoe,char statuse, String nombreu, String password) {
 
         try {
             //Primero hacemos una busqueda del codigo para insertar
@@ -59,26 +29,27 @@ public class MJefesDirectores {
             String codigou = busquedaUnidad(nombreu);
 
             //Luego de conseguir el codigo insertamos en la tabla de empleados
-            String SQL = "INSERT INTO empleados(cedula,nombre,tipoe,codunidades,password) VALUES (?,?,?,?,?)";
-            PreparedStatement consultaInsercion = this.conexion.prepareStatement(SQL);
+            String SQL = "INSERT INTO empleados(cedula,nombre,tipoe,codunidades,password,statuse) VALUES (?,?,?,?,?,?)";
+            PreparedStatement consultaInsercion = this.getConexion().prepareStatement(SQL);
             consultaInsercion.setInt(1, cedula);
             consultaInsercion.setString(2, nombre);
             consultaInsercion.setString(3, String.valueOf(tipoe));
             consultaInsercion.setString(4, codigou);
             consultaInsercion.setString(5, password);
+            consultaInsercion.setString(6, String.valueOf(statuse));
             consultaInsercion.execute();
 
             String subSQL;
 
             if (tipoe == 'J') { //si es J se inserta como jefe
                 subSQL = "INSERT INTO jefes (fichaj) VALUES (?)";
-                consultaInsercion = this.conexion.prepareStatement(subSQL);
+                consultaInsercion = this.getConexion().prepareStatement(subSQL);
                 consultaInsercion.setInt(1, cedula);
                 consultaInsercion.execute();
                 JOptionPane.showMessageDialog(null, "Se ha insertado el empleado Jefe de unidad ", "Accion Realizada", JOptionPane.INFORMATION_MESSAGE);
             } else if (tipoe == 'D') { //si es D se inserta como director
                 subSQL = "INSERT INTO directores (fichad) VALUES (?)";
-                consultaInsercion = this.conexion.prepareStatement(subSQL);
+                consultaInsercion = this.getConexion().prepareStatement(subSQL);
                 consultaInsercion.setInt(1, cedula);
                 consultaInsercion.execute();
                 JOptionPane.showMessageDialog(null, "Se ha insertado el empleado director financiero", "Accion Realizada", JOptionPane.INFORMATION_MESSAGE);
@@ -89,21 +60,21 @@ public class MJefesDirectores {
         }
     }
 
-    public void actualizarDatosJefeDirectores(int cedula, String nombre, String nombreu, String password) {
+    public void actualizarDatosJefeDirectores(int cedula, String nombre, String nombreu, String password,char statuse) {
         try {
             //Realizamos busqueda del codigo de la unidad
 
             String codigou = this.busquedaUnidad(nombreu);
 
             //Seguimos con la actualizacion de la tabla
-            String SQL = "UPDATE empleados SET nombre=?,codunidades=?,password =? WHERE cedula=?";
-            PreparedStatement consulta = this.conexion.prepareStatement(SQL);
+            String SQL = "UPDATE empleados SET nombre=?,codunidades=?,password =?,statuse=? WHERE cedula=?";
+            PreparedStatement consulta = this.getConexion().prepareStatement(SQL);
 
             consulta.setString(1, nombre);
             consulta.setString(2, codigou);
             consulta.setString(3, password);
-            consulta.setInt(4, cedula);
-
+            consulta.setString(4,String.valueOf(statuse));
+            consulta.setInt(5, cedula);
             consulta.execute();
 
             JOptionPane.showMessageDialog(null, "Empleado actualizado exitosamente", "Accion realizada", JOptionPane.INFORMATION_MESSAGE);
@@ -114,23 +85,24 @@ public class MJefesDirectores {
     }
 
     public DefaultTableModel mostrarDatosJefesDirectores(char tipo) {
-        String[] titulos = {" Cedula ", " Nombre Empleado ", " Unidad Perteneciente ", "password"};
-        String[] registros = new String[4];
+        String[] titulos = {" Cedula ", " Nombre Empleado ", " Unidad Perteneciente ","estatus" ,"password"};
+        String[] registros = new String[5];
 
         DefaultTableModel tabla = new DefaultTableModel(null, titulos);
-        String SQL = "SELECT e.cedula,e.nombre,u.nombreu,e.password "
+        String SQL = "SELECT e.cedula,e.nombre,u.nombreu,e.password,e.statuse "
                 + "FROM empleados AS e,unidades AS u "
                 + "WHERE e.tipoe='" + tipo + "' AND e.codunidades=u.codunidades "
                 + "ORDER BY e.cedula ";
 
         try {
-            Statement consulta = this.conexion.createStatement();
+            Statement consulta = this.getConexion().createStatement();
             ResultSet resultados = consulta.executeQuery(SQL);
             while (resultados.next()) {
                 registros[0] = resultados.getString("cedula");
                 registros[1] = resultados.getString("nombre");
                 registros[2] = resultados.getString("nombreu");
-                registros[3] = resultados.getString("password");
+                registros[3] = resultados.getString("statuse");
+                registros[4] = resultados.getString("password");
                 tabla.addRow(registros);
             }
 
@@ -150,12 +122,12 @@ public class MJefesDirectores {
             SQL = "DELETE FROM directores WHERE fichad=?";
         }
         try {
-            PreparedStatement consulta = conexion.prepareStatement(SQL);
+            PreparedStatement consulta = this.getConexion().prepareStatement(SQL);
             consulta.setInt(1, cedula);
             consulta.executeUpdate();
 
             SQL = "DELETE FROM empleados WHERE cedula=?";
-            consulta = conexion.prepareStatement(SQL);
+            consulta = this.getConexion().prepareStatement(SQL);
             consulta.setInt(1, cedula);
             consulta.executeUpdate();
 
@@ -169,23 +141,24 @@ public class MJefesDirectores {
     }
 
     public DefaultTableModel filtrarDatos(String valor, char tipo) {
-        String[] titulos = {" Cedula ", " Nombre empleado ", " Unidad Perteneciente ", "password"};
-        String[] registros = new String[4];
+        String[] titulos = {" Cedula ", " Nombre empleado ", " Unidad Perteneciente ","estatus" ,"password"};
+        String[] registros = new String[5];
 
         DefaultTableModel tabla = new DefaultTableModel(null, titulos);
-        String SQL = "SELECT e.cedula,e.nombre,u.nombreu,e.password "
+        String SQL = "SELECT e.cedula,e.nombre,u.nombreu,e.password,e.statuse "
                 + "FROM empleados AS e,unidades AS u "
                 + "WHERE e.tipoe='" + tipo + "' AND e.codunidades=u.codunidades "
                 + "AND nombre LIKE '%"+valor+"%'"
                 + "ORDER BY e.cedula ";
         try {
-            Statement consulta = conexion.createStatement();
+            Statement consulta = this.getConexion().createStatement();
             ResultSet resultados = consulta.executeQuery(SQL);
             while (resultados.next()) {
                 registros[0] = resultados.getString("cedula");
                 registros[1] = resultados.getString("nombre");
                 registros[2] = resultados.getString("nombreu");
-                registros[3] = resultados.getString("password");
+                registros[3] = resultados.getString("statuse");
+                registros[4] = resultados.getString("password");
                 tabla.addRow(registros);
             }
 
@@ -200,7 +173,7 @@ public class MJefesDirectores {
         String SQL = "SELECT password FROM empleados WHERE cedula='"+cedula+"'";
         
         try{
-            Statement consulta = conexion.createStatement();
+            Statement consulta = this.getConexion().createStatement();
             ResultSet resultados = consulta.executeQuery(SQL);
             resultados.next();
             String pass = resultados.getString("password");
@@ -221,7 +194,7 @@ public class MJefesDirectores {
         String SQL = "SELECT nombre FROM empleados WHERE cedula='"+cedula+"'";
         String nombre = "";
         try{
-            Statement consulta = conexion.createStatement();
+            Statement consulta = this.getConexion().createStatement();
             ResultSet resultados = consulta.executeQuery(SQL);
             resultados.next();
             nombre = resultados.getString("nombre");
