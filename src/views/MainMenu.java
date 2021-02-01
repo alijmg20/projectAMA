@@ -15,18 +15,6 @@ public class MainMenu extends javax.swing.JFrame {
         this.username = username;
         this.jLabel3.setText("Bienvenido al sistema AMA " + username);
         
-        if(this.tipo == 0){ //jefes
-            this.btn_unidades.setEnabled(false);
-        }
-        else if (this.tipo == 1) { //1 = proveedor
-            
-            this.btn_Lineas.setEnabled(false);
-            this.btn_unidades.setEnabled(false);
-            this.btn_items.setEnabled(false);
-        } else if(this.tipo == 2) {  //admin
-            //No se le bloquea nada
-        }
-        
     }
 
     @SuppressWarnings("unchecked")
@@ -756,7 +744,8 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_unidades6ActionPerformed
 
     private void btn_proveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_proveedoresActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
+        new VProveedores(tipo,username).setVisible(true);
     }//GEN-LAST:event_btn_proveedoresActionPerformed
 
     private void btn_jefes_unidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_jefes_unidadActionPerformed
