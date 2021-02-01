@@ -132,7 +132,7 @@ public class MUtilidades {
         try {
             String codigou = this.busquedaUnidad(nombreu);
             String SQL = "SELECT * FROM empleados "
-                    + "WHERE tipoe='J' and statuse='A' and codunidades='"+codigou+"'"
+                    + "WHERE tipoe='J' and statuse='A' and codunidades='" + codigou + "'"
                     + "ORDER BY cedula ASC";
             PreparedStatement consulta = conexion.prepareStatement(SQL);
             ResultSet resultado = consulta.executeQuery();
@@ -143,6 +143,40 @@ public class MUtilidades {
         } catch (Exception ex) {
 
         }
+    }
+
+    public void obtenerItems(JComboBox cb, int nroRequisicion) {
+        try {
+
+            String SQL = "SELECT i.nombrei FROM items i,requisiciones r \n"
+                    + "WHERE r.nrorequisicion=" + nroRequisicion + "  AND r.codlineas=i.codlineas\n"
+                    + "group by i.nombrei,i.coditem\n"
+                    + "order by i.coditem DESC";
+            PreparedStatement consulta = conexion.prepareStatement(SQL);
+            ResultSet resultado = consulta.executeQuery();
+            cb.addItem("Seleccione una opcion");
+            while (resultado.next()) {
+                cb.addItem(resultado.getString("nombrei"));
+            }
+        } catch (Exception e) {
+
+        }
+    }
+
+    public String busquedaItems(String nombrei, int nroRequisicion) {
+        try {
+            String SQL = "SELECT i.coditem "
+                    + "FROM items i, requisiciones r "
+                    + "WHERE r.nrorequisicion=" + nroRequisicion + " AND r.codlineas=i.codlineas AND i.nombrei='" + nombrei+"'";
+            String coditem = "";
+            Statement consultaCodItem = this.conexion.createStatement();
+            ResultSet resultado = consultaCodItem.executeQuery(SQL);
+            resultado.next();
+            return coditem = resultado.getString("coditem");
+        } catch (Exception e) {
+
+        }
+        return null;
     }
 
 }

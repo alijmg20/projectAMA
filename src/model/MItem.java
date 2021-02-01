@@ -56,7 +56,7 @@ public class MItem extends MUtilidades {
         String SQL = "SELECT its.coditem, its.nombrei, its.descripcioni, its.umedida, its.preciou, ls.descripcionl "
                 + "FROM lineas AS ls, items AS its "
                 + "WHERE its.codlineas=ls.codlineas "
-                + "ORDER BY ls.descripcionl ASC, its.nombrei ASC";;
+                + "ORDER BY ls.descripcionl ASC, its.nombrei ASC";
 
         try {
             Statement consulta = this.getConexion().createStatement();
@@ -83,7 +83,7 @@ public class MItem extends MUtilidades {
     //ACTUALIZAR DATOS DE ITEM
     public void actualizarDatosItem(String coditem, String nombrei, String descripcioni, String umedida, float preciou, String codlineas) {
         try {
-            String SQL = "UPDATE items SET nombrei=?, descripcioni=?, umedida=?, preciou=? WHERE coditem=? ";
+            String SQL = "UPDATE items SET nombrei=?, descripcioni=?, umedida=?, preciou=?,codlineas=? WHERE coditem=? ";
             PreparedStatement consulta = this.getConexion().prepareStatement(SQL);
             
             consulta.setString(1, nombrei);

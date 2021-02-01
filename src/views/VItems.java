@@ -9,9 +9,7 @@ package views;
 import Atxy2k.CustomTextField.RestrictedTextField;
 import model.MItem;
 import Controler.Conexion;
-import com.placeholder.PlaceHolder;
 import javax.swing.JOptionPane;
-import views.MainMenu;
 
 public class VItems extends javax.swing.JFrame {
 
@@ -33,11 +31,11 @@ public class VItems extends javax.swing.JFrame {
         this.tipo = tipo;
         this.username = username;
         item.obtenerLinea(LineaSumi);
-        this.tableItem.setModel(item.mostrarDatosItem());
         RestrictedTextField ium = new RestrictedTextField(IUnidadMedi);
         ium.setLimit(3);
-        RestrictedTextField ipu = new RestrictedTextField(IPrecioUni);
-        ipu.setOnlyNums(rootPaneCheckingEnabled);
+//        RestrictedTextField ipu = new RestrictedTextField(IPrecioUni);
+//        ipu.setOnlyNums(true);
+        this.tableItem.setModel(item.mostrarDatosItem());
     }
 
     /**
@@ -274,6 +272,17 @@ public class VItems extends javax.swing.JFrame {
 
         jPanel6.setBackground(new java.awt.Color(204, 204, 255));
 
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 90, Short.MAX_VALUE)
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 129, Short.MAX_VALUE)
+        );
+
         btn_volver.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btn_volver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/designs/Volver.png"))); // NOI18N
         btn_volver.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -282,25 +291,16 @@ public class VItems extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btn_volver, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btn_volver, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
-        );
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(btn_volver, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -316,8 +316,10 @@ public class VItems extends javax.swing.JFrame {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_volver, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
@@ -375,8 +377,8 @@ public class VItems extends javax.swing.JFrame {
             String itemcod = this.ICodigo.getText();
             String itemnom = this.INombre.getText();
             String itemdesc = this.IDrescipcion.getText();
-            String itemum = this.IPrecioUni.getText();
-            float itempu = Float.parseFloat(this.IUnidadMedi.getText());
+            String itemum = this.IUnidadMedi.getText();
+            float itempu = Float.parseFloat(this.IPrecioUni.getText());
             
             String itemls = this.LineaSumi.getSelectedItem().toString();
             
@@ -453,7 +455,8 @@ public class VItems extends javax.swing.JFrame {
         this.IUnidadMedi.setText(this.tableItem.getValueAt(filaSeleccionada, 3).toString());
         this.IPrecioUni.setText(this.tableItem.getValueAt(filaSeleccionada, 4).toString());
         this.LineaSumi.setSelectedItem(this.tableItem.getValueAt(filaSeleccionada, 5).toString());
-
+        
+        
     }//GEN-LAST:event_tableItemMouseClicked
 
     private void btn_volverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_volverMouseClicked

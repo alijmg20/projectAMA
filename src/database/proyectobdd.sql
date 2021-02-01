@@ -426,4 +426,7 @@ ALTER TABLE empleados ADD COLUMN statuse CHAR(1) NOT NULL;
 ALTER TABLE empleados ADD CONSTRAINT CK_statuse 
 CHECK (statuse='S' or statuse='A');
 
+ALTER TABLE proveedores ADD COLUMN statusp CHAR(1) NOT NULL;
+ALTER TABLE proveedores ADD CONSTRAINT CK_statusp 
+CHECK (statusp='S' or statusp='A');
 

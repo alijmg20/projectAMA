@@ -15,7 +15,7 @@ public class VRequisicion extends javax.swing.JFrame {
     private String username;
     private final Conexion conexion = new Conexion();
     private final MRequisicion requisiciones = new MRequisicion(conexion.conectar());
-    int countJefes = 0;
+    
 
     public VRequisicion() {
         initComponents();
@@ -461,7 +461,7 @@ public class VRequisicion extends javax.swing.JFrame {
     private void ActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ActualizarActionPerformed
         if(!this.Calendar_fechaE.getFechaSeleccionada().isEmpty() && (!this.rb_si.isSelected() || !this.rb_no.isSelected()) && this.cb_director.getSelectedIndex()>0 && this.cb_jefe.getSelectedIndex()>0 && this.cb_lineas.getSelectedIndex()>0 && this.cb_unidad.getSelectedIndex()>0){
             
-            String fechaString = this.Calendar_fechaE.getTextoFecha();
+            String fechaString = this.Calendar_fechaE.getFechaSeleccionada();
             int filaSeleccionada = this.tableRequisicion.getSelectedRow();
             int numero = Integer.parseInt(this.tableRequisicion.getValueAt(filaSeleccionada, 0).toString());
             char cotizada = 'N';
@@ -527,7 +527,16 @@ public class VRequisicion extends javax.swing.JFrame {
     }//GEN-LAST:event_EliminarActionPerformed
 
     private void btn_detalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_detalleActionPerformed
-        // TODO add your handling code here:
+
+        int filaSeleccionada = this.tableRequisicion.getSelectedRow();
+        if(filaSeleccionada >= 0 ){
+            int codigoSeleccionado = Integer.parseInt(this.tableRequisicion.getValueAt(filaSeleccionada, 0).toString());
+        new VDetalleRequisicion(tipo,username,codigoSeleccionado).setVisible(true);
+        this.dispose();
+        }else{
+            JOptionPane.showMessageDialog(null, "Por favor Seleccione una requisicion ", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
+        
     }//GEN-LAST:event_btn_detalleActionPerformed
 
     private void rb_siActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb_siActionPerformed
