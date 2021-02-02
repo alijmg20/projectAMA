@@ -8,38 +8,38 @@ package views;
 import Atxy2k.CustomTextField.RestrictedTextField;
 import Controler.Conexion;
 import javax.swing.JOptionPane;
+import model.MDetallesCotizacion;
 import model.MDetallesRequisicion;
-import model.MRequisicion;
 
-public class VDetalleRequisicion extends javax.swing.JFrame {
+public class VDetalleCotizacion extends javax.swing.JFrame {
 
     private int tipo;
     private String username;
-    private int nrorequisicion;
+    private String codigoCot;
+    private int rif;
     private final Conexion conexion = new Conexion();
-    private final MDetallesRequisicion detRequisicion = new MDetallesRequisicion(conexion.conectar());
+    private final MDetallesCotizacion detCotizacion = new MDetallesCotizacion(conexion.conectar());
 
-    public VDetalleRequisicion() {
+    public VDetalleCotizacion() {
         initComponents();
-        this.spNroRequisicion.setValue(tipo);
     }
 
-    public VDetalleRequisicion(int tipo, String username, int nrorequisicion) {
+    public VDetalleCotizacion(int tipo, String username, String codigocot, int rif) {
         initComponents();
         this.tipo = tipo;
         this.username = username;
-        this.nrorequisicion = nrorequisicion;
+        this.codigoCot = codigocot;
+        this.txtCodigoCot.setText(codigocot);
+        this.rif = rif;
+        this.txtRif.setText("" + rif);
+
         if (this.tipo == 1) {
-            this.Nuevo.setEnabled(false);
-            this.Actualizar.setEnabled(false);
-            this.Eliminar.setEnabled(false);
             this.Guardar.setEnabled(false);
+            this.Eliminar.setEnabled(false);
         }
 
-        this.spNroRequisicion.setValue(nrorequisicion);
-
-        this.detRequisicion.obtenerItems(cbItems, nrorequisicion);
-        this.tableDetalleRequisicion.setModel(this.detRequisicion.mostrarDatosDetallesRequisicion(nrorequisicion));
+        this.detCotizacion.obtenerNrosRequisiciones(this.cbNroRequisicion, rif, codigocot);
+        this.tableDetalleRequisicion.setModel(this.detCotizacion.mostrarDatosDetallesCotizacion(codigocot));
     }
 
     /**
@@ -57,14 +57,21 @@ public class VDetalleRequisicion extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        spNroRequisicion = new javax.swing.JSpinner();
         jLabel2 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        cbNroRequisicion = new javax.swing.JComboBox();
+        txtPrecio = new javax.swing.JTextField();
+        txtCodigoCot = new javax.swing.JTextField();
         cbItems = new javax.swing.JComboBox();
-        txtCantidadItems = new javax.swing.JTextField();
-        txtPrecioAproximado = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        txtRif = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        txtCantidad = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtCondiciones = new javax.swing.JTextArea();
         jPanel5 = new javax.swing.JPanel();
         Nuevo = new javax.swing.JButton();
         Actualizar = new javax.swing.JButton();
@@ -87,7 +94,7 @@ public class VDetalleRequisicion extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Detalle requisicion");
+        jLabel1.setText("Detalle Cotizacion");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -106,25 +113,53 @@ public class VDetalleRequisicion extends javax.swing.JFrame {
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Detalle requisicion"));
         jPanel4.setPreferredSize(new java.awt.Dimension(580, 350));
 
-        spNroRequisicion.setEnabled(false);
-
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel2.setText("Requisicion Nro: ");
+        jLabel2.setText("Codigo Cotizacion :");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel5.setText("Item :");
+        jLabel5.setText("Nro Requisicion :");
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel6.setText("Cantidad de items :");
+        jLabel6.setText("Item :");
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel7.setText("Precio aproximado :");
+        jLabel7.setText("Precio Disponible :");
+
+        cbNroRequisicion.setEnabled(false);
+        cbNroRequisicion.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbNroRequisicionItemStateChanged(evt);
+            }
+        });
+        cbNroRequisicion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbNroRequisicionActionPerformed(evt);
+            }
+        });
+
+        txtPrecio.setEnabled(false);
+
+        txtCodigoCot.setEnabled(false);
 
         cbItems.setEnabled(false);
 
-        txtCantidadItems.setEnabled(false);
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel8.setText("Rif :");
 
-        txtPrecioAproximado.setEnabled(false);
+        txtRif.setEnabled(false);
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel9.setText("Cantidad Disponible :");
+
+        txtCantidad.setEnabled(false);
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel10.setText("Condiciones de Compra :");
+
+        txtCondiciones.setColumns(20);
+        txtCondiciones.setRows(5);
+        txtCondiciones.setEnabled(false);
+        jScrollPane2.setViewportView(txtCondiciones);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -133,44 +168,60 @@ public class VDetalleRequisicion extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtCantidadItems, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtPrecioAproximado, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel5))
-                        .addGap(36, 36, 36)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(spNroRequisicion, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
-                            .addComponent(cbItems, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(72, Short.MAX_VALUE))
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel9))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtRif, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbItems, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbNroRequisicion, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCodigoCot, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE)
+                        .addComponent(txtCantidad, javax.swing.GroupLayout.Alignment.LEADING)))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
+                .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(spNroRequisicion, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33)
+                    .addComponent(txtCodigoCot, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(cbItems, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(39, 39, 39)
+                    .addComponent(cbNroRequisicion, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(txtCantidadItems, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22)
+                    .addComponent(cbItems, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(txtRif, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(txtPrecioAproximado, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(25, Short.MAX_VALUE))
+                    .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel10))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel5.setBackground(new java.awt.Color(153, 153, 255));
@@ -230,7 +281,7 @@ public class VDetalleRequisicion extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(Nuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
                         .addComponent(Actualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(83, 83, 83)
                         .addComponent(Guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -267,7 +318,7 @@ public class VDetalleRequisicion extends javax.swing.JFrame {
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 72, Short.MAX_VALUE)
+            .addGap(0, 61, Short.MAX_VALUE)
         );
 
         btn_regresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/designs/Volver.png"))); // NOI18N
@@ -284,36 +335,36 @@ public class VDetalleRequisicion extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 559, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(btn_regresar, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(501, 501, 501)
                         .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 559, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 11, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(76, 76, 76)
-                        .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
+                        .addGap(186, 186, 186)
+                        .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(btn_regresar)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         tableDetalleRequisicion.setModel(new javax.swing.table.DefaultTableModel(
@@ -369,33 +420,66 @@ public class VDetalleRequisicion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void NuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NuevoActionPerformed
+        if (this.tipo == 0) { //jefe director
+        this.txtPrecio.setEnabled(false);
+        this.txtCantidad.setEnabled(false);
+        this.txtCondiciones.setEnabled(false);
+        this.cbNroRequisicion.setEnabled(true);
+        this.txtCodigoCot.setEnabled(false);
+        this.txtRif.setEnabled(false);
         this.cbItems.setEnabled(true);
-        this.txtCantidadItems.setEnabled(true);
-        this.txtPrecioAproximado.setEnabled(true);
+        }else{
+            
+        this.txtPrecio.setEnabled(true);
+        this.txtCantidad.setEnabled(true);
+        this.txtCondiciones.setEnabled(true);
+        this.cbNroRequisicion.setEnabled(false);
+        this.txtCodigoCot.setEnabled(false);
+        this.txtRif.setEnabled(false);
+        this.cbItems.setEnabled(false);    
+        
+        }
+        
+
+
     }//GEN-LAST:event_NuevoActionPerformed
 
     private void ActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ActualizarActionPerformed
-        if (this.cbItems.getSelectedIndex() > 0 && !this.txtCantidadItems.getText().isEmpty() && !this.txtPrecioAproximado.getText().isEmpty()) {
-            String nombrei = this.cbItems.getSelectedItem().toString();
-            int cantidad = Integer.parseInt(this.txtCantidadItems.getText());
-            float precioA = Float.parseFloat(this.txtPrecioAproximado.getText());
+        if (this.cbNroRequisicion.getSelectedIndex() > 0 && this.cbItems.getSelectedIndex() > 0) {
+            int filaSeleccionada = this.tableDetalleRequisicion.getSelectedRow();
+
+            String codigocot = this.codigoCot;
+            int nrorequisicion = Integer.parseInt(this.cbNroRequisicion.getSelectedItem().toString());
+            String coditem = this.tableDetalleRequisicion.getValueAt(filaSeleccionada, 2).toString();
+            int rifproveedor = this.rif;
+            String condicionesC = this.txtCondiciones.getText();
+            float precioA = Float.parseFloat(this.txtPrecio.getText());
+            int cantidad = Integer.parseInt(this.txtCantidad.getText());
+
             int decision = JOptionPane.showConfirmDialog(null, "Seguro que desea actualizar este elemento ?");
+
             if (decision == 0) {
-                this.detRequisicion.actualizarDetallesRequisicion(nrorequisicion, nombrei, cantidad, precioA);
-                this.tableDetalleRequisicion.setModel(this.detRequisicion.mostrarDatosDetallesRequisicion(nrorequisicion));
+                this.detCotizacion.actualizarDetallesCotizacion(codigocot, nrorequisicion, coditem, rifproveedor, precioA, cantidad, condicionesC);
+                this.tableDetalleRequisicion.setModel(this.detCotizacion.mostrarDatosDetallesCotizacion(codigocot));
             }
         }
     }//GEN-LAST:event_ActualizarActionPerformed
 
     private void GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarActionPerformed
 
-        if (this.cbItems.getSelectedIndex() > 0 && !this.txtCantidadItems.getText().isEmpty() && !this.txtPrecioAproximado.getText().isEmpty()) {
+        if (this.cbNroRequisicion.getSelectedIndex() > 0 && this.cbItems.getSelectedIndex() > 0) {
 
+            String codigocot = this.codigoCot;
+            int nrorequisicion = Integer.parseInt(this.cbNroRequisicion.getSelectedItem().toString());
             String nombrei = this.cbItems.getSelectedItem().toString();
-            int cantidad = Integer.parseInt(this.txtCantidadItems.getText());
-            float precioA = Float.parseFloat(this.txtPrecioAproximado.getText());
-            this.detRequisicion.agregarDetallesRequisicion(nrorequisicion, nombrei, cantidad, precioA);
-            this.tableDetalleRequisicion.setModel(this.detRequisicion.mostrarDatosDetallesRequisicion(nrorequisicion));
+            int rifproveedor = this.rif;
+            float precioA = Float.parseFloat(this.txtPrecio.getText());
+            int cantidad = Integer.parseInt(this.txtCantidad.getText());
+            String condicionesC = this.txtCondiciones.getText();
+
+            this.detCotizacion.agregarDetallesCotizacion(codigocot, nrorequisicion, nombrei, rifproveedor, precioA, cantidad, condicionesC);
+            this.tableDetalleRequisicion.setModel(this.detCotizacion.mostrarDatosDetallesCotizacion(codigocot));
+
         } else {
             JOptionPane.showMessageDialog(null, "Por favor rellene los campos faltantes", "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
@@ -404,32 +488,61 @@ public class VDetalleRequisicion extends javax.swing.JFrame {
     }//GEN-LAST:event_GuardarActionPerformed
 
     private void LimpiarTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LimpiarTodoActionPerformed
-        this.cbItems.setSelectedIndex(0);
-        this.txtCantidadItems.setText("");
-        this.txtPrecioAproximado.setText("");
+        this.cbNroRequisicion.setSelectedIndex(0);
+        this.txtCantidad.setText("");
+        this.txtPrecio.setText("");
+        this.txtCodigoCot.setText(this.codigoCot);
+        this.txtRif.setText("" + this.rif);
+        this.txtCondiciones.setText("");
     }//GEN-LAST:event_LimpiarTodoActionPerformed
 
     private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
         int filaSeleccionada = this.tableDetalleRequisicion.getSelectedRow();
-        int decision = JOptionPane.showConfirmDialog(null, "seguro que Desea Elimimnar la requisicion ? ");
+        int decision = JOptionPane.showConfirmDialog(null, "seguro que Desea Elimimnar la fila " + filaSeleccionada + " en el detalle de la cotizacion ? ");
         if (decision == 0) {
-            this.detRequisicion.eliminarDatosDetalleRequisicion(Integer.parseInt(this.tableDetalleRequisicion.getValueAt(filaSeleccionada, 0).toString()), this.tableDetalleRequisicion.getValueAt(filaSeleccionada, 2).toString());
-            this.tableDetalleRequisicion.setModel(this.detRequisicion.mostrarDatosDetallesRequisicion(nrorequisicion));
+            String codigocot = this.tableDetalleRequisicion.getValueAt(filaSeleccionada, 0).toString();
+            int nrorequisicion = Integer.parseInt(this.tableDetalleRequisicion.getValueAt(filaSeleccionada, 1).toString());
+            String coditem = this.tableDetalleRequisicion.getValueAt(filaSeleccionada, 2).toString();
+            int rifproveedor = Integer.parseInt(this.tableDetalleRequisicion.getValueAt(filaSeleccionada, 4).toString());
+            this.detCotizacion.eliminarDatosDetalleCotizacion(codigocot, nrorequisicion, coditem, rifproveedor);
+            this.tableDetalleRequisicion.setModel(this.detCotizacion.mostrarDatosDetallesCotizacion(codigocot));
         }
     }//GEN-LAST:event_EliminarActionPerformed
 
     private void btn_regresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regresarActionPerformed
         this.dispose();
-        new VRequisicion(tipo, username).setVisible(true);
+        new VCotizacion(tipo, username).setVisible(true);
     }//GEN-LAST:event_btn_regresarActionPerformed
 
     private void tableDetalleRequisicionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableDetalleRequisicionMouseClicked
         int filaSeleccionada = this.tableDetalleRequisicion.rowAtPoint(evt.getPoint());
-        this.cbItems.setSelectedItem(this.tableDetalleRequisicion.getValueAt(filaSeleccionada, 2).toString());
-        this.txtCantidadItems.setText(this.tableDetalleRequisicion.getValueAt(filaSeleccionada, 3).toString());
-        this.txtPrecioAproximado.setText(this.tableDetalleRequisicion.getValueAt(filaSeleccionada, 4).toString());
+        this.txtCodigoCot.setText(this.tableDetalleRequisicion.getValueAt(filaSeleccionada, 0).toString());
+        this.cbNroRequisicion.setSelectedItem(this.tableDetalleRequisicion.getValueAt(filaSeleccionada, 1).toString());
+        this.cbItems.setSelectedItem(this.tableDetalleRequisicion.getValueAt(filaSeleccionada, 3).toString());
+        this.txtRif.setText(this.tableDetalleRequisicion.getValueAt(filaSeleccionada, 4).toString());
+        this.txtCondiciones.setText(this.tableDetalleRequisicion.getValueAt(filaSeleccionada, 5).toString());
+        this.txtPrecio.setText(this.tableDetalleRequisicion.getValueAt(filaSeleccionada, 6).toString());
+        this.txtCantidad.setText(this.tableDetalleRequisicion.getValueAt(filaSeleccionada, 7).toString());
+
+        this.cbNroRequisicion.setEnabled(false);
         this.cbItems.setEnabled(false);
+        this.txtCodigoCot.setEnabled(false);
+        this.txtRif.setEnabled(false);
     }//GEN-LAST:event_tableDetalleRequisicionMouseClicked
+
+    private void cbNroRequisicionItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbNroRequisicionItemStateChanged
+        if (this.cbNroRequisicion.getSelectedIndex() > 0) {
+            this.cbItems.removeAllItems();
+            int nrorequisicion = Integer.parseInt(this.cbNroRequisicion.getSelectedItem().toString());
+            this.detCotizacion.obtenerItemsDetalles(this.cbItems, nrorequisicion);
+        } else {
+            this.cbItems.removeAllItems();
+        }
+    }//GEN-LAST:event_cbNroRequisicionItemStateChanged
+
+    private void cbNroRequisicionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbNroRequisicionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbNroRequisicionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -448,14 +561,18 @@ public class VDetalleRequisicion extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VDetalleRequisicion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VDetalleCotizacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VDetalleRequisicion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VDetalleCotizacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VDetalleRequisicion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VDetalleCotizacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VDetalleRequisicion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VDetalleCotizacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -464,7 +581,7 @@ public class VDetalleRequisicion extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VDetalleRequisicion().setVisible(true);
+                new VDetalleCotizacion().setVisible(true);
             }
         });
     }
@@ -477,11 +594,15 @@ public class VDetalleRequisicion extends javax.swing.JFrame {
     private javax.swing.JButton Nuevo;
     private javax.swing.JButton btn_regresar;
     private javax.swing.JComboBox cbItems;
+    private javax.swing.JComboBox cbNroRequisicion;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -489,9 +610,12 @@ public class VDetalleRequisicion extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSpinner spNroRequisicion;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tableDetalleRequisicion;
-    private javax.swing.JTextField txtCantidadItems;
-    private javax.swing.JTextField txtPrecioAproximado;
+    private javax.swing.JTextField txtCantidad;
+    private javax.swing.JTextField txtCodigoCot;
+    private javax.swing.JTextArea txtCondiciones;
+    private javax.swing.JTextField txtPrecio;
+    private javax.swing.JTextField txtRif;
     // End of variables declaration//GEN-END:variables
 }

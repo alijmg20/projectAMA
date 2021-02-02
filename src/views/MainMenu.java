@@ -27,7 +27,7 @@ public class MainMenu extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        btnSalir = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
@@ -64,7 +64,7 @@ public class MainMenu extends javax.swing.JFrame {
         btn_Lineas5 = new javax.swing.JButton();
         lbUnidades14 = new javax.swing.JLabel();
         jPanel21 = new javax.swing.JPanel();
-        btn_unidades8 = new javax.swing.JButton();
+        btn_cotizaciones = new javax.swing.JButton();
         lbUnidades15 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -108,14 +108,14 @@ public class MainMenu extends javax.swing.JFrame {
 
         jPanel6.setBackground(new java.awt.Color(153, 153, 255));
 
-        jButton1.setBackground(new java.awt.Color(153, 153, 255));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/designs/Cerrar_Sesion.png"))); // NOI18N
-        jButton1.setText("Salir");
-        jButton1.setContentAreaFilled(false);
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnSalir.setBackground(new java.awt.Color(153, 153, 255));
+        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/designs/Cerrar_Sesion.png"))); // NOI18N
+        btnSalir.setText("Salir");
+        btnSalir.setContentAreaFilled(false);
+        btnSalir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnSalirActionPerformed(evt);
             }
         });
 
@@ -123,13 +123,13 @@ public class MainMenu extends javax.swing.JFrame {
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnSalir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                 .addContainerGap(33, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(btnSalir)
                 .addContainerGap())
         );
 
@@ -206,7 +206,7 @@ public class MainMenu extends javax.swing.JFrame {
 
         lbUnidades1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lbUnidades1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbUnidades1.setText("Lineas");
+        lbUnidades1.setText("Lineas de Suministros");
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -510,7 +510,7 @@ public class MainMenu extends javax.swing.JFrame {
 
         lbUnidades13.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lbUnidades13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbUnidades13.setText("Requisicion");
+        lbUnidades13.setText("Requisiciones");
 
         javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
         jPanel19.setLayout(jPanel19Layout);
@@ -573,20 +573,20 @@ public class MainMenu extends javax.swing.JFrame {
 
         jPanel21.setBackground(new java.awt.Color(204, 204, 255));
 
-        btn_unidades8.setBackground(new java.awt.Color(255, 255, 255));
-        btn_unidades8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/designs/unidades.png"))); // NOI18N
-        btn_unidades8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btn_unidades8.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn_unidades8.setIconTextGap(6);
-        btn_unidades8.addActionListener(new java.awt.event.ActionListener() {
+        btn_cotizaciones.setBackground(new java.awt.Color(255, 255, 255));
+        btn_cotizaciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/designs/unidades.png"))); // NOI18N
+        btn_cotizaciones.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_cotizaciones.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn_cotizaciones.setIconTextGap(6);
+        btn_cotizaciones.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_unidades8ActionPerformed(evt);
+                btn_cotizacionesActionPerformed(evt);
             }
         });
 
         lbUnidades15.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lbUnidades15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbUnidades15.setText("Por Rellenar");
+        lbUnidades15.setText("Cotizaciones");
 
         javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
         jPanel21.setLayout(jPanel21Layout);
@@ -596,7 +596,7 @@ public class MainMenu extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lbUnidades15, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_unidades8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn_cotizaciones, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 23, Short.MAX_VALUE))
         );
         jPanel21Layout.setVerticalGroup(
@@ -605,7 +605,7 @@ public class MainMenu extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lbUnidades15, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn_unidades8, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_cotizaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28))
         );
 
@@ -716,14 +716,14 @@ public class MainMenu extends javax.swing.JFrame {
 
     private void btn_unidadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_unidadesActionPerformed
         this.dispose();
-        new VUnidades().setVisible(true);
+        new VUnidades(tipo,username).setVisible(true);
 
     }//GEN-LAST:event_btn_unidadesActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         new Login(tipo).setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btn_LineasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_LineasActionPerformed
 
@@ -772,9 +772,10 @@ public class MainMenu extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btn_itemsActionPerformed
 
-    private void btn_unidades8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_unidades8ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_unidades8ActionPerformed
+    private void btn_cotizacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cotizacionesActionPerformed
+        new VCotizacion(tipo,username).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btn_cotizacionesActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -810,9 +811,11 @@ public class MainMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnSalir;
     private javax.swing.JButton btn_Lineas;
     private javax.swing.JButton btn_Lineas2;
     private javax.swing.JButton btn_Lineas5;
+    private javax.swing.JButton btn_cotizaciones;
     private javax.swing.JButton btn_directores;
     private javax.swing.JButton btn_items;
     private javax.swing.JButton btn_jefes_unidad;
@@ -821,8 +824,6 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JButton btn_unidades;
     private javax.swing.JButton btn_unidades5;
     private javax.swing.JButton btn_unidades6;
-    private javax.swing.JButton btn_unidades8;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;

@@ -8,9 +8,26 @@ public class VUnidades extends javax.swing.JFrame {
 
     private final Conexion conexion = new Conexion();
     private final Munidades unidades = new Munidades(conexion.conectar());
-
+    private int tipo;
+    private String username;
     public VUnidades() {
         initComponents();
+        this.tableUnidades.setModel(unidades.mostrarDatosUnidades());
+    }
+    
+    public VUnidades(int tipo,String username){
+        initComponents();
+        this.tipo = tipo;
+        this.username = username;
+        
+        if(tipo==0 || tipo== 1){
+            this.btn_Nuevo.setEnabled(false);
+            this.btn_Actualizar.setEnabled(false);
+            this.btn_Eliminar.setEnabled(false);
+            this.btn_guardar.setEnabled(false);
+        }
+        
+        
         this.tableUnidades.setModel(unidades.mostrarDatosUnidades());
     }
 
@@ -330,7 +347,7 @@ public class VUnidades extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        new MainMenu(2,"Admin").setVisible(true);
+        new MainMenu(tipo,username).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
 

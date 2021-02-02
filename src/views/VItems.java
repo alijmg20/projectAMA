@@ -33,8 +33,14 @@ public class VItems extends javax.swing.JFrame {
         item.obtenerLinea(LineaSumi);
         RestrictedTextField ium = new RestrictedTextField(IUnidadMedi);
         ium.setLimit(3);
-//        RestrictedTextField ipu = new RestrictedTextField(IPrecioUni);
-//        ipu.setOnlyNums(true);
+        
+        if(this.tipo==1){
+            this.Nuevo.setEnabled(false);
+            this.Actualizar.setEnabled(false);
+            this.Eliminar.setEnabled(false);
+            this.Guardar.setEnabled(false);
+        }
+        
         this.tableItem.setModel(item.mostrarDatosItem());
     }
 

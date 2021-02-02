@@ -32,6 +32,14 @@ public class VDirectores extends javax.swing.JFrame {
         this.username = username;
         this.tableDirectoresUnidades.setModel(directores.mostrarDatosJefesDirectores('D'));
         directores.obtenerUnidades(cbDepartamentos);
+        
+            if(this.tipo==1){
+            this.Nuevo.setEnabled(false);
+            this.Actualizar.setEnabled(false);
+            this.Eliminar.setEnabled(false);
+            this.Guardar.setEnabled(false);
+        }
+        
     }
 
     /**

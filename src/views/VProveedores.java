@@ -40,6 +40,14 @@ public class VProveedores extends javax.swing.JFrame {
         prov.obtenerLinea(LineaSuminist1);
         prov.obtenerLinea(LineaSuminist2);
         prov.obtenerLinea(LineaSuminist3);
+        
+        if(this.tipo==1){
+            this.Nuevo.setEnabled(false);
+            this.Actualizar.setEnabled(false);
+            this.Eliminar.setEnabled(false);
+            this.Guardar.setEnabled(false);
+        }
+        
       this.tableProveedores.setModel(prov.mostrarDatosProveedor()); 
     }
 
@@ -570,7 +578,7 @@ public class VProveedores extends javax.swing.JFrame {
     }//GEN-LAST:event_tableProveedoresMouseClicked
 
     private void btnVolver1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolver1ActionPerformed
-        new MainMenu(2,"Admin").setVisible(true);
+        new MainMenu(tipo,username).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnVolver1ActionPerformed
 

@@ -7,43 +7,38 @@ package views;
 
 import Controler.Conexion;
 import javax.swing.JOptionPane;
-import model.MRequisicion;
+import model.MCotizacion;
 
-public class VRequisicion extends javax.swing.JFrame {
+public class VCotizacion extends javax.swing.JFrame {
 
     private int tipo;
     private String username;
     private final Conexion conexion = new Conexion();
-    private final MRequisicion requisiciones = new MRequisicion(conexion.conectar());
-    
+    private final MCotizacion cotizaciones = new MCotizacion(conexion.conectar());
 
-    public VRequisicion() {
+    public VCotizacion() {
         initComponents();
 
-        this.nroRequisicion.setValue(requisiciones.obtenerNroRequisicion()+1);
-        this.requisiciones.obtenerUnidades(this.cb_unidad);
-        this.requisiciones.obtenerDirectores(this.cb_director);
-        this.requisiciones.obtenerLinea(this.cb_lineas);
-        this.tableRequisicion.setModel(this.requisiciones.mostrarDatosRequisicion());
+        this.cotizaciones.obtenerLinea(this.cb_lineas);
+        this.tableCotizacion.setModel(this.cotizaciones.mostrarDatosCotizacion());
+
     }
 
-    public VRequisicion(int tipo, String username) {
+    public VCotizacion(int tipo, String username) {
         initComponents();
         this.tipo = tipo;
         this.username = username;
-        
-        if(this.tipo==1){
+
+        if (this.tipo == 1) {
             this.Nuevo.setEnabled(false);
             this.Actualizar.setEnabled(false);
             this.Eliminar.setEnabled(false);
             this.Guardar.setEnabled(false);
         }
-        
-        this.nroRequisicion.setValue(requisiciones.obtenerNroRequisicion()+1);
-        this.requisiciones.obtenerUnidades(this.cb_unidad);
-        this.requisiciones.obtenerDirectores(this.cb_director);
-        this.requisiciones.obtenerLinea(this.cb_lineas);
-        this.tableRequisicion.setModel(this.requisiciones.mostrarDatosRequisicion());
+
+        this.cotizaciones.obtenerLinea(this.cb_lineas);
+        this.tableCotizacion.setModel(this.cotizaciones.mostrarDatosCotizacion());
+
     }
 
     /**
@@ -61,21 +56,17 @@ public class VRequisicion extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        nroRequisicion = new javax.swing.JSpinner();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         Calendar_fechaE = new rojerusan.RSDateChooser();
-        jLabel4 = new javax.swing.JLabel();
-        rb_si = new javax.swing.JRadioButton();
-        rb_no = new javax.swing.JRadioButton();
         jLabel5 = new javax.swing.JLabel();
-        cb_unidad = new javax.swing.JComboBox();
-        jLabel6 = new javax.swing.JLabel();
-        cb_director = new javax.swing.JComboBox();
-        jLabel7 = new javax.swing.JLabel();
-        cb_jefe = new javax.swing.JComboBox();
+        cb_rif = new javax.swing.JComboBox();
         jLabel8 = new javax.swing.JLabel();
         cb_lineas = new javax.swing.JComboBox();
+        txtCodigoCotizacion = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtObservaciones = new javax.swing.JTextArea();
         jPanel5 = new javax.swing.JPanel();
         Nuevo = new javax.swing.JButton();
         Actualizar = new javax.swing.JButton();
@@ -86,10 +77,9 @@ public class VRequisicion extends javax.swing.JFrame {
         jPanel7 = new javax.swing.JPanel();
         btn_regresar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tableRequisicion = new javax.swing.JTable();
+        tableCotizacion = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1280, 720));
         setResizable(false);
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 255));
@@ -100,7 +90,7 @@ public class VRequisicion extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Requisición");
+        jLabel1.setText("Cotizacion");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -119,63 +109,48 @@ public class VRequisicion extends javax.swing.JFrame {
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Cabecera requisicion"));
         jPanel4.setPreferredSize(new java.awt.Dimension(580, 350));
 
-        nroRequisicion.setEnabled(false);
-
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel2.setText("Requisicion Nro: ");
+        jLabel2.setText("Codigo : ");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Fecha Emision :");
 
         Calendar_fechaE.setEnabled(false);
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel4.setText("Cotizada :");
-
-        grupo_s_n.add(rb_si);
-        rb_si.setText("S");
-        rb_si.setContentAreaFilled(false);
-        rb_si.setEnabled(false);
-        rb_si.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rb_siActionPerformed(evt);
-            }
-        });
-
-        grupo_s_n.add(rb_no);
-        rb_no.setText("N");
-        rb_no.setContentAreaFilled(false);
-        rb_no.setEnabled(false);
-
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel5.setText("Unidad:");
+        jLabel5.setText("Rif Proveedor:");
 
-        cb_unidad.setEnabled(false);
-        cb_unidad.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cb_unidadItemStateChanged(evt);
+        cb_rif.setEnabled(false);
+        cb_rif.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb_rifActionPerformed(evt);
             }
         });
-
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel6.setText("Director:");
-
-        cb_director.setEnabled(false);
-        cb_director.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cb_directorMouseClicked(evt);
-            }
-        });
-
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel7.setText("Jefe Unidad:");
-
-        cb_jefe.setEnabled(false);
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel8.setText("Linea de suministros:");
 
         cb_lineas.setEnabled(false);
+        cb_lineas.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cb_lineasItemStateChanged(evt);
+            }
+        });
+        cb_lineas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb_lineasActionPerformed(evt);
+            }
+        });
+
+        txtCodigoCotizacion.setEnabled(false);
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel6.setText("Observaciones:");
+
+        txtObservaciones.setColumns(20);
+        txtObservaciones.setRows(5);
+        txtObservaciones.setEnabled(false);
+        jScrollPane2.setViewportView(txtObservaciones);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -185,41 +160,34 @@ public class VRequisicion extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7))
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGap(93, 93, 93)
-                                .addComponent(rb_no))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGap(35, 35, 35)
-                                .addComponent(cb_jefe, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(rb_si)
-                                    .addComponent(cb_unidad, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(Calendar_fechaE, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(nroRequisicion, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addComponent(jLabel6)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cb_lineas, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(cb_director, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(73, Short.MAX_VALUE))
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel5))
+                                .addGap(35, 35, 35)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(cb_rif, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(Calendar_fechaE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtCodigoCotizacion)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cb_lineas, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nroRequisicion, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2)
+                    .addComponent(txtCodigoCotizacion, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(27, 27, 27)
@@ -227,29 +195,23 @@ public class VRequisicion extends javax.swing.JFrame {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(Calendar_fechaE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(rb_no)
-                        .addComponent(rb_si)))
+                .addGap(20, 20, 20)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(cb_lineas, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(cb_unidad, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cb_rif, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(cb_director, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(cb_jefe, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cb_lineas, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8))
-                .addGap(24, 24, 24))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(jLabel6)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
 
         jPanel5.setBackground(new java.awt.Color(153, 153, 255));
@@ -318,7 +280,7 @@ public class VRequisicion extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(Nuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
                         .addComponent(Actualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(btn_detalle, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -393,15 +355,15 @@ public class VRequisicion extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        tableRequisicion.setModel(new javax.swing.table.DefaultTableModel(
+        tableCotizacion.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -409,13 +371,13 @@ public class VRequisicion extends javax.swing.JFrame {
 
             }
         ));
-        tableRequisicion.setPreferredSize(new java.awt.Dimension(300, 720));
-        tableRequisicion.addMouseListener(new java.awt.event.MouseAdapter() {
+        tableCotizacion.setPreferredSize(new java.awt.Dimension(300, 720));
+        tableCotizacion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tableRequisicionMouseClicked(evt);
+                tableCotizacionMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tableRequisicion);
+        jScrollPane1.setViewportView(tableCotizacion);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -425,7 +387,7 @@ public class VRequisicion extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(121, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -440,9 +402,7 @@ public class VRequisicion extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -456,137 +416,119 @@ public class VRequisicion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void NuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NuevoActionPerformed
+        this.txtCodigoCotizacion.setEnabled(true);
         this.Calendar_fechaE.setEnabled(true);
-        this.rb_no.setEnabled(true);
-        this.rb_si.setEnabled(true);
-        this.cb_unidad.setEnabled(true);
-        this.cb_director.setEnabled(true);
-        this.cb_jefe.setEnabled(true);
+        this.cb_rif.setEnabled(true);
         this.cb_lineas.setEnabled(true);
+        this.txtObservaciones.setEnabled(true);
     }//GEN-LAST:event_NuevoActionPerformed
 
     private void ActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ActualizarActionPerformed
-        if(!this.Calendar_fechaE.getFechaSeleccionada().isEmpty() && (!this.rb_si.isSelected() || !this.rb_no.isSelected()) && this.cb_director.getSelectedIndex()>0 && this.cb_jefe.getSelectedIndex()>0 && this.cb_lineas.getSelectedIndex()>0 && this.cb_unidad.getSelectedIndex()>0){
-            
+        if (!this.Calendar_fechaE.getFechaSeleccionada().isEmpty() && this.cb_lineas.getSelectedIndex() > 0 && this.cb_rif.getSelectedIndex() > 0 && !this.txtCodigoCotizacion.getText().isEmpty()) {
+
+            String codigo = this.txtCodigoCotizacion.getText();
             String fechaString = this.Calendar_fechaE.getFechaSeleccionada();
-            int filaSeleccionada = this.tableRequisicion.getSelectedRow();
-            int numero = Integer.parseInt(this.tableRequisicion.getValueAt(filaSeleccionada, 0).toString());
-            char cotizada = 'N';
-            if (this.rb_si.isSelected()) {
-                cotizada = 'S';
-            } else if (this.rb_no.isSelected()) {
-                cotizada = 'N';
-            }
-            String nombreu = this.cb_unidad.getSelectedItem().toString();
-            int ficha_director = Integer.parseInt(this.cb_director.getSelectedItem().toString());
-            int ficha_jefe = Integer.parseInt(this.cb_jefe.getSelectedItem().toString());
+            int rif = Integer.parseInt(this.cb_rif.getSelectedItem().toString());
             String lineaSuministros = this.cb_lineas.getSelectedItem().toString();
-            int decision = JOptionPane.showConfirmDialog(null, "Seguro que desea actualizar la informacion de la requisicion ?");
-            if(decision == 0){
-                this.requisiciones.actualizarDatosRequisicion(numero, fechaString, cotizada, nombreu, ficha_director, ficha_jefe, lineaSuministros);
-                this.tableRequisicion.setModel(this.requisiciones.mostrarDatosRequisicion());
+            String observaciones = this.txtObservaciones.getText();
+
+            int decision = JOptionPane.showConfirmDialog(null, "Seguro que desea actualizar la informacion de la cotizacion ?");
+            if (decision == 0) {
+
+                this.cotizaciones.actualizarDatosCotizacion(codigo, fechaString, lineaSuministros, rif, observaciones);
+                this.tableCotizacion.setModel(this.cotizaciones.mostrarDatosCotizacion());
             }
-        }else {
+        } else {
             JOptionPane.showMessageDialog(null, "Por favor rellene los campos faltantes", "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_ActualizarActionPerformed
 
     private void GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarActionPerformed
 
-        if (!this.Calendar_fechaE.getFechaSeleccionada().isEmpty() && (!this.rb_si.isSelected() || !this.rb_no.isSelected()) && this.cb_director.getSelectedIndex()>0 && this.cb_jefe.getSelectedIndex()>0 && this.cb_lineas.getSelectedIndex()>0 && this.cb_unidad.getSelectedIndex()>0) {
-            String fechaString = this.Calendar_fechaE.getFechaSeleccionada();
+        if (!this.Calendar_fechaE.getFechaSeleccionada().isEmpty() && this.cb_lineas.getSelectedIndex() > 0 && this.cb_rif.getSelectedIndex() > 0 && !this.txtCodigoCotizacion.getText().isEmpty()) {
 
-            char cotizada = 'N';
-            if (this.rb_si.isSelected()) {
-                cotizada = 'S';
-            } else if (this.rb_no.isSelected()) {
-                cotizada = 'N';
-            }
-            String nombreu = this.cb_unidad.getSelectedItem().toString();
-            int ficha_director = Integer.parseInt(this.cb_director.getSelectedItem().toString());
-            int ficha_jefe = Integer.parseInt(this.cb_jefe.getSelectedItem().toString());
+            String fechaString = this.Calendar_fechaE.getFechaSeleccionada();
+            String codigo = this.txtCodigoCotizacion.getText();
+            int rif = Integer.parseInt(this.cb_rif.getSelectedItem().toString());
             String lineaSuministros = this.cb_lineas.getSelectedItem().toString();
-            this.requisiciones.insertarDatosRequisicion(fechaString, cotizada, nombreu, ficha_director, ficha_jefe, lineaSuministros);
-            this.nroRequisicion.setValue(requisiciones.obtenerNroRequisicion()+1);
-            this.tableRequisicion.setModel(this.requisiciones.mostrarDatosRequisicion());
+            String observaciones = this.txtObservaciones.getText();
+            this.cotizaciones.insertarDatosCotizacion(codigo, fechaString, lineaSuministros, rif, observaciones);
+            this.tableCotizacion.setModel(this.cotizaciones.mostrarDatosCotizacion());
         } else {
             JOptionPane.showMessageDialog(null, "Por favor rellene los campos faltantes", "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
+
     }//GEN-LAST:event_GuardarActionPerformed
 
     private void LimpiarTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LimpiarTodoActionPerformed
-        this.nroRequisicion.setValue(requisiciones.obtenerNroRequisicion()+1);
+        this.txtCodigoCotizacion.setText("");
         this.Calendar_fechaE.setTextoFecha("");
-        this.rb_si.setSelected(false);
-        this.rb_no.setSelected(false);
-        this.cb_director.setSelectedIndex(0);
-        this.cb_unidad.setSelectedIndex(0);
         this.cb_lineas.setSelectedIndex(0);
     }//GEN-LAST:event_LimpiarTodoActionPerformed
 
     private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
-        int filaSeleccionada = this.tableRequisicion.getSelectedRow();
-        int decision = JOptionPane.showConfirmDialog(null, "seguro que Desea Elimimnar la requisicion ? ");
-        if (decision == 0) {
-            this.requisiciones.eliminarDatosRequisicion(Integer.parseInt(this.tableRequisicion.getValueAt(filaSeleccionada, 0).toString()));
-            this.tableRequisicion.setModel(requisiciones.mostrarDatosRequisicion());
+        int filaSeleccionada = this.tableCotizacion.getSelectedRow();
+        if (!this.txtCodigoCotizacion.getText().isEmpty()) {
+            int decision = JOptionPane.showConfirmDialog(null, "seguro que Desea Elimimnar la requisicion ? ");
+            if (decision == 0) {
+
+                this.cotizaciones.eliminarDatosCotizacion(this.tableCotizacion.getValueAt(filaSeleccionada, 0).toString());
+                this.tableCotizacion.setModel(this.cotizaciones.mostrarDatosCotizacion());
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Por favor seleccione una cotizacion", "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
+
     }//GEN-LAST:event_EliminarActionPerformed
 
     private void btn_detalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_detalleActionPerformed
 
-        int filaSeleccionada = this.tableRequisicion.getSelectedRow();
-        if(filaSeleccionada >= 0 ){
-            int codigoSeleccionado = Integer.parseInt(this.tableRequisicion.getValueAt(filaSeleccionada, 0).toString());
-        new VDetalleRequisicion(tipo,username,codigoSeleccionado).setVisible(true);
-        this.dispose();
-        }else{
-            JOptionPane.showMessageDialog(null, "Por favor Seleccione una requisicion ", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        int filaSeleccionada = this.tableCotizacion.getSelectedRow();
+        if (filaSeleccionada >= 0) {
+            String codigoCot = this.tableCotizacion.getValueAt(filaSeleccionada, 0).toString();
+            int rif = Integer.parseInt(this.tableCotizacion.getValueAt(filaSeleccionada, 4).toString());
+            new VDetalleCotizacion(tipo, username, codigoCot, rif).setVisible(true);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(null, "Por favor Seleccione una cotizacion ", "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
-        
-    }//GEN-LAST:event_btn_detalleActionPerformed
 
-    private void rb_siActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb_siActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_rb_siActionPerformed
+    }//GEN-LAST:event_btn_detalleActionPerformed
 
     private void btn_regresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regresarActionPerformed
         new MainMenu(tipo, username).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btn_regresarActionPerformed
 
-    private void cb_directorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cb_directorMouseClicked
+    private void tableCotizacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableCotizacionMouseClicked
 
-    }//GEN-LAST:event_cb_directorMouseClicked
+        int filaSeleccionada = this.tableCotizacion.rowAtPoint(evt.getPoint());
+        this.txtCodigoCotizacion.setText(this.tableCotizacion.getValueAt(filaSeleccionada, 0).toString());
+        this.Calendar_fechaE.setTextoFecha(this.tableCotizacion.getValueAt(filaSeleccionada, 1).toString());
+        this.txtObservaciones.setText(this.tableCotizacion.getValueAt(filaSeleccionada, 2).toString());
+        this.cb_lineas.setSelectedItem(this.tableCotizacion.getValueAt(filaSeleccionada, 3).toString());
+        this.cb_rif.setSelectedItem(this.tableCotizacion.getValueAt(filaSeleccionada, 4).toString());
+        this.txtCodigoCotizacion.setEnabled(false);
 
-    private void cb_unidadItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_unidadItemStateChanged
-        if(this.cb_unidad.getSelectedIndex()>0){
-            this.cb_jefe.removeAllItems();
-            String nombreu = this.cb_unidad.getSelectedItem().toString();
-            this.requisiciones.obtenerJefes(cb_jefe,nombreu);
-        }else{
-            this.cb_jefe.removeAllItems();
+    }//GEN-LAST:event_tableCotizacionMouseClicked
+
+    private void cb_lineasItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_lineasItemStateChanged
+        if (this.cb_lineas.getSelectedIndex() > 0) {
+            this.cb_rif.removeAllItems();
+            String lineas = this.cb_lineas.getSelectedItem().toString();
+            this.cotizaciones.ObtenerRifProveedor(cb_rif, lineas);
+        } else {
+            this.cb_rif.removeAllItems();
         }
-    }//GEN-LAST:event_cb_unidadItemStateChanged
+    }//GEN-LAST:event_cb_lineasItemStateChanged
 
-    private void tableRequisicionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableRequisicionMouseClicked
-        
-        int filaSeleccionada = this.tableRequisicion.rowAtPoint(evt.getPoint());
-        this.nroRequisicion.setValue(Integer.parseInt(this.tableRequisicion.getValueAt(filaSeleccionada, 0).toString()));
-        this.Calendar_fechaE.setTextoFecha(this.tableRequisicion.getValueAt(filaSeleccionada, 1).toString());
-        switch (this.tableRequisicion.getValueAt(filaSeleccionada, 2).toString()) {
-            case "S":
-                this.rb_si.setSelected(true);
-                break;
-            case "N":
-                this.rb_no.setSelected(true);
-                break;
-        }
-        this.cb_unidad.setSelectedItem(this.tableRequisicion.getValueAt(filaSeleccionada, 3).toString());
-        this.cb_director.setSelectedItem(this.tableRequisicion.getValueAt(filaSeleccionada, 4).toString());
-        this.cb_jefe.setSelectedItem(this.tableRequisicion.getValueAt(filaSeleccionada, 5).toString());
-        this.cb_lineas.setSelectedItem(this.tableRequisicion.getValueAt(filaSeleccionada, 6).toString());
-    }//GEN-LAST:event_tableRequisicionMouseClicked
+    private void cb_lineasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_lineasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cb_lineasActionPerformed
+
+    private void cb_rifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_rifActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cb_rifActionPerformed
 
     /**
      * @param args the command line arguments
@@ -605,21 +547,23 @@ public class VRequisicion extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VRequisicion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VCotizacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VRequisicion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VCotizacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VRequisicion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VCotizacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VRequisicion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VCotizacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VRequisicion().setVisible(true);
+                new VCotizacion().setVisible(true);
             }
         });
     }
@@ -633,17 +577,13 @@ public class VRequisicion extends javax.swing.JFrame {
     private javax.swing.JButton Nuevo;
     private javax.swing.JButton btn_detalle;
     private javax.swing.JButton btn_regresar;
-    private javax.swing.JComboBox cb_director;
-    private javax.swing.JComboBox cb_jefe;
     private javax.swing.JComboBox cb_lineas;
-    private javax.swing.JComboBox cb_unidad;
+    private javax.swing.JComboBox cb_rif;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -652,9 +592,9 @@ public class VRequisicion extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSpinner nroRequisicion;
-    private javax.swing.JRadioButton rb_no;
-    private javax.swing.JRadioButton rb_si;
-    private javax.swing.JTable tableRequisicion;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable tableCotizacion;
+    private javax.swing.JTextField txtCodigoCotizacion;
+    private javax.swing.JTextArea txtObservaciones;
     // End of variables declaration//GEN-END:variables
 }

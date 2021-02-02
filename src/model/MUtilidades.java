@@ -112,6 +112,29 @@ public class MUtilidades {
         return numeros;
     }
 
+    //Utilizado en MDETALLESCOTIZACION
+    public void obtenerNrosRequisiciones(JComboBox cb, int rif,String codigocot) {
+        try {
+            String SQL = "SELECT r.nrorequisicion\n"
+                    + "FROM requisiciones r,proveedores p , suministran sumi,cotizaciones cot \n"
+                    + "WHERE cot.codigocot='"+codigocot+"'\n"
+                    + "AND cot.codlineas=r.codlineas\n"
+                    + "AND cot.codlineas=sumi.codlineas\n"
+                    + "AND r.codlineas= sumi.codlineas\n"
+                    + "AND p.rif=sumi.rifproveedor\n"
+                    + "AND p.rif="+rif+" "
+                    + "ORDER BY r.nrorequisicion DESC ";
+            PreparedStatement consulta = conexion.prepareStatement(SQL);
+            ResultSet resultado = consulta.executeQuery();
+            cb.addItem("Seleccione una opcion");
+            while (resultado.next()) {
+                cb.addItem(resultado.getString("nrorequisicion"));
+            }
+        } catch (Exception ex) {
+
+        }
+    }
+
     public void obtenerDirectores(JComboBox cb) {
         try {
             String SQL = "SELECT * FROM empleados "
@@ -167,7 +190,7 @@ public class MUtilidades {
         try {
             String SQL = "SELECT i.coditem "
                     + "FROM items i, requisiciones r "
-                    + "WHERE r.nrorequisicion=" + nroRequisicion + " AND r.codlineas=i.codlineas AND i.nombrei='" + nombrei+"'";
+                    + "WHERE r.nrorequisicion=" + nroRequisicion + " AND r.codlineas=i.codlineas AND i.nombrei='" + nombrei + "'";
             String coditem = "";
             Statement consultaCodItem = this.conexion.createStatement();
             ResultSet resultado = consultaCodItem.executeQuery(SQL);
@@ -177,6 +200,24 @@ public class MUtilidades {
 
         }
         return null;
+    }
+
+    public void ObtenerRifProveedor(JComboBox cb, String descripcionl) {
+        try {
+            String codlineas = this.busquedaLinea(descripcionl);
+            String SQL = "SELECT r.rif FROM proveedores r,suministran sumi "
+                    + "WHERE r.rif=sumi.rifproveedor AND sumi.codlineas='" + codlineas + "' "
+                    + "ORDER BY r.rif ASC";
+            PreparedStatement consulta = conexion.prepareStatement(SQL);
+            ResultSet resultado = consulta.executeQuery();
+            cb.addItem("Seleccione una opcion");
+            while (resultado.next()) {
+                cb.addItem(resultado.getString("rif"));
+            }
+        } catch (Exception e) {
+
+        }
+
     }
 
 }

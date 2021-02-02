@@ -30,6 +30,14 @@ public class VJefesUnidad extends javax.swing.JFrame {
         initComponents();
         this.tipo = tipo;
         this.username = username;
+        
+        if(this.tipo==1){
+            this.Nuevo.setEnabled(false);
+            this.Actualizar.setEnabled(false);
+            this.Eliminar.setEnabled(false);
+            this.Guardar.setEnabled(false);
+        }
+        
         this.tableJefesUnidades.setModel(jefes.mostrarDatosJefesDirectores('J'));
         jefes.obtenerUnidades(cbDepartamentos);
     }

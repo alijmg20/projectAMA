@@ -30,6 +30,14 @@ public class VLineas extends javax.swing.JFrame {
         this.tableLineas.setModel(lineas.mostrarDatosLineas());
         this.tipo = tipo;
         this.username = username;
+        
+        if(this.tipo==1){
+            this.Nuevo.setEnabled(false);
+            this.Actualizar.setEnabled(false);
+            this.Eliminar.setEnabled(false);
+            this.Guardar.setEnabled(false);
+        }
+        
     }
 
     /**

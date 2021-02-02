@@ -18,7 +18,7 @@ public class MDetallesRequisicion extends MUtilidades {
     public void agregarDetallesRequisicion(int nrorequisicion, String nombrei, int cantidad, float precioa) {
 
         String codigoi = this.busquedaItems(nombrei, nrorequisicion);
-        
+
         try {
             String SQL = "INSERT INTO detalles_requisicion (nrorequisicion,coditem,cantidad,precioAprox) VALUES (?,?,?,?) ";
             PreparedStatement consulta = this.getConexion().prepareStatement(SQL);
@@ -36,27 +36,26 @@ public class MDetallesRequisicion extends MUtilidades {
     }
 
     public void actualizarDetallesRequisicion(int nroRequisicion, String nombrei, int cantidad, float precioA) {
-        
+
         String codigoi = this.busquedaItems(nombrei, nroRequisicion);
-        
-        try{
-            
+
+        try {
+
             String SQL = "UPDATE detalles_requisicion SET cantidad=?,precioAprox=? WHERE nrorequisicion=? AND coditem=?";
             PreparedStatement consulta = this.getConexion().prepareStatement(SQL);
-            
+
             consulta.setInt(1, cantidad);
             consulta.setFloat(2, precioA);
             consulta.setInt(3, nroRequisicion);
             consulta.setString(4, codigoi);
             consulta.execute();
-            
+
             JOptionPane.showMessageDialog(null, "Detalle de la requisicion Actualizada Exitosamente", "Accion realizada", JOptionPane.INFORMATION_MESSAGE);
-            
-        }catch(SQLException | HeadlessException e){
+
+        } catch (SQLException | HeadlessException e) {
             JOptionPane.showMessageDialog(null, "Error al actualizar datos: " + e.getMessage(), "Accion no realizada", JOptionPane.ERROR_MESSAGE);
         }
-        
-        
+
     }
 
     public DefaultTableModel mostrarDatosDetallesRequisicion(int nroRequisicion) {
@@ -90,11 +89,11 @@ public class MDetallesRequisicion extends MUtilidades {
 
         return tabla;
     }
-    
-        public void eliminarDatosDetalleRequisicion(int nrorequisicion,String nombrei) {
-            
-            String codigoi = this.busquedaItems(nombrei, nrorequisicion);
-            
+
+    public void eliminarDatosDetalleRequisicion(int nrorequisicion, String nombrei) {
+
+        String codigoi = this.busquedaItems(nombrei, nrorequisicion);
+
         String SQL = "DELETE FROM detalles_requisicion where nrorequisicion=? AND coditem=?";
 
         try {
