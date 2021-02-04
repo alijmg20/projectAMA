@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import views.*;
 
 /**
  *
@@ -21,24 +22,20 @@ import javax.swing.table.DefaultTableModel;
  */
 public class MCotizacion extends MUtilidades {
 
-    public MCotizacion(Connection conexion) {
-        super(conexion);
-    }
 
     public void insertarDatosCotizacion(String codigoCot, String fecha, String descripcionl, String r_social, String observaciones) {
-        int rif = this.busquedaRifProveedor(r_social);
         
-        System.out.println(r_social);
+        
         try {
 
             long fechaLong = java.util.Date.parse(fecha);
             Date fechaDate = new Date(fechaLong);
             String codlinea = this.busquedaLinea(descripcionl);
-            rif = this.busquedaRifProveedor(r_social);
+           int rif = this.busquedaRifProveedor(r_social);
             
             String SQL = "INSERT INTO cotizaciones(codigocot,f_emision,observaciones,codlineas,rifproveedor) VALUES (?,?,?,?,?) ";
 
-            PreparedStatement consulta = this.getConexion().prepareStatement(SQL);
+            PreparedStatement consulta = TipoUsuario.conexion.prepareStatement(SQL);
             consulta.setString(1, codigoCot);
             consulta.setDate(2, fechaDate);
             consulta.setString(3, observaciones);
@@ -60,7 +57,7 @@ public class MCotizacion extends MUtilidades {
                 + "FROM cotizaciones cot,lineas ls, proveedores p "
                 + "WHERE cot.codlineas=ls.codlineas AND p.rif=cot.rifproveedor ";
         try {
-            Statement consulta = this.getConexion().createStatement();
+            Statement consulta = TipoUsuario.conexion.createStatement();
             ResultSet resultados = consulta.executeQuery(SQL);
 
             while (resultados.next()) {
@@ -91,7 +88,7 @@ public class MCotizacion extends MUtilidades {
             int rif = this.busquedaRifProveedor(r_social);
             String SQL = "UPDATE cotizaciones SET f_emision=? , observaciones=? , codlineas=?,rifproveedor=? "
                     + "WHERE  codigocot=?";
-            PreparedStatement consulta = this.getConexion().prepareStatement(SQL);
+            PreparedStatement consulta = TipoUsuario.conexion.prepareStatement(SQL);
             consulta.setDate(1, fechaDate);
             consulta.setString(2, observaciones);
             consulta.setString(3, codlinea);
@@ -112,7 +109,7 @@ public class MCotizacion extends MUtilidades {
         String SQL = "DELETE FROM cotizaciones where codigocot=?";
 
         try {
-            PreparedStatement consulta = this.getConexion().prepareStatement(SQL);
+            PreparedStatement consulta = TipoUsuario.conexion.prepareStatement(SQL);
             consulta.setString(1, codigoCot);
             consulta.executeUpdate();
             JOptionPane.showMessageDialog(null, "cotizacion Eliminada Exitosamente ", "Accion realizada", JOptionPane.INFORMATION_MESSAGE);

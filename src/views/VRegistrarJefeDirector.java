@@ -18,7 +18,7 @@ public class VRegistrarJefeDirector extends javax.swing.JFrame {
 
     private int tipo;
     
-    private final MJefesDirectores jefes_directores = new MJefesDirectores(TipoUsuario.conexion.conectar());
+    private final MJefesDirectores jefes_directores = new MJefesDirectores();
     public VRegistrarJefeDirector() {
         initComponents();
     }

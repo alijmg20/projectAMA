@@ -14,13 +14,11 @@ import javax.swing.JComboBox;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-
+import views.TipoUsuario;
 
 public class MProveedores extends MUtilidades {
 
-    public MProveedores(Connection conexion) {
-        super(conexion);
-    }
+
     
 
     
@@ -36,7 +34,7 @@ public class MProveedores extends MUtilidades {
         DefaultTableModel tabla = new DefaultTableModel(null, titulos);
         String SQL = "SELECT rif, r_social, direccion FROM proveedores  WHERE statusp ='A' ORDER BY rif ASC";
         try {
-            Statement consulta = this.getConexion().createStatement();
+            Statement consulta = TipoUsuario.conexion.createStatement();
             ResultSet resultados = consulta.executeQuery(SQL);
             while (resultados.next()) {
                 registros[0] = resultados.getString("rif");
@@ -54,7 +52,7 @@ public class MProveedores extends MUtilidades {
         try {
                        
             String SQL = "INSERT INTO proveedores (rif,r_social,direccion,statusp) VALUES (?,?,?,?) ";
-            PreparedStatement consulta = this.getConexion().prepareStatement(SQL);
+            PreparedStatement consulta = TipoUsuario.conexion.prepareStatement(SQL);
             consulta.setInt(1, rif); 
             consulta.setString(2, r_social);
             consulta.setString(3, direccion); 
@@ -72,7 +70,7 @@ public class MProveedores extends MUtilidades {
         try {
                        
             String SQL = "INSERT INTO correos (rifproveedor,correo) VALUES (?,?) ";
-            PreparedStatement consulta = this.getConexion().prepareStatement(SQL);
+            PreparedStatement consulta = TipoUsuario.conexion.prepareStatement(SQL);
             consulta.setInt(1, rifproveedor);
             consulta.setString(2, correo);
             consulta.execute();
@@ -86,7 +84,7 @@ public class MProveedores extends MUtilidades {
        try {
                        
             String SQL = "INSERT INTO telefonos (rifproveedor,telefonos) VALUES (?,?) ";
-            PreparedStatement consulta = this.getConexion().prepareStatement(SQL);
+            PreparedStatement consulta = TipoUsuario.conexion.prepareStatement(SQL);
             consulta.setInt(1, rifproveedor);
             consulta.setString(2, telefonos); 
             consulta.execute();
@@ -104,7 +102,7 @@ public class MProveedores extends MUtilidades {
             String codlineasS = busquedaLinea(codlineas); // me saca de la bdd el codigo de la lnea seleccionada 
             
             String SQL = "INSERT INTO suministran (rifproveedor,codlineas) VALUES (?,?) ";
-            PreparedStatement consulta = this.getConexion().prepareStatement(SQL);
+            PreparedStatement consulta = TipoUsuario.conexion.prepareStatement(SQL);
 
             consulta.setInt(1, rifproveedor);
             consulta.setString(2,codlineasS); 
@@ -121,7 +119,7 @@ public class MProveedores extends MUtilidades {
             String[] registros = new String[1];
             String SQL = "select s.correo from proveedores o, correos s where s.rifproveedor=o.rif and o.rif="+rif;
             try {
-            Statement consulta = this.getConexion().createStatement();
+            Statement consulta = TipoUsuario.conexion.createStatement();
             ResultSet resultados = consulta.executeQuery(SQL);
             while (resultados.next()) {
                 registros[0] = resultados.getString("correo");
@@ -140,7 +138,7 @@ public class MProveedores extends MUtilidades {
             String[] registros = new String[1];
             String SQL = "select s.correo from proveedores o, correos s where s.rifproveedor=o.rif and o.rif="+rif;
             try {
-            Statement consulta = this.getConexion().createStatement();
+            Statement consulta = TipoUsuario.conexion.createStatement();
             ResultSet resultados = consulta.executeQuery(SQL);
             int i=0;
             while (resultados.next()) {
@@ -160,7 +158,7 @@ public class MProveedores extends MUtilidades {
             String[] registros = new String[1];
             String SQL = "select tl.telefonos from telefonos tl, proveedores o where o.rif=tl.rifproveedor and o.rif="+rif;
             try {
-            Statement consulta = this.getConexion().createStatement();
+            Statement consulta = TipoUsuario.conexion.createStatement();
             ResultSet resultados = consulta.executeQuery(SQL);
             while (resultados.next()) {
                 registros[0] = resultados.getString("telefonos");
@@ -179,7 +177,7 @@ public class MProveedores extends MUtilidades {
             String[] registros = new String[1];
             String SQL = "select tl.telefonos from telefonos tl, proveedores o where o.rif=tl.rifproveedor and o.rif="+rif;
             try {
-            Statement consulta = this.getConexion().createStatement();
+            Statement consulta = TipoUsuario.conexion.createStatement();
             ResultSet resultados = consulta.executeQuery(SQL);
             int i=0;
             while (resultados.next()) {
@@ -199,7 +197,7 @@ public class MProveedores extends MUtilidades {
             String[] registros = new String[1];
             String SQL = "select l.descripcionl from lineas l, suministran w where  w.codlineas=l.codlineas and w.rifproveedor="+rif;
             try {
-            Statement consulta = this.getConexion().createStatement();
+            Statement consulta = TipoUsuario.conexion.createStatement();
             ResultSet resultados = consulta.executeQuery(SQL);
             while (resultados.next()) {
                 registros[0] = resultados.getString("descripcionl");
@@ -218,7 +216,7 @@ public class MProveedores extends MUtilidades {
         String[] registros = new String[1];
             String SQL = "select l.descripcionl from lineas l, suministran w where  w.codlineas=l.codlineas and w.rifproveedor="+rif;
             try {
-            Statement consulta = this.getConexion().createStatement();
+            Statement consulta = TipoUsuario.conexion.createStatement();
             ResultSet resultados = consulta.executeQuery(SQL);
             int i=0;
             while (resultados.next()) {
@@ -244,7 +242,7 @@ public class MProveedores extends MUtilidades {
     public void actualizarDatosProveedores(int rif, String r_social, String direccion) {
         try { 
             String SQL = "UPDATE proveedores SET r_social='"+r_social+"', direccion='"+direccion+"' WHERE rif="+ rif; 
-            PreparedStatement consulta = getConexion().prepareStatement(SQL); 
+            PreparedStatement consulta = TipoUsuario.conexion.prepareStatement(SQL); 
             consulta.execute();
             JOptionPane.showMessageDialog(null, "Proveedor actualizado exitosamente", "Accion realizada", JOptionPane.INFORMATION_MESSAGE);
                   
@@ -258,7 +256,7 @@ public class MProveedores extends MUtilidades {
              if (correo1.equals(correoi1)==false){
                 try { 
                     String SQL = "UPDATE correos SET correo='"+correo1+"' WHERE rifproveedor="+rif+" and correo='"+correoi1+"'";
-                    PreparedStatement consulta = getConexion().prepareStatement(SQL); 
+                    PreparedStatement consulta = TipoUsuario.conexion.prepareStatement(SQL); 
                     consulta.execute();
                     JOptionPane.showMessageDialog(null, "Correo1 actualizado exitosamente", "Accion realizada", JOptionPane.INFORMATION_MESSAGE);
                 } catch (SQLException | HeadlessException e) {
@@ -270,7 +268,7 @@ public class MProveedores extends MUtilidades {
             if (correo2.equals(correoi2)==false){
                 try { 
                     String SQL = "UPDATE correos SET correo='"+correo2+"' WHERE rifproveedor="+rif+" and correo='"+correoi2+"'";
-                    PreparedStatement consulta = getConexion().prepareStatement(SQL); 
+                    PreparedStatement consulta = TipoUsuario.conexion.prepareStatement(SQL); 
                     consulta.execute();
                     JOptionPane.showMessageDialog(null, "Correo1 actualizado exitosamente", "Accion realizada", JOptionPane.INFORMATION_MESSAGE);
                 } catch (SQLException | HeadlessException e) {
@@ -282,7 +280,7 @@ public class MProveedores extends MUtilidades {
             if (correo3.equals(correoi3)==false){
                 try { 
                     String SQL = "UPDATE correos SET correo='"+correo3+"' WHERE rifproveedor="+rif+" and correo='"+correoi3+"'";
-                    PreparedStatement consulta = getConexion().prepareStatement(SQL); 
+                    PreparedStatement consulta = TipoUsuario.conexion.prepareStatement(SQL); 
                     consulta.execute();
                     JOptionPane.showMessageDialog(null, "Correo1 actualizado exitosamente", "Accion realizada", JOptionPane.INFORMATION_MESSAGE);
                 } catch (SQLException | HeadlessException e) {
@@ -297,7 +295,7 @@ public class MProveedores extends MUtilidades {
              if (tl1.equals(ti1)==false){
                 try { 
                     String SQL = "UPDATE telefonos SET telefonos='"+tl1+"' WHERE rifproveedor="+rif+" and telefonos='"+ti1+"'";
-                    PreparedStatement consulta = getConexion().prepareStatement(SQL); 
+                    PreparedStatement consulta = TipoUsuario.conexion.prepareStatement(SQL); 
                     consulta.execute();
                     JOptionPane.showMessageDialog(null, "Telefono 1 actualizado exitosamente", "Accion realizada", JOptionPane.INFORMATION_MESSAGE);
                 } catch (SQLException | HeadlessException e) {
@@ -309,7 +307,7 @@ public class MProveedores extends MUtilidades {
             if (tl2.equals(ti2)==false){
                 try { 
                     String SQL = "UPDATE telefonos SET telefonos='"+tl2+"' WHERE rifproveedor="+rif+" and telefonos='"+ti2+"'";
-                    PreparedStatement consulta = getConexion().prepareStatement(SQL); 
+                    PreparedStatement consulta = TipoUsuario.conexion.prepareStatement(SQL); 
                     consulta.execute();
                     JOptionPane.showMessageDialog(null, "Telefono 2 actualizado exitosamente", "Accion realizada", JOptionPane.INFORMATION_MESSAGE);
                 } catch (SQLException | HeadlessException e) {
@@ -321,7 +319,7 @@ public class MProveedores extends MUtilidades {
             if (tl3.equals(ti3)==false){
                 try { 
                     String SQL = "UPDATE telefonos SET telefonos='"+tl3+"' WHERE rifproveedor="+rif+" and telefonos='"+ti3+"'";
-                    PreparedStatement consulta = getConexion().prepareStatement(SQL); 
+                    PreparedStatement consulta = TipoUsuario.conexion.prepareStatement(SQL); 
                     consulta.execute();
                     JOptionPane.showMessageDialog(null, "Telefono 3 actualizado exitosamente", "Accion realizada", JOptionPane.INFORMATION_MESSAGE);
                 } catch (SQLException | HeadlessException e) {
@@ -336,7 +334,7 @@ public class MProveedores extends MUtilidades {
              if (linea1.equals(li1)==false){
                 try {
                     String SQL = "update suministran set codlineas=(select codlineas from lineas where descripcionl='"+linea1+"') where rifproveedor="+rif+" and codlineas in (select s.codlineas from lineas l, suministran s where l.descripcionl='"+li1+"' and rifproveedor="+rif+")";
-                    PreparedStatement consulta = getConexion().prepareStatement(SQL); 
+                    PreparedStatement consulta = TipoUsuario.conexion.prepareStatement(SQL); 
                     consulta.execute();
                     JOptionPane.showMessageDialog(null, "Linea de suministro 1 actualizado exitosamente", "Accion realizada", JOptionPane.INFORMATION_MESSAGE);
                 } catch (SQLException | HeadlessException e) {
@@ -348,7 +346,7 @@ public class MProveedores extends MUtilidades {
              if (linea2.equals(li2)==false){
                 try {
                     String SQL = "update suministran set codlineas=(select codlineas from lineas where descripcionl='"+linea2+"') where rifproveedor="+rif+" and codlineas in (select s.codlineas from lineas l, suministran s where l.descripcionl='"+li2+"' and rifproveedor="+rif+")";
-                    PreparedStatement consulta = getConexion().prepareStatement(SQL); 
+                    PreparedStatement consulta = TipoUsuario.conexion.prepareStatement(SQL); 
                     consulta.execute();
                     JOptionPane.showMessageDialog(null, "Linea de suministro 1 actualizado exitosamente", "Accion realizada", JOptionPane.INFORMATION_MESSAGE);
                 } catch (SQLException | HeadlessException e) {
@@ -360,7 +358,7 @@ public class MProveedores extends MUtilidades {
              if (linea3.equals(li3)==false){
                 try {
                     String SQL = "update suministran set codlineas=(select codlineas from lineas where descripcionl='"+linea3+"') where rifproveedor="+rif+" and codlineas in (select s.codlineas from lineas l, suministran s where l.descripcionl='"+li3+"' and rifproveedor="+rif+")";
-                    PreparedStatement consulta = getConexion().prepareStatement(SQL); 
+                    PreparedStatement consulta = TipoUsuario.conexion.prepareStatement(SQL); 
                     consulta.execute();
                     JOptionPane.showMessageDialog(null, "Linea de suministro 3 actualizado exitosamente", "Accion realizada", JOptionPane.INFORMATION_MESSAGE);
                 } catch (SQLException | HeadlessException e) {
@@ -374,7 +372,7 @@ public class MProveedores extends MUtilidades {
      public void eliminarDatosProveedores(int rif){ 
         try{
             String SQL = "UPDATE proveedores SET statusp = 'S' WHERE rif=?"; 
-            PreparedStatement consulta = getConexion().prepareStatement(SQL);
+            PreparedStatement consulta = TipoUsuario.conexion.prepareStatement(SQL);
             consulta.setInt(1, rif);
             consulta.executeUpdate();
             JOptionPane.showMessageDialog(null, "Proveedor Eliminado exitosamente ","Accion realizada",JOptionPane.INFORMATION_MESSAGE);
@@ -390,7 +388,7 @@ public class MProveedores extends MUtilidades {
         boolean inProveedor = false;
         try {
             String SQL = "SELECT * FROM proveedores WHERE rif=" + rif + " ";
-            Statement consulta = this.getConexion().createStatement();
+            Statement consulta = TipoUsuario.conexion.createStatement();
             ResultSet resultados = consulta.executeQuery(SQL);
             resultados.next();
             int rifBdd = resultados.getInt("rif");

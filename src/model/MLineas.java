@@ -8,21 +8,18 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import views.TipoUsuario;
+public class MLineas extends MUtilidades {
 
-public class MLineas {
+
     
-    private final Connection conexion;
 
-    //Constructor de la clase que se conecta luego con la clase conexion en controler
-    public MLineas(Connection conexion) {
-        this.conexion = conexion;
-    }
     
     //INSERTAR DATOS EN LA LINEA DE SUMINISTROS
     public void insertarDatosLineas(String codlineas, String descripcionl) {
         try {
             String SQL = "INSERT INTO lineas (codlineas,descripcionl) VALUES (?,?) ";
-            PreparedStatement consulta = this.conexion.prepareStatement(SQL);
+            PreparedStatement consulta = TipoUsuario.conexion.prepareStatement(SQL);
 
             consulta.setString(1, codlineas);
             consulta.setString(2, descripcionl);
@@ -45,7 +42,7 @@ public class MLineas {
         String SQL = "SELECT * FROM lineas ORDER BY descripcionl";
 
         try {
-            Statement consulta = this.conexion.createStatement();
+            Statement consulta = TipoUsuario.conexion.createStatement();
             ResultSet resultados = consulta.executeQuery(SQL);
             while (resultados.next()) {
                 registros[0] = resultados.getString("codlineas");
@@ -66,7 +63,7 @@ public class MLineas {
     public void actualizarDatosLineas(String codlineas, String descripcionl) {
         try {
             String SQL = "UPDATE lineas SET descripcionl=? WHERE codlineas=? ";
-            PreparedStatement consulta = this.conexion.prepareStatement(SQL);
+            PreparedStatement consulta = TipoUsuario.conexion.prepareStatement(SQL);
             
             consulta.setString(1, descripcionl);
             consulta.setString(2, codlineas);
@@ -85,7 +82,7 @@ public class MLineas {
         String SQL = "DELETE FROM lineas where codlineas=?";
         
         try{
-            PreparedStatement consulta = conexion.prepareStatement(SQL);
+            PreparedStatement consulta = TipoUsuario.conexion.prepareStatement(SQL);
             consulta.setString(1, codlineas);
             consulta.executeUpdate();
             JOptionPane.showMessageDialog(null, "Linea de Suministro Eliminada exitosamente ","Accion realizada",JOptionPane.INFORMATION_MESSAGE);

@@ -17,7 +17,7 @@ public class VDetalleRequisicion extends javax.swing.JFrame {
     private String username;
     private int nrorequisicion;
     
-    private final MDetallesRequisicion detRequisicion = new MDetallesRequisicion(TipoUsuario.conexion.conectar());
+    private final MDetallesRequisicion detRequisicion = new MDetallesRequisicion();
 
     public VDetalleRequisicion() {
         initComponents();

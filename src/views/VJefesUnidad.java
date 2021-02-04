@@ -19,7 +19,7 @@ public class VJefesUnidad extends javax.swing.JFrame {
     private int tipo;
     private String username;
     
-    private final MJefesDirectores jefes = new MJefesDirectores(TipoUsuario.conexion.conectar());
+    private final MJefesDirectores jefes = new MJefesDirectores();
 
     public VJefesUnidad() {
         initComponents();

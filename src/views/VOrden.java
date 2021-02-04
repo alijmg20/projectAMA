@@ -13,7 +13,7 @@ import model.MOrden;
 public class VOrden extends javax.swing.JFrame {
 
     
-    private final MOrden orden = new MOrden(TipoUsuario.conexion.conectar());
+    private final MOrden orden = new MOrden();
 
     private int tipo;
     private String username;

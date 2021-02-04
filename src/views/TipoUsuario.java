@@ -6,6 +6,7 @@
 package views;
 
 import Controler.Conexion;
+import java.sql.Connection;
 
 /**
  *
@@ -13,7 +14,8 @@ import Controler.Conexion;
  */
 public class TipoUsuario extends javax.swing.JFrame {
 
-    public static Conexion conexion = new Conexion();
+    public static Conexion conex = new Conexion();
+    public static Connection conexion = conex.conectar();
     public TipoUsuario() {
         initComponents();
         

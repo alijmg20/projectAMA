@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 public class VItems extends javax.swing.JFrame {
 
     
-    private final MItem item = new MItem(TipoUsuario.conexion.conectar());
+    private final MItem item = new MItem();
     
      //Atributos de la clase
     private int tipo;

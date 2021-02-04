@@ -9,15 +9,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-
+import views.TipoUsuario;
 public class MOrden extends MUtilidades {
 
-    public MOrden(Connection conexion) {
-        super(conexion);
-    }
+ 
 
     public void insertarDatosOrden(String nroorden, String fecha1, char tipom, char condicionp, String r_social, String nombreD) {
-        System.out.println(nombreD);
+        
 
         try {
 
@@ -28,7 +26,7 @@ public class MOrden extends MUtilidades {
             int rifproveedor = this.busquedaRifProveedor(r_social);
 
             String SQL = "INSERT INTO ordenes(nroorden,f_orden,tipom,condicionp,rifproveedor,ficha_director) VALUES (?,?,?,?,?,?) ";
-            PreparedStatement consulta = this.getConexion().prepareStatement(SQL);
+            PreparedStatement consulta = TipoUsuario.conexion.prepareStatement(SQL);
             consulta.setString(1, nroorden);
             consulta.setDate(2, fechaDate1);
             consulta.setString(3, String.valueOf(tipom));
@@ -54,7 +52,7 @@ public class MOrden extends MUtilidades {
                 + "WHERE pr.rif=oc.rifproveedor AND oc.ficha_director=di.fichad AND em.cedula=di.fichad \n"
                 + "ORDER BY oc.f_orden DESC";
         try {
-            Statement consulta = this.getConexion().createStatement();
+            Statement consulta = TipoUsuario.conexion.createStatement();
             ResultSet resultados = consulta.executeQuery(SQL);
 
             while (resultados.next()) {
@@ -98,7 +96,7 @@ public class MOrden extends MUtilidades {
             String SQL = "UPDATE ordenes SET f_orden=? , tipom=? , f_entrega=?, condicionp=? WHERE  nroorden=?";
 
 
-            PreparedStatement consulta = this.getConexion().prepareStatement(SQL);
+            PreparedStatement consulta = TipoUsuario.conexion.prepareStatement(SQL);
             consulta.setDate(1, f_orden);
             consulta.setString(2, String.valueOf(tipom));
             consulta.setDate(3, f_entrega);
@@ -118,7 +116,7 @@ public class MOrden extends MUtilidades {
         String SQL = "DELETE FROM ordenes where nroorden=?";
 
         try {
-            PreparedStatement consulta = this.getConexion().prepareStatement(SQL);
+            PreparedStatement consulta = TipoUsuario.conexion.prepareStatement(SQL);
             consulta.setString(1, nroorden);
             consulta.executeUpdate();
             JOptionPane.showMessageDialog(null, "Orden de Compra Eliminada Exitosamente ", "Accion realizada", JOptionPane.INFORMATION_MESSAGE);

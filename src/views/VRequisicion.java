@@ -14,7 +14,7 @@ public class VRequisicion extends javax.swing.JFrame {
     private int tipo;
     private String username;
   
-    private final MRequisicion requisiciones = new MRequisicion(TipoUsuario.conexion.conectar());
+    private final MRequisicion requisiciones = new MRequisicion();
     
 
     public VRequisicion() {

@@ -8,20 +8,17 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import views.TipoUsuario;
 
-public class Munidades {
+public class Munidades extends MUtilidades {
 
-    private final Connection conexion;
 
-    //Constructor de la clase que se conecta luego con la clase conexion en controler
-    public Munidades(Connection conexion) {
-        this.conexion = conexion;
-    }
+    
 
     public void insertarDatosUnidades(String codunidades, String nombreu, float c_costo) {
         try {
             String SQL = "INSERT INTO unidades (codunidades,nombreu,c_costo) VALUES (?,?,?) ";
-            PreparedStatement consulta = this.conexion.prepareStatement(SQL);
+            PreparedStatement consulta = TipoUsuario.conexion.prepareStatement(SQL);
 
             consulta.setString(1, codunidades);
             consulta.setString(2, nombreu);
@@ -45,7 +42,7 @@ public class Munidades {
         String SQL = "SELECT * FROM unidades ORDER BY codunidades";
 
         try {
-            Statement consulta = this.conexion.createStatement();
+            Statement consulta = TipoUsuario.conexion.createStatement();
             ResultSet resultados = consulta.executeQuery(SQL);
             while (resultados.next()) {
                 registros[0] = resultados.getString("codunidades");
@@ -66,7 +63,7 @@ public class Munidades {
     public void actualizarDatosUnidades(String codunidades, String nombreu, float c_costo) {
         try {
             String SQL = "UPDATE unidades SET c_costo=?,nombreu=? WHERE codunidades=? ";
-            PreparedStatement consulta = this.conexion.prepareStatement(SQL);
+            PreparedStatement consulta = TipoUsuario.conexion.prepareStatement(SQL);
             
             consulta.setFloat(1, c_costo);
             consulta.setString(2, nombreu);
@@ -89,7 +86,7 @@ public class Munidades {
         String SQL = "DELETE FROM unidades where codunidades=?";
         
         try{
-            PreparedStatement consulta = conexion.prepareStatement(SQL);
+            PreparedStatement consulta = TipoUsuario.conexion.prepareStatement(SQL);
             consulta.setString(1, codunidades);
             consulta.executeUpdate();
             JOptionPane.showMessageDialog(null, "Unidad Eliminada exitosamente ","Accion realizada",JOptionPane.INFORMATION_MESSAGE);

@@ -14,16 +14,14 @@ import java.sql.Statement;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-
+import views.TipoUsuario;
 /**
  *
  * @author alijm
  */
 public class MDetallesOrden extends MUtilidades {
 
-    public MDetallesOrden(Connection conexion) {
-        super(conexion);
-    }
+
 
     public void agregarDetallesOrden(String codOrden, String codCotizacion, int nrorequisicion, String nombrei, int rifProveedor) {
 
@@ -31,7 +29,7 @@ public class MDetallesOrden extends MUtilidades {
 
         try {
             String SQL = "INSERT INTO detalles_compra (nroorden,codigocot,nrorequisicion,coditem,rifproveedor) VALUES (?,?,?,?,?) ";
-            PreparedStatement consulta = this.getConexion().prepareStatement(SQL);
+            PreparedStatement consulta = TipoUsuario.conexion.prepareStatement(SQL);
             consulta.setString(1, codOrden);
             consulta.setString(2, codCotizacion);
             consulta.setInt(3, nrorequisicion);
@@ -59,7 +57,7 @@ public class MDetallesOrden extends MUtilidades {
                 + "ORDER BY i.nombrei,pro.rif,detcom.nroorden";
 
         try {
-            Statement consulta = this.getConexion().createStatement();
+            Statement consulta = TipoUsuario.conexion.createStatement();
             ResultSet resultados = consulta.executeQuery(SQL);
 
             while (resultados.next()) {
@@ -84,7 +82,7 @@ public class MDetallesOrden extends MUtilidades {
         try {
             String codigoi = this.busquedaItems(nombrei, nrorequisicion);
             String SQL = "UPDATE detalles_compra SET coditem=?  WHERE nroorden=? AND codigocot=? AND nrorequisicion=? AND rifProveedor=? ";
-            PreparedStatement consulta = this.getConexion().prepareStatement(SQL);
+            PreparedStatement consulta = TipoUsuario.conexion.prepareStatement(SQL);
 
             consulta.setString(1, codigoi);
             consulta.setString(2,codOrden );
@@ -109,7 +107,7 @@ public class MDetallesOrden extends MUtilidades {
 
         try {
             
-            PreparedStatement consulta = this.getConexion().prepareStatement(SQL);
+            PreparedStatement consulta = TipoUsuario.conexion.prepareStatement(SQL);
             consulta.setString(1, codOrden);
             consulta.setString(2, codCotizacion);
             consulta.setInt(3, nrorequisicion);
@@ -136,7 +134,7 @@ public class MDetallesOrden extends MUtilidades {
                     + "                    WHERE detcot.rifproveedor=" + rifProveedor + " AND detcot.rifproveedor=pro.rif\n"
                     + "					GROUP BY codigocot\n"
                     + "                    ORDER BY codigocot ASC";
-            PreparedStatement consulta = this.getConexion().prepareStatement(SQL);
+            PreparedStatement consulta = TipoUsuario.conexion.prepareStatement(SQL);
             ResultSet resultado = consulta.executeQuery();
             cb.addItem("Seleccione una opcion");
             while (resultado.next()) {
@@ -157,7 +155,7 @@ public class MDetallesOrden extends MUtilidades {
                     + "AND  r.nrorequisicion=detcot.nrorequisicion AND detr.nrorequisicion=r.nrorequisicion\n"
                     + "GROUP BY detr.nrorequisicion\n"
                     + "ORDER BY detr.nrorequisicion ASC";
-            PreparedStatement consulta = this.getConexion().prepareStatement(SQL);
+            PreparedStatement consulta = TipoUsuario.conexion.prepareStatement(SQL);
             ResultSet resultado = consulta.executeQuery();
             cb.addItem("Seleccione una opcion");
             while (resultado.next()) {
@@ -177,7 +175,7 @@ public class MDetallesOrden extends MUtilidades {
                     + " AND i.coditem=detcot.coditem AND i.coditem=detr.coditem \n"
                     + "GROUP BY i.nombrei\n"
                     + "ORDER BY i.nombrei ASC";
-            PreparedStatement consulta = this.getConexion().prepareStatement(SQL);
+            PreparedStatement consulta = TipoUsuario.conexion.prepareStatement(SQL);
             ResultSet resultado = consulta.executeQuery();
             cb.addItem("Seleccione una opcion");
             while (resultado.next()) {

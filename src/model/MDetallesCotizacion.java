@@ -14,16 +14,13 @@ import java.sql.Statement;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-
+import views.*;
 /**
  *
  * @author alijm
  */
 public class MDetallesCotizacion extends MUtilidades {
 
-    public MDetallesCotizacion(Connection conexion) {
-        super(conexion);
-    }
 
     public void agregarDetallesCotizacion(String codigocot, int nrorequisicion, String nombrei, int rifProveedor, float precioa, int cantidad, String condicionesC) {
 
@@ -31,7 +28,7 @@ public class MDetallesCotizacion extends MUtilidades {
 
         try {
             String SQL = "INSERT INTO detalles_cotizacion (codigocot,nrorequisicion,coditem,rifproveedor,condicionesc,precioa,cantidada) VALUES (?,?,?,?,?,?,?) ";
-            PreparedStatement consulta = this.getConexion().prepareStatement(SQL);
+            PreparedStatement consulta = TipoUsuario.conexion.prepareStatement(SQL);
             consulta.setString(1, codigocot);
             consulta.setInt(2, nrorequisicion);
             consulta.setString(3, codigoi);
@@ -59,7 +56,7 @@ public class MDetallesCotizacion extends MUtilidades {
                     + "AND r.nrorequisicion=detr.nrorequisicion\n"
                     + "AND r.codlineas=i.codlineas\n"
                     + "ORDER BY i.nombrei DESC";
-            PreparedStatement consulta = this.getConexion().prepareStatement(SQL);
+            PreparedStatement consulta = TipoUsuario.conexion.prepareStatement(SQL);
             ResultSet resultado = consulta.executeQuery();
             cb.addItem("Seleccione una opcion");
             while (resultado.next()) {
@@ -86,7 +83,7 @@ public class MDetallesCotizacion extends MUtilidades {
                 + "ORDER BY i.nombrei";
 
         try {
-            Statement consulta = this.getConexion().createStatement();
+            Statement consulta = TipoUsuario.conexion.createStatement();
             ResultSet resultados = consulta.executeQuery(SQL);
 
             while (resultados.next()) {
@@ -113,7 +110,7 @@ public class MDetallesCotizacion extends MUtilidades {
         try {
 
             String SQL = "UPDATE detalles_cotizacion SET condicionesc=?,precioa=?,cantidada=? WHERE codigocot=? AND nrorequisicion=? AND coditem=? AND rifproveedor=?";
-            PreparedStatement consulta = this.getConexion().prepareStatement(SQL);
+            PreparedStatement consulta = TipoUsuario.conexion.prepareStatement(SQL);
 
             consulta.setString(1, condicionesc);
             consulta.setFloat(2, precioa);
@@ -138,7 +135,7 @@ public class MDetallesCotizacion extends MUtilidades {
         String SQL = "DELETE FROM detalles_cotizacion WHERE codigocot=? AND nrorequisicion=? AND coditem=? AND rifproveedor=?";
 
         try {
-            PreparedStatement consulta = this.getConexion().prepareStatement(SQL);
+            PreparedStatement consulta = TipoUsuario.conexion.prepareStatement(SQL);
             consulta.setString(1, codigocot);
             consulta.setInt(2, nrorequisicion);
             consulta.setString(3, coditem);

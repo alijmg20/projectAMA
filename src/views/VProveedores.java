@@ -15,7 +15,7 @@ import model.MProveedores;
  */
 public class VProveedores extends javax.swing.JFrame {
 
-     private final MProveedores prov = new MProveedores(TipoUsuario.conexion.conectar());
+     private final MProveedores prov = new MProveedores();
     String correo1i,correo2i,correo3i;
     String tl1,tl2,tl3;
     String li1,li2,li3;

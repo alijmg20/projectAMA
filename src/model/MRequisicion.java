@@ -9,12 +9,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-
+import views.TipoUsuario;
 public class MRequisicion extends MUtilidades {
 
-    public MRequisicion(Connection conexion) {
-        super(conexion);
-    }
+
 
     public void insertarDatosRequisicion(String fecha, char cotizada, String nombreu, int director, int jefeUnidad, String descripcionl) {
 
@@ -27,7 +25,7 @@ public class MRequisicion extends MUtilidades {
             String codlinea = this.busquedaLinea(descripcionl);
 
             String SQL = "INSERT INTO requisiciones(f_emision,cotizada,codunidades,ficha_director,ficha_jefeu,codlineas) VALUES (?,?,?,?,?,?) ";
-            PreparedStatement consulta = this.getConexion().prepareStatement(SQL);
+            PreparedStatement consulta = TipoUsuario.conexion.prepareStatement(SQL);
             consulta.setDate(1, fechaDate);
             consulta.setString(2, String.valueOf(cotizada));
             consulta.setString(3, codigou);
@@ -51,7 +49,7 @@ public class MRequisicion extends MUtilidades {
                 + "WHERE req.codlineas=ls.codlineas AND uni.codunidades=req.codunidades "
                 + "ORDER BY req.nrorequisicion ASC";
         try {
-            Statement consulta = this.getConexion().createStatement();
+            Statement consulta = TipoUsuario.conexion.createStatement();
             ResultSet resultados = consulta.executeQuery(SQL);
 
             while (resultados.next()) {
@@ -83,7 +81,7 @@ public class MRequisicion extends MUtilidades {
 
             String SQL = "UPDATE requisiciones SET f_emision=? , cotizada=? , codunidades=?,ficha_director=?,ficha_jefeu=?,codlineas=? "
                         + "WHERE  nrorequisicion=?";
-            PreparedStatement consulta = this.getConexion().prepareStatement(SQL);
+            PreparedStatement consulta = TipoUsuario.conexion.prepareStatement(SQL);
             consulta.setDate(1, fechaDate);
             consulta.setString(2, String.valueOf(cotizada));
             consulta.setString(3, codigou);
@@ -105,7 +103,7 @@ public class MRequisicion extends MUtilidades {
         String SQL = "DELETE FROM requisiciones where nrorequisicion=?";
 
         try {
-            PreparedStatement consulta = this.getConexion().prepareStatement(SQL);
+            PreparedStatement consulta = TipoUsuario.conexion.prepareStatement(SQL);
             consulta.setInt(1, nrorequisicion);
             consulta.executeUpdate();
             JOptionPane.showMessageDialog(null, "requisicion Eliminada Exitosamente ", "Accion realizada", JOptionPane.INFORMATION_MESSAGE);

@@ -10,14 +10,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-
+import views.TipoUsuario;
 public class MJefesDirectores extends MUtilidades {
 
     
 
-    public MJefesDirectores(Connection conexion) {
-        super(conexion);
-    }
 
 
 
@@ -30,7 +27,7 @@ public class MJefesDirectores extends MUtilidades {
 
             //Luego de conseguir el codigo insertamos en la tabla de empleados
             String SQL = "INSERT INTO empleados(cedula,nombre,tipoe,codunidades,password,statuse) VALUES (?,?,?,?,?,?)";
-            PreparedStatement consultaInsercion = this.getConexion().prepareStatement(SQL);
+            PreparedStatement consultaInsercion = TipoUsuario.conexion.prepareStatement(SQL);
             consultaInsercion.setInt(1, cedula);
             consultaInsercion.setString(2, nombre);
             consultaInsercion.setString(3, String.valueOf(tipoe));
@@ -43,13 +40,13 @@ public class MJefesDirectores extends MUtilidades {
 
             if (tipoe == 'J') { //si es J se inserta como jefe
                 subSQL = "INSERT INTO jefes (fichaj) VALUES (?)";
-                consultaInsercion = this.getConexion().prepareStatement(subSQL);
+                consultaInsercion = TipoUsuario.conexion.prepareStatement(subSQL);
                 consultaInsercion.setInt(1, cedula);
                 consultaInsercion.execute();
                 JOptionPane.showMessageDialog(null, "Se ha insertado el empleado Jefe de unidad ", "Accion Realizada", JOptionPane.INFORMATION_MESSAGE);
             } else if (tipoe == 'D') { //si es D se inserta como director
                 subSQL = "INSERT INTO directores (fichad) VALUES (?)";
-                consultaInsercion = this.getConexion().prepareStatement(subSQL);
+                consultaInsercion = TipoUsuario.conexion.prepareStatement(subSQL);
                 consultaInsercion.setInt(1, cedula);
                 consultaInsercion.execute();
                 JOptionPane.showMessageDialog(null, "Se ha insertado el empleado director financiero", "Accion Realizada", JOptionPane.INFORMATION_MESSAGE);
@@ -68,7 +65,7 @@ public class MJefesDirectores extends MUtilidades {
 
             //Seguimos con la actualizacion de la tabla
             String SQL = "UPDATE empleados SET nombre=?,codunidades=?,password =?,statuse=? WHERE cedula=?";
-            PreparedStatement consulta = this.getConexion().prepareStatement(SQL);
+            PreparedStatement consulta = TipoUsuario.conexion.prepareStatement(SQL);
 
             consulta.setString(1, nombre);
             consulta.setString(2, codigou);
@@ -95,7 +92,7 @@ public class MJefesDirectores extends MUtilidades {
                 + "ORDER BY e.cedula ";
 
         try {
-            Statement consulta = this.getConexion().createStatement();
+            Statement consulta = TipoUsuario.conexion.createStatement();
             ResultSet resultados = consulta.executeQuery(SQL);
             while (resultados.next()) {
                 registros[0] = resultados.getString("cedula");
@@ -122,12 +119,12 @@ public class MJefesDirectores extends MUtilidades {
             SQL = "DELETE FROM directores WHERE fichad=?";
         }
         try {
-            PreparedStatement consulta = this.getConexion().prepareStatement(SQL);
+            PreparedStatement consulta = TipoUsuario.conexion.prepareStatement(SQL);
             consulta.setInt(1, cedula);
             consulta.executeUpdate();
 
             SQL = "DELETE FROM empleados WHERE cedula=?";
-            consulta = this.getConexion().prepareStatement(SQL);
+            consulta = TipoUsuario.conexion.prepareStatement(SQL);
             consulta.setInt(1, cedula);
             consulta.executeUpdate();
 
@@ -151,7 +148,7 @@ public class MJefesDirectores extends MUtilidades {
                 + "AND nombre LIKE '%"+valor+"%'"
                 + "ORDER BY e.cedula ";
         try {
-            Statement consulta = this.getConexion().createStatement();
+            Statement consulta = TipoUsuario.conexion.createStatement();
             ResultSet resultados = consulta.executeQuery(SQL);
             while (resultados.next()) {
                 registros[0] = resultados.getString("cedula");
@@ -173,7 +170,7 @@ public class MJefesDirectores extends MUtilidades {
         String SQL = "SELECT password FROM empleados WHERE cedula='"+cedula+"'";
         
         try{
-            Statement consulta = this.getConexion().createStatement();
+            Statement consulta = TipoUsuario.conexion.createStatement();
             ResultSet resultados = consulta.executeQuery(SQL);
             resultados.next();
             String pass = resultados.getString("password");
@@ -194,7 +191,7 @@ public class MJefesDirectores extends MUtilidades {
         String SQL = "SELECT nombre FROM empleados WHERE cedula='"+cedula+"'";
         String nombre = "";
         try{
-            Statement consulta = this.getConexion().createStatement();
+            Statement consulta = TipoUsuario.conexion.createStatement();
             ResultSet resultados = consulta.executeQuery(SQL);
             resultados.next();
             nombre = resultados.getString("nombre");

@@ -5,6 +5,7 @@
  */
 package model;
 
+import Controler.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,28 +14,20 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
-
+import views.TipoUsuario;
 /**
  *
  * @author alijm
  */
 public class MUtilidades {
 
-    private final  Connection conexion;
-
-    public MUtilidades(Connection conexion) {
-        this.conexion = conexion;
-    }
-
-    public Connection getConexion() {
-        return conexion;
-    }
+    
 
     //MUESTRAS EL DROPBOX DE LA LINEA DE SUMINISTRO
     public void obtenerLinea(JComboBox cb) {
         try {
             String SQL = "SELECT * FROM lineas ORDER BY descripcionl ASC";
-            PreparedStatement consulta = conexion.prepareStatement(SQL);
+            PreparedStatement consulta = TipoUsuario.conexion.prepareStatement(SQL);
             ResultSet resultado = consulta.executeQuery();
             cb.addItem("Seleccione una opcion");
             while (resultado.next()) {
@@ -51,7 +44,7 @@ public class MUtilidades {
         String SQL = "SELECT codlineas FROM lineas WHERE descripcionl = '" + descripcionl + "'";
         try {
             String codigolinea = "";
-            Statement consultaCodigo = this.conexion.createStatement();
+            Statement consultaCodigo = TipoUsuario.conexion.createStatement();
             ResultSet resultado = consultaCodigo.executeQuery(SQL);
             resultado.next();
             return codigolinea = resultado.getString("codlineas");
@@ -65,7 +58,7 @@ public class MUtilidades {
     public void obtenerUnidades(JComboBox cb) {
         try {
             String SQL = "SELECT * FROM unidades ORDER BY nombreu ASC";
-            PreparedStatement consulta = conexion.prepareStatement(SQL);
+            PreparedStatement consulta = TipoUsuario.conexion.prepareStatement(SQL);
             ResultSet resultado = consulta.executeQuery();
             cb.addItem("Seleccione una opcion");
             while (resultado.next()) {
@@ -82,7 +75,7 @@ public class MUtilidades {
         String SQL = "SELECT codunidades FROM unidades WHERE nombreu = '" + nombreu + "'";
         try {
             String codigou = "";
-            Statement consultaCodigo = this.conexion.createStatement();
+            Statement consultaCodigo = TipoUsuario.conexion.createStatement();
             ResultSet resultado = consultaCodigo.executeQuery(SQL);
             resultado.next();
             return codigou = resultado.getString("codunidades");
@@ -101,7 +94,7 @@ public class MUtilidades {
         int numeros = 0;
         try {
             PreparedStatement consulta;
-            consulta = conexion.prepareStatement(SQL);
+            consulta = TipoUsuario.conexion.prepareStatement(SQL);
             ResultSet resultado = consulta.executeQuery();
             resultado.next();
             numeros = resultado.getInt("nrorequisicion");
@@ -124,7 +117,7 @@ public class MUtilidades {
                     + "AND p.rif=sumi.rifproveedor\n"
                     + "AND p.rif=" + rif + " "
                     + "ORDER BY r.nrorequisicion DESC ";
-            PreparedStatement consulta = conexion.prepareStatement(SQL);
+            PreparedStatement consulta = TipoUsuario.conexion.prepareStatement(SQL);
             ResultSet resultado = consulta.executeQuery();
             cb.addItem("Seleccione una opcion");
             while (resultado.next()) {
@@ -140,7 +133,7 @@ public class MUtilidades {
             String SQL = "SELECT * FROM empleados "
                     + "WHERE tipoe='D' and statuse='A'"
                     + "ORDER BY cedula ASC";
-            PreparedStatement consulta = conexion.prepareStatement(SQL);
+            PreparedStatement consulta = TipoUsuario.conexion.prepareStatement(SQL);
             ResultSet resultado = consulta.executeQuery();
             cb.addItem("Seleccione una opcion");
             while (resultado.next()) {
@@ -157,7 +150,7 @@ public class MUtilidades {
             String SQL = "SELECT * FROM empleados "
                     + "WHERE tipoe='J' and statuse='A' and codunidades='" + codigou + "'"
                     + "ORDER BY cedula ASC";
-            PreparedStatement consulta = conexion.prepareStatement(SQL);
+            PreparedStatement consulta = TipoUsuario.conexion.prepareStatement(SQL);
             ResultSet resultado = consulta.executeQuery();
             cb.addItem("Seleccione una opcion");
             while (resultado.next()) {
@@ -175,7 +168,7 @@ public class MUtilidades {
                     + "WHERE r.nrorequisicion=" + nroRequisicion + "  AND r.codlineas=i.codlineas\n"
                     + "group by i.nombrei,i.coditem\n"
                     + "order by i.coditem DESC";
-            PreparedStatement consulta = conexion.prepareStatement(SQL);
+            PreparedStatement consulta = TipoUsuario.conexion.prepareStatement(SQL);
             ResultSet resultado = consulta.executeQuery();
             cb.addItem("Seleccione una opcion");
             while (resultado.next()) {
@@ -192,7 +185,7 @@ public class MUtilidades {
                     + "FROM items i, requisiciones r "
                     + "WHERE r.nrorequisicion=" + nroRequisicion + " AND r.codlineas=i.codlineas AND i.nombrei='" + nombrei + "'";
             String coditem = "";
-            Statement consultaCodItem = this.conexion.createStatement();
+            Statement consultaCodItem = TipoUsuario.conexion.createStatement();
             ResultSet resultado = consultaCodItem.executeQuery(SQL);
             resultado.next();
             return coditem = resultado.getString("coditem");
@@ -208,7 +201,7 @@ public class MUtilidades {
             String SQL = "SELECT r.r_social FROM proveedores r,suministran sumi "
                     + "WHERE r.rif=sumi.rifproveedor AND sumi.codlineas='" + codlineas + "' "
                     + "ORDER BY r.rif ASC";
-            PreparedStatement consulta = conexion.prepareStatement(SQL);
+            PreparedStatement consulta = TipoUsuario.conexion.prepareStatement(SQL);
             ResultSet resultado = consulta.executeQuery();
             cb.addItem("Seleccione una opcion");
             while (resultado.next()) {
@@ -224,7 +217,7 @@ public class MUtilidades {
         try {
             String SQL = "SELECT rif FROM proveedores WHERE r_social='" + r_social+"'";
             
-            Statement consultaRif = this.conexion.createStatement();
+            Statement consultaRif = TipoUsuario.conexion.createStatement();
             ResultSet resultado = consultaRif.executeQuery(SQL);
             resultado.next();
             int rif;
@@ -242,7 +235,7 @@ public class MUtilidades {
             String SQL = "SELECT * FROM empleados "
                     + "WHERE tipoe = 'D' AND statuse = 'A' "
                     + "ORDER BY nombre ASC";
-            PreparedStatement consulta = conexion.prepareStatement(SQL);
+            PreparedStatement consulta = TipoUsuario.conexion.prepareStatement(SQL);
             ResultSet resultado = consulta.executeQuery();
             cb.addItem("Seleccione una opcion");
             while (resultado.next()) {
@@ -264,7 +257,7 @@ public class MUtilidades {
         
         try {
             int rif;
-            Statement consultaDirector = this.conexion.createStatement();
+            Statement consultaDirector = TipoUsuario.conexion.createStatement();
             ResultSet resultado = consultaDirector.executeQuery(SQL);
             resultado.next();
             return rif = resultado.getInt("fichad");
@@ -284,7 +277,7 @@ public class MUtilidades {
             String SQL = "SELECT * FROM proveedores "
                     + "WHERE statusp = 'A' "
                     + "ORDER BY r_social ASC";
-            PreparedStatement consulta = conexion.prepareStatement(SQL);
+            PreparedStatement consulta = TipoUsuario.conexion.prepareStatement(SQL);
             ResultSet resultado = consulta.executeQuery();
             cb.addItem("Seleccione una opcion");
             while (resultado.next()) {
@@ -304,7 +297,7 @@ public class MUtilidades {
         int rifproveedor = 0;
         try {
             PreparedStatement consulta;
-            consulta = conexion.prepareStatement(SQL);
+            consulta = TipoUsuario.conexion.prepareStatement(SQL);
             ResultSet resultado = consulta.executeQuery(SQL);
             resultado.next();
             rifproveedor = resultado.getInt("rif");

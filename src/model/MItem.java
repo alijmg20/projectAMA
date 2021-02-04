@@ -9,14 +9,9 @@ import java.sql.Statement;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-
+import views.TipoUsuario;
 public class MItem extends MUtilidades {
     
-
-    //Constructor de la clase que se conecta luego con la clase conexion en controler
-    public MItem(Connection conexion) {
-        super(conexion);
-    }
     
     
     
@@ -29,7 +24,7 @@ public class MItem extends MUtilidades {
             
             
             String SQL = "INSERT INTO items (coditem,nombrei,descripcioni,umedida,preciou,codlineas) VALUES (?,?,?,?,?,?) ";
-            PreparedStatement consulta = this.getConexion().prepareStatement(SQL);
+            PreparedStatement consulta = TipoUsuario.conexion.prepareStatement(SQL);
 
             consulta.setString(1, coditem);
             consulta.setString(2, nombrei);
@@ -59,7 +54,7 @@ public class MItem extends MUtilidades {
                 + "ORDER BY ls.descripcionl ASC, its.nombrei ASC";
 
         try {
-            Statement consulta = this.getConexion().createStatement();
+            Statement consulta = TipoUsuario.conexion.createStatement();
             ResultSet resultados = consulta.executeQuery(SQL);
             while (resultados.next()) {
                 registros[0] = resultados.getString("coditem");
@@ -84,7 +79,7 @@ public class MItem extends MUtilidades {
     public void actualizarDatosItem(String coditem, String nombrei, String descripcioni, String umedida, float preciou, String codlineas) {
         try {
             String SQL = "UPDATE items SET nombrei=?, descripcioni=?, umedida=?, preciou=?,codlineas=? WHERE coditem=? ";
-            PreparedStatement consulta = this.getConexion().prepareStatement(SQL);
+            PreparedStatement consulta = TipoUsuario.conexion.prepareStatement(SQL);
             
             consulta.setString(1, nombrei);
             consulta.setString(2, descripcioni);
@@ -107,7 +102,7 @@ public class MItem extends MUtilidades {
         String SQL = "DELETE FROM lineas where codlineas=?";
         
         try{
-            PreparedStatement consulta = this.getConexion().prepareStatement(SQL);
+            PreparedStatement consulta = TipoUsuario.conexion.prepareStatement(SQL);
             consulta.setString(1, coditem);
             consulta.executeUpdate();
             JOptionPane.showMessageDialog(null, "Item Eliminado Exitosamente ","Accion realizada",JOptionPane.INFORMATION_MESSAGE);

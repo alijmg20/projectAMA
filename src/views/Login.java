@@ -5,7 +5,7 @@ import com.placeholder.PlaceHolder;
 import javax.swing.JOptionPane;
 import model.MJefesDirectores;
 import model.MProveedores;
-import static views.TipoUsuario.conexion;
+import model.MUtilidades;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -21,8 +21,8 @@ public class Login extends javax.swing.JFrame {
     private PlaceHolder pl;
     private int tipo;
     
-    private final MJefesDirectores jefesDirectores = new MJefesDirectores(TipoUsuario.conexion.conectar());
-    private final MProveedores proveedores = new MProveedores(conexion.conectar());
+    private final MJefesDirectores jefesDirectores = new MJefesDirectores();
+    private final MProveedores proveedores = new MProveedores();
 
     public Login() {
         initComponents();

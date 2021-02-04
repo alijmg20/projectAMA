@@ -8,12 +8,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import views.TipoUsuario;
 
 public class MDetallesRequisicion extends MUtilidades {
 
-    public MDetallesRequisicion(Connection conexion) {
-        super(conexion);
-    }
 
     public void agregarDetallesRequisicion(int nrorequisicion, String nombrei, int cantidad, float precioa) {
 
@@ -21,7 +19,7 @@ public class MDetallesRequisicion extends MUtilidades {
 
         try {
             String SQL = "INSERT INTO detalles_requisicion (nrorequisicion,coditem,cantidad,precioAprox) VALUES (?,?,?,?) ";
-            PreparedStatement consulta = this.getConexion().prepareStatement(SQL);
+            PreparedStatement consulta = TipoUsuario.conexion.prepareStatement(SQL);
             consulta.setInt(1, nrorequisicion);
             consulta.setString(2, codigoi);
             consulta.setInt(3, cantidad);
@@ -42,7 +40,7 @@ public class MDetallesRequisicion extends MUtilidades {
         try {
 
             String SQL = "UPDATE detalles_requisicion SET cantidad=?,precioAprox=? WHERE nrorequisicion=? AND coditem=?";
-            PreparedStatement consulta = this.getConexion().prepareStatement(SQL);
+            PreparedStatement consulta = TipoUsuario.conexion.prepareStatement(SQL);
 
             consulta.setInt(1, cantidad);
             consulta.setFloat(2, precioA);
@@ -70,7 +68,7 @@ public class MDetallesRequisicion extends MUtilidades {
                 + "ORDER BY detr.nrorequisicion ASC ";
 
         try {
-            Statement consulta = this.getConexion().createStatement();
+            Statement consulta = TipoUsuario.conexion.createStatement();
             ResultSet resultados = consulta.executeQuery(SQL);
 
             while (resultados.next()) {
@@ -97,7 +95,7 @@ public class MDetallesRequisicion extends MUtilidades {
         String SQL = "DELETE FROM detalles_requisicion where nrorequisicion=? AND coditem=?";
 
         try {
-            PreparedStatement consulta = this.getConexion().prepareStatement(SQL);
+            PreparedStatement consulta = TipoUsuario.conexion.prepareStatement(SQL);
             consulta.setInt(1, nrorequisicion);
             consulta.setString(2, codigoi);
             consulta.executeUpdate();
