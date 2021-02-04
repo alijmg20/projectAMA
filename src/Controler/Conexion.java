@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 public class Conexion {
     private Connection con = null;
     private final String jdbc = "jdbc:postgresql://localhost:5432/";
+    //private final String jdbc = "jdbc:postgresql://bavixwxvz0mgrsrunvxw-postgresql.services.clever-cloud.com:5432/";
     public Connection conectar()
     {
         try{

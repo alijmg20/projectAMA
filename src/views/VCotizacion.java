@@ -13,8 +13,8 @@ public class VCotizacion extends javax.swing.JFrame {
 
     private int tipo;
     private String username;
-    private final Conexion conexion = new Conexion();
-    private final MCotizacion cotizaciones = new MCotizacion(conexion.conectar());
+    
+    private final MCotizacion cotizaciones = new MCotizacion(TipoUsuario.conexion.conectar());
 
     public VCotizacion() {
         initComponents();

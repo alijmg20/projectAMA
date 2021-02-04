@@ -20,7 +20,7 @@ import javax.swing.JComboBox;
  */
 public class MUtilidades {
 
-    private final Connection conexion;
+    private final  Connection conexion;
 
     public MUtilidades(Connection conexion) {
         this.conexion = conexion;

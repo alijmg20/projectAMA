@@ -5,15 +5,15 @@
  */
 package views;
 
+import Controler.Conexion;
+
 /**
  *
  * @author alijm
  */
 public class TipoUsuario extends javax.swing.JFrame {
 
-    /**
-     * Creates new form TipoUsuario
-     */
+    public static Conexion conexion = new Conexion();
     public TipoUsuario() {
         initComponents();
         

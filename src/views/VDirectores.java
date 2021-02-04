@@ -18,8 +18,8 @@ public class VDirectores extends javax.swing.JFrame {
 
     private int tipo;
     private String username;
-    private final Conexion conexion = new Conexion();
-    private final MJefesDirectores directores = new MJefesDirectores(conexion.conectar());
+    
+    private final MJefesDirectores directores = new MJefesDirectores(TipoUsuario.conexion.conectar());
 
     public VDirectores() {
         initComponents();

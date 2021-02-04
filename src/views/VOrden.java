@@ -12,8 +12,8 @@ import model.MOrden;
 
 public class VOrden extends javax.swing.JFrame {
 
-    private final Conexion conexion = new Conexion();
-    private final MOrden orden = new MOrden(conexion.conectar());
+    
+    private final MOrden orden = new MOrden(TipoUsuario.conexion.conectar());
 
     private int tipo;
     private String username;

@@ -13,8 +13,8 @@ import javax.swing.JOptionPane;
 
 public class VItems extends javax.swing.JFrame {
 
-    private final Conexion conexion = new Conexion();
-    private final MItem item = new MItem(conexion.conectar());
+    
+    private final MItem item = new MItem(TipoUsuario.conexion.conectar());
     
      //Atributos de la clase
     private int tipo;

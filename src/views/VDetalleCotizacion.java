@@ -17,8 +17,8 @@ public class VDetalleCotizacion extends javax.swing.JFrame {
     private String username;
     private String codigoCot;
     private int rif;
-    private final Conexion conexion = new Conexion();
-    private final MDetallesCotizacion detCotizacion = new MDetallesCotizacion(conexion.conectar());
+    
+    private final MDetallesCotizacion detCotizacion = new MDetallesCotizacion(TipoUsuario.conexion.conectar());
 
     public VDetalleCotizacion() {
         initComponents();

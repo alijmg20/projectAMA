@@ -17,8 +17,8 @@ import model.SecurityKey;
 public class VRegistrarJefeDirector extends javax.swing.JFrame {
 
     private int tipo;
-    private final Conexion conexion = new Conexion();
-    private final MJefesDirectores jefes_directores = new MJefesDirectores(conexion.conectar());
+    
+    private final MJefesDirectores jefes_directores = new MJefesDirectores(TipoUsuario.conexion.conectar());
     public VRegistrarJefeDirector() {
         initComponents();
     }

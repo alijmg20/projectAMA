@@ -13,8 +13,8 @@ import views.MainMenu;
 
 public class VLineas extends javax.swing.JFrame {
 
-    private final Conexion conexion = new Conexion();
-    private final MLineas lineas = new MLineas(conexion.conectar());
+    
+    private final MLineas lineas = new MLineas(TipoUsuario.conexion.conectar());
     
     //Atributos de la clase
     private int tipo;

@@ -1,3 +1,4 @@
+
 package model;
 
 import java.awt.HeadlessException;
@@ -21,9 +22,11 @@ public class MProveedores extends MUtilidades {
         super(conexion);
     }
     
+
+    
     //MUESTRAS EL JLIST DE LA LINEA DE SUMINISTRO
     // DefaultListModel<String> model = new DefaultListModel<>();
-        
+    
     
             // MOSTRAR DATOS PROVEEDOR
     public DefaultTableModel mostrarDatosProveedor() {
@@ -241,7 +244,7 @@ public class MProveedores extends MUtilidades {
     public void actualizarDatosProveedores(int rif, String r_social, String direccion) {
         try { 
             String SQL = "UPDATE proveedores SET r_social='"+r_social+"', direccion='"+direccion+"' WHERE rif="+ rif; 
-            PreparedStatement consulta = this.getConexion().prepareStatement(SQL); 
+            PreparedStatement consulta = getConexion().prepareStatement(SQL); 
             consulta.execute();
             JOptionPane.showMessageDialog(null, "Proveedor actualizado exitosamente", "Accion realizada", JOptionPane.INFORMATION_MESSAGE);
                   
@@ -255,7 +258,7 @@ public class MProveedores extends MUtilidades {
              if (correo1.equals(correoi1)==false){
                 try { 
                     String SQL = "UPDATE correos SET correo='"+correo1+"' WHERE rifproveedor="+rif+" and correo='"+correoi1+"'";
-                    PreparedStatement consulta = this.getConexion().prepareStatement(SQL); 
+                    PreparedStatement consulta = getConexion().prepareStatement(SQL); 
                     consulta.execute();
                     JOptionPane.showMessageDialog(null, "Correo1 actualizado exitosamente", "Accion realizada", JOptionPane.INFORMATION_MESSAGE);
                 } catch (SQLException | HeadlessException e) {
@@ -267,7 +270,7 @@ public class MProveedores extends MUtilidades {
             if (correo2.equals(correoi2)==false){
                 try { 
                     String SQL = "UPDATE correos SET correo='"+correo2+"' WHERE rifproveedor="+rif+" and correo='"+correoi2+"'";
-                    PreparedStatement consulta = this.getConexion().prepareStatement(SQL); 
+                    PreparedStatement consulta = getConexion().prepareStatement(SQL); 
                     consulta.execute();
                     JOptionPane.showMessageDialog(null, "Correo1 actualizado exitosamente", "Accion realizada", JOptionPane.INFORMATION_MESSAGE);
                 } catch (SQLException | HeadlessException e) {
@@ -279,7 +282,7 @@ public class MProveedores extends MUtilidades {
             if (correo3.equals(correoi3)==false){
                 try { 
                     String SQL = "UPDATE correos SET correo='"+correo3+"' WHERE rifproveedor="+rif+" and correo='"+correoi3+"'";
-                    PreparedStatement consulta = this.getConexion().prepareStatement(SQL); 
+                    PreparedStatement consulta = getConexion().prepareStatement(SQL); 
                     consulta.execute();
                     JOptionPane.showMessageDialog(null, "Correo1 actualizado exitosamente", "Accion realizada", JOptionPane.INFORMATION_MESSAGE);
                 } catch (SQLException | HeadlessException e) {
@@ -294,7 +297,7 @@ public class MProveedores extends MUtilidades {
              if (tl1.equals(ti1)==false){
                 try { 
                     String SQL = "UPDATE telefonos SET telefonos='"+tl1+"' WHERE rifproveedor="+rif+" and telefonos='"+ti1+"'";
-                    PreparedStatement consulta = this.getConexion().prepareStatement(SQL); 
+                    PreparedStatement consulta = getConexion().prepareStatement(SQL); 
                     consulta.execute();
                     JOptionPane.showMessageDialog(null, "Telefono 1 actualizado exitosamente", "Accion realizada", JOptionPane.INFORMATION_MESSAGE);
                 } catch (SQLException | HeadlessException e) {
@@ -306,7 +309,7 @@ public class MProveedores extends MUtilidades {
             if (tl2.equals(ti2)==false){
                 try { 
                     String SQL = "UPDATE telefonos SET telefonos='"+tl2+"' WHERE rifproveedor="+rif+" and telefonos='"+ti2+"'";
-                    PreparedStatement consulta = this.getConexion().prepareStatement(SQL); 
+                    PreparedStatement consulta = getConexion().prepareStatement(SQL); 
                     consulta.execute();
                     JOptionPane.showMessageDialog(null, "Telefono 2 actualizado exitosamente", "Accion realizada", JOptionPane.INFORMATION_MESSAGE);
                 } catch (SQLException | HeadlessException e) {
@@ -318,7 +321,7 @@ public class MProveedores extends MUtilidades {
             if (tl3.equals(ti3)==false){
                 try { 
                     String SQL = "UPDATE telefonos SET telefonos='"+tl3+"' WHERE rifproveedor="+rif+" and telefonos='"+ti3+"'";
-                    PreparedStatement consulta = this.getConexion().prepareStatement(SQL); 
+                    PreparedStatement consulta = getConexion().prepareStatement(SQL); 
                     consulta.execute();
                     JOptionPane.showMessageDialog(null, "Telefono 3 actualizado exitosamente", "Accion realizada", JOptionPane.INFORMATION_MESSAGE);
                 } catch (SQLException | HeadlessException e) {
@@ -333,7 +336,7 @@ public class MProveedores extends MUtilidades {
              if (linea1.equals(li1)==false){
                 try {
                     String SQL = "update suministran set codlineas=(select codlineas from lineas where descripcionl='"+linea1+"') where rifproveedor="+rif+" and codlineas in (select s.codlineas from lineas l, suministran s where l.descripcionl='"+li1+"' and rifproveedor="+rif+")";
-                    PreparedStatement consulta = this.getConexion().prepareStatement(SQL); 
+                    PreparedStatement consulta = getConexion().prepareStatement(SQL); 
                     consulta.execute();
                     JOptionPane.showMessageDialog(null, "Linea de suministro 1 actualizado exitosamente", "Accion realizada", JOptionPane.INFORMATION_MESSAGE);
                 } catch (SQLException | HeadlessException e) {
@@ -345,7 +348,7 @@ public class MProveedores extends MUtilidades {
              if (linea2.equals(li2)==false){
                 try {
                     String SQL = "update suministran set codlineas=(select codlineas from lineas where descripcionl='"+linea2+"') where rifproveedor="+rif+" and codlineas in (select s.codlineas from lineas l, suministran s where l.descripcionl='"+li2+"' and rifproveedor="+rif+")";
-                    PreparedStatement consulta = this.getConexion().prepareStatement(SQL); 
+                    PreparedStatement consulta = getConexion().prepareStatement(SQL); 
                     consulta.execute();
                     JOptionPane.showMessageDialog(null, "Linea de suministro 1 actualizado exitosamente", "Accion realizada", JOptionPane.INFORMATION_MESSAGE);
                 } catch (SQLException | HeadlessException e) {
@@ -357,7 +360,7 @@ public class MProveedores extends MUtilidades {
              if (linea3.equals(li3)==false){
                 try {
                     String SQL = "update suministran set codlineas=(select codlineas from lineas where descripcionl='"+linea3+"') where rifproveedor="+rif+" and codlineas in (select s.codlineas from lineas l, suministran s where l.descripcionl='"+li3+"' and rifproveedor="+rif+")";
-                    PreparedStatement consulta = this.getConexion().prepareStatement(SQL); 
+                    PreparedStatement consulta = getConexion().prepareStatement(SQL); 
                     consulta.execute();
                     JOptionPane.showMessageDialog(null, "Linea de suministro 3 actualizado exitosamente", "Accion realizada", JOptionPane.INFORMATION_MESSAGE);
                 } catch (SQLException | HeadlessException e) {
@@ -371,7 +374,7 @@ public class MProveedores extends MUtilidades {
      public void eliminarDatosProveedores(int rif){ 
         try{
             String SQL = "UPDATE proveedores SET statusp = 'S' WHERE rif=?"; 
-            PreparedStatement consulta = this.getConexion().prepareStatement(SQL);
+            PreparedStatement consulta = getConexion().prepareStatement(SQL);
             consulta.setInt(1, rif);
             consulta.executeUpdate();
             JOptionPane.showMessageDialog(null, "Proveedor Eliminado exitosamente ","Accion realizada",JOptionPane.INFORMATION_MESSAGE);
@@ -381,13 +384,12 @@ public class MProveedores extends MUtilidades {
         
     }       
     // ELIMINAR ---- OJO 
-
- 
-    public boolean ingresarProveedores(int rif) {
+     
+     
+         public boolean ingresarProveedores(int rif) {
         boolean inProveedor = false;
         try {
             String SQL = "SELECT * FROM proveedores WHERE rif=" + rif + " ";
-
             Statement consulta = this.getConexion().createStatement();
             ResultSet resultados = consulta.executeQuery(SQL);
             resultados.next();
@@ -402,5 +404,6 @@ public class MProveedores extends MUtilidades {
         }
         return inProveedor;
     }
-
+     
+     
 }

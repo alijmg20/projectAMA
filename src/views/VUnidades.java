@@ -6,8 +6,8 @@ import javax.swing.JOptionPane;
 
 public class VUnidades extends javax.swing.JFrame {
 
-    private final Conexion conexion = new Conexion();
-    private final Munidades unidades = new Munidades(conexion.conectar());
+    
+    private final Munidades unidades = new Munidades(TipoUsuario.conexion.conectar());
     private int tipo;
     private String username;
     public VUnidades() {

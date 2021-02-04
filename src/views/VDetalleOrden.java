@@ -15,8 +15,8 @@ import model.MDetallesOrden;
  */
 public class VDetalleOrden extends javax.swing.JFrame {
 
-    private final Conexion conexion = new Conexion();
-    private final MDetallesOrden detorden = new MDetallesOrden(conexion.conectar());
+    
+    private final MDetallesOrden detorden = new MDetallesOrden(TipoUsuario.conexion.conectar());
 
     private int tipo;
     private String username;
