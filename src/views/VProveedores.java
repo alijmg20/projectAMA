@@ -455,7 +455,7 @@ public class VProveedores extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.dispose();
-//        new MainMenu(this.tipo,this.username).setVisible(true);
+       new MainMenu(this.tipo,this.username).setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void Nuevo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Nuevo1ActionPerformed
