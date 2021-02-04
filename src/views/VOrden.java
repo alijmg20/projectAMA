@@ -32,7 +32,13 @@ public class VOrden extends javax.swing.JFrame {
         orden.obtenerNDirectores(Director);
         this.orden.obtenerNProveedores(this.Proveedor);
         this.tableOrden.setModel(this.orden.mostrarDatosOrden());
-
+        if(this.tipo==1){
+            this.Btn_Nuevo.setEnabled(false);
+            this.Btn_Actualizar.setEnabled(false);
+            this.Btn_Eliminar.setEnabled(false);
+            this.Btn_Limpiar.setEnabled(false);
+            this.Btn_Guardar.setEnabled(false);
+        }
     }
 
     /**
