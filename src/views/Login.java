@@ -44,7 +44,7 @@ public class Login extends javax.swing.JFrame {
             this.labelUsuario.setText("RIF : ");
             this.txtPassword.setEnabled(false);
             this.btn_registrar_jefes.setVisible(false);
-            this.btn_olvidoSuClave.setVisible(false);
+            
             this.labelBienvenidos.setText("Bienvenido al sistema AMA Proveedor");
             this.lbAdministrador.setText("Ventana Proveedor");
 
@@ -55,7 +55,7 @@ public class Login extends javax.swing.JFrame {
             this.lbAdministrador.setText("Modo Administrador");
             this.lbAdministrador.setForeground(java.awt.Color.black);
             this.labelBienvenidos.setText("Bienvenido al sistema AMA Administrador");
-            this.btn_olvidoSuClave.setVisible(false);
+            
             this.lbAdministrador.setText("Modo Administrador");
         }
 
@@ -75,7 +75,6 @@ public class Login extends javax.swing.JFrame {
         btn_volver = new javax.swing.JButton();
         jPanel22 = new javax.swing.JPanel();
         btn_registrar_jefes = new javax.swing.JButton();
-        btn_olvidoSuClave = new javax.swing.JButton();
         jPanel23 = new javax.swing.JPanel();
         labelBienvenidos = new javax.swing.JLabel();
         jPanel24 = new javax.swing.JPanel();
@@ -118,25 +117,17 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        btn_olvidoSuClave.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btn_olvidoSuClave.setForeground(new java.awt.Color(255, 255, 255));
-        btn_olvidoSuClave.setText("¿Has olvidado tu contraseña?");
-        btn_olvidoSuClave.setContentAreaFilled(false);
-        btn_olvidoSuClave.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
         javax.swing.GroupLayout jPanel22Layout = new javax.swing.GroupLayout(jPanel22);
         jPanel22.setLayout(jPanel22Layout);
         jPanel22Layout.setHorizontalGroup(
             jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(btn_registrar_jefes, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
-            .addComponent(btn_olvidoSuClave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel22Layout.setVerticalGroup(
             jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel22Layout.createSequentialGroup()
                 .addComponent(btn_registrar_jefes, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn_olvidoSuClave, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE))
+                .addContainerGap(58, Short.MAX_VALUE))
         );
 
         jPanel23.setBackground(new java.awt.Color(153, 153, 255));
@@ -393,7 +384,6 @@ public class Login extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEnviar;
-    private javax.swing.JButton btn_olvidoSuClave;
     private javax.swing.JButton btn_registrar_jefes;
     private javax.swing.JButton btn_volver;
     private javax.swing.JLabel jLabel33;
