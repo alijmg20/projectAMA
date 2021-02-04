@@ -421,25 +421,32 @@ public class VDetalleCotizacion extends javax.swing.JFrame {
 
     private void NuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NuevoActionPerformed
         if (this.tipo == 0) { //jefe director
-        this.txtPrecio.setEnabled(false);
-        this.txtCantidad.setEnabled(false);
-        this.txtCondiciones.setEnabled(false);
-        this.cbNroRequisicion.setEnabled(true);
-        this.txtCodigoCot.setEnabled(false);
-        this.txtRif.setEnabled(false);
-        this.cbItems.setEnabled(true);
-        }else{
-            
-        this.txtPrecio.setEnabled(true);
-        this.txtCantidad.setEnabled(true);
-        this.txtCondiciones.setEnabled(true);
-        this.cbNroRequisicion.setEnabled(false);
-        this.txtCodigoCot.setEnabled(false);
-        this.txtRif.setEnabled(false);
-        this.cbItems.setEnabled(false);    
-        
+            this.txtPrecio.setEnabled(false);
+            this.txtCantidad.setEnabled(false);
+            this.txtCondiciones.setEnabled(false);
+            this.cbNroRequisicion.setEnabled(true);
+            this.txtCodigoCot.setEnabled(false);
+            this.txtRif.setEnabled(false);
+            this.cbItems.setEnabled(true);
+        } else if (this.tipo == 1) { //director
+
+            this.txtPrecio.setEnabled(true);
+            this.txtCantidad.setEnabled(true);
+            this.txtCondiciones.setEnabled(true);
+            this.cbNroRequisicion.setEnabled(false);
+            this.txtCodigoCot.setEnabled(false);
+            this.txtRif.setEnabled(false);
+            this.cbItems.setEnabled(false);
+
+        } else if (this.tipo == 2) {
+            this.txtPrecio.setEnabled(true);
+            this.txtCantidad.setEnabled(true);
+            this.txtCondiciones.setEnabled(true);
+            this.cbNroRequisicion.setEnabled(true);
+            this.txtCodigoCot.setEnabled(false);
+            this.txtRif.setEnabled(false);
+            this.cbItems.setEnabled(true);
         }
-        
 
 
     }//GEN-LAST:event_NuevoActionPerformed
@@ -473,10 +480,15 @@ public class VDetalleCotizacion extends javax.swing.JFrame {
             int nrorequisicion = Integer.parseInt(this.cbNroRequisicion.getSelectedItem().toString());
             String nombrei = this.cbItems.getSelectedItem().toString();
             int rifproveedor = this.rif;
-            float precioA = Float.parseFloat(this.txtPrecio.getText());
-            int cantidad = Integer.parseInt(this.txtCantidad.getText());
+            float precioA = 0;
+            if (!this.txtPrecio.getText().isEmpty()) {
+                precioA = Float.parseFloat(this.txtPrecio.getText());
+            }
+            int cantidad = 0;
+            if (!this.txtCantidad.getText().isEmpty()) {
+                cantidad = Integer.parseInt(this.txtCantidad.getText());
+            }
             String condicionesC = this.txtCondiciones.getText();
-
             this.detCotizacion.agregarDetallesCotizacion(codigocot, nrorequisicion, nombrei, rifproveedor, precioA, cantidad, condicionesC);
             this.tableDetalleRequisicion.setModel(this.detCotizacion.mostrarDatosDetallesCotizacion(codigocot));
 

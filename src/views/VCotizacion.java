@@ -60,7 +60,7 @@ public class VCotizacion extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         Calendar_fechaE = new rojerusan.RSDateChooser();
         jLabel5 = new javax.swing.JLabel();
-        cb_rif = new javax.swing.JComboBox();
+        cb_rSocial = new javax.swing.JComboBox();
         jLabel8 = new javax.swing.JLabel();
         cb_lineas = new javax.swing.JComboBox();
         txtCodigoCotizacion = new javax.swing.JTextField();
@@ -118,12 +118,12 @@ public class VCotizacion extends javax.swing.JFrame {
         Calendar_fechaE.setEnabled(false);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel5.setText("Rif Proveedor:");
+        jLabel5.setText("Proveedor:");
 
-        cb_rif.setEnabled(false);
-        cb_rif.addActionListener(new java.awt.event.ActionListener() {
+        cb_rSocial.setEnabled(false);
+        cb_rSocial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cb_rifActionPerformed(evt);
+                cb_rSocialActionPerformed(evt);
             }
         });
 
@@ -171,7 +171,7 @@ public class VCotizacion extends javax.swing.JFrame {
                                     .addComponent(jLabel5))
                                 .addGap(35, 35, 35)
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(cb_rif, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cb_rSocial, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(Calendar_fechaE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(txtCodigoCotizacion)
                                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)))
@@ -199,17 +199,17 @@ public class VCotizacion extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(cb_lineas, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(cb_rif, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(jLabel5)
                         .addGap(29, 29, 29)
                         .addComponent(jLabel6)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                        .addComponent(cb_rSocial, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
         );
@@ -418,24 +418,24 @@ public class VCotizacion extends javax.swing.JFrame {
     private void NuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NuevoActionPerformed
         this.txtCodigoCotizacion.setEnabled(true);
         this.Calendar_fechaE.setEnabled(true);
-        this.cb_rif.setEnabled(true);
+        this.cb_rSocial.setEnabled(true);
         this.cb_lineas.setEnabled(true);
         this.txtObservaciones.setEnabled(true);
     }//GEN-LAST:event_NuevoActionPerformed
 
     private void ActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ActualizarActionPerformed
-        if (!this.Calendar_fechaE.getFechaSeleccionada().isEmpty() && this.cb_lineas.getSelectedIndex() > 0 && this.cb_rif.getSelectedIndex() > 0 && !this.txtCodigoCotizacion.getText().isEmpty()) {
+        if (!this.Calendar_fechaE.getFechaSeleccionada().isEmpty() && this.cb_lineas.getSelectedIndex() > 0 && this.cb_rSocial.getSelectedIndex() > 0 && !this.txtCodigoCotizacion.getText().isEmpty()) {
 
             String codigo = this.txtCodigoCotizacion.getText();
             String fechaString = this.Calendar_fechaE.getFechaSeleccionada();
-            int rif = Integer.parseInt(this.cb_rif.getSelectedItem().toString());
+            String r_social = this.cb_rSocial.getSelectedItem().toString();
             String lineaSuministros = this.cb_lineas.getSelectedItem().toString();
             String observaciones = this.txtObservaciones.getText();
 
             int decision = JOptionPane.showConfirmDialog(null, "Seguro que desea actualizar la informacion de la cotizacion ?");
             if (decision == 0) {
 
-                this.cotizaciones.actualizarDatosCotizacion(codigo, fechaString, lineaSuministros, rif, observaciones);
+                this.cotizaciones.actualizarDatosCotizacion(codigo, fechaString, lineaSuministros, r_social, observaciones);
                 this.tableCotizacion.setModel(this.cotizaciones.mostrarDatosCotizacion());
             }
         } else {
@@ -445,14 +445,14 @@ public class VCotizacion extends javax.swing.JFrame {
 
     private void GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarActionPerformed
 
-        if (!this.Calendar_fechaE.getFechaSeleccionada().isEmpty() && this.cb_lineas.getSelectedIndex() > 0 && this.cb_rif.getSelectedIndex() > 0 && !this.txtCodigoCotizacion.getText().isEmpty()) {
+        if (!this.Calendar_fechaE.getFechaSeleccionada().isEmpty() && this.cb_lineas.getSelectedIndex() > 0 && this.cb_rSocial.getSelectedIndex() > 0 && !this.txtCodigoCotizacion.getText().isEmpty()) {
 
             String fechaString = this.Calendar_fechaE.getFechaSeleccionada();
             String codigo = this.txtCodigoCotizacion.getText();
-            int rif = Integer.parseInt(this.cb_rif.getSelectedItem().toString());
+            String r_social = this.cb_rSocial.getSelectedItem().toString();
             String lineaSuministros = this.cb_lineas.getSelectedItem().toString();
             String observaciones = this.txtObservaciones.getText();
-            this.cotizaciones.insertarDatosCotizacion(codigo, fechaString, lineaSuministros, rif, observaciones);
+            this.cotizaciones.insertarDatosCotizacion(codigo, fechaString, lineaSuministros, r_social, observaciones);
             this.tableCotizacion.setModel(this.cotizaciones.mostrarDatosCotizacion());
         } else {
             JOptionPane.showMessageDialog(null, "Por favor rellene los campos faltantes", "Advertencia", JOptionPane.WARNING_MESSAGE);
@@ -487,8 +487,13 @@ public class VCotizacion extends javax.swing.JFrame {
         if (filaSeleccionada >= 0) {
             String codigoCot = this.tableCotizacion.getValueAt(filaSeleccionada, 0).toString();
             int rif = Integer.parseInt(this.tableCotizacion.getValueAt(filaSeleccionada, 4).toString());
-            new VDetalleCotizacion(tipo, username, codigoCot, rif).setVisible(true);
-            this.dispose();
+            if (!this.tableCotizacion.getValueAt(filaSeleccionada, 4).toString().equals(username) && this.tipo == 1) {
+                JOptionPane.showMessageDialog(null, "Esta cotizacion no te corresponde", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            } else {
+                new VDetalleCotizacion(tipo, username, codigoCot, rif).setVisible(true);
+                this.dispose();
+            }
+
         } else {
             JOptionPane.showMessageDialog(null, "Por favor Seleccione una cotizacion ", "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
@@ -507,18 +512,18 @@ public class VCotizacion extends javax.swing.JFrame {
         this.Calendar_fechaE.setTextoFecha(this.tableCotizacion.getValueAt(filaSeleccionada, 1).toString());
         this.txtObservaciones.setText(this.tableCotizacion.getValueAt(filaSeleccionada, 2).toString());
         this.cb_lineas.setSelectedItem(this.tableCotizacion.getValueAt(filaSeleccionada, 3).toString());
-        this.cb_rif.setSelectedItem(this.tableCotizacion.getValueAt(filaSeleccionada, 4).toString());
+        this.cb_rSocial.setSelectedItem(this.tableCotizacion.getValueAt(filaSeleccionada, 5).toString());
         this.txtCodigoCotizacion.setEnabled(false);
 
     }//GEN-LAST:event_tableCotizacionMouseClicked
 
     private void cb_lineasItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_lineasItemStateChanged
         if (this.cb_lineas.getSelectedIndex() > 0) {
-            this.cb_rif.removeAllItems();
+            this.cb_rSocial.removeAllItems();
             String lineas = this.cb_lineas.getSelectedItem().toString();
-            this.cotizaciones.ObtenerRifProveedor(cb_rif, lineas);
+            this.cotizaciones.ObtenerRazonSocialProveedoresCotizacion(cb_rSocial, lineas);
         } else {
-            this.cb_rif.removeAllItems();
+            this.cb_rSocial.removeAllItems();
         }
     }//GEN-LAST:event_cb_lineasItemStateChanged
 
@@ -526,9 +531,9 @@ public class VCotizacion extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cb_lineasActionPerformed
 
-    private void cb_rifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_rifActionPerformed
+    private void cb_rSocialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_rSocialActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cb_rifActionPerformed
+    }//GEN-LAST:event_cb_rSocialActionPerformed
 
     /**
      * @param args the command line arguments
@@ -578,7 +583,7 @@ public class VCotizacion extends javax.swing.JFrame {
     private javax.swing.JButton btn_detalle;
     private javax.swing.JButton btn_regresar;
     private javax.swing.JComboBox cb_lineas;
-    private javax.swing.JComboBox cb_rif;
+    private javax.swing.JComboBox cb_rSocial;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

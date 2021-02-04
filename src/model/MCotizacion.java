@@ -25,14 +25,17 @@ public class MCotizacion extends MUtilidades {
         super(conexion);
     }
 
-    public void insertarDatosCotizacion(String codigoCot, String fecha, String descripcionl, int rif, String observaciones) {
-
+    public void insertarDatosCotizacion(String codigoCot, String fecha, String descripcionl, String r_social, String observaciones) {
+        int rif = this.busquedaRifProveedor(r_social);
+        
+        System.out.println(r_social);
         try {
 
             long fechaLong = java.util.Date.parse(fecha);
             Date fechaDate = new Date(fechaLong);
             String codlinea = this.busquedaLinea(descripcionl);
-
+            rif = this.busquedaRifProveedor(r_social);
+            
             String SQL = "INSERT INTO cotizaciones(codigocot,f_emision,observaciones,codlineas,rifproveedor) VALUES (?,?,?,?,?) ";
 
             PreparedStatement consulta = this.getConexion().prepareStatement(SQL);
@@ -49,11 +52,11 @@ public class MCotizacion extends MUtilidades {
     }
 
     public DefaultTableModel mostrarDatosCotizacion() {
-        String[] titulos = {"codigo Cotizacion", "Fecha Emision", "observaciones", "Nombre linea", "rif Proveedor"};
-        String[] registros = new String[5];
+        String[] titulos = {"codigo Cotizacion", "Fecha Emision", "observaciones", "Nombre linea", "rif Proveedor","razon social Proveedor"};
+        String[] registros = new String[6];
 
         DefaultTableModel tabla = new DefaultTableModel(null, titulos);
-        String SQL = "SELECT cot.*, ls.descripcionl "
+        String SQL = "SELECT cot.*, ls.descripcionl,p.r_social "
                 + "FROM cotizaciones cot,lineas ls, proveedores p "
                 + "WHERE cot.codlineas=ls.codlineas AND p.rif=cot.rifproveedor ";
         try {
@@ -68,6 +71,7 @@ public class MCotizacion extends MUtilidades {
                 registros[2] = resultados.getString("observaciones");
                 registros[3] = resultados.getString("descripcionl");
                 registros[4] = resultados.getString("rifproveedor");
+                registros[5] = resultados.getString("r_social");
                 tabla.addRow(registros);
             }
 
@@ -77,14 +81,14 @@ public class MCotizacion extends MUtilidades {
         return tabla;
     }
 
-    public void actualizarDatosCotizacion(String codigoCot, String fecha, String descripcionl, int rif, String observaciones) {
+    public void actualizarDatosCotizacion(String codigoCot, String fecha, String descripcionl, String r_social, String observaciones) {
         try {
             
             
             long fechaLong = java.util.Date.parse(fecha);
             Date fechaDate = new Date(fechaLong);
             String codlinea = this.busquedaLinea(descripcionl);
-            
+            int rif = this.busquedaRifProveedor(r_social);
             String SQL = "UPDATE cotizaciones SET f_emision=? , observaciones=? , codlineas=?,rifproveedor=? "
                     + "WHERE  codigocot=?";
             PreparedStatement consulta = this.getConexion().prepareStatement(SQL);
@@ -118,5 +122,7 @@ public class MCotizacion extends MUtilidades {
         }
 
     }
+
+
 
 }

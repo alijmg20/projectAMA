@@ -193,6 +193,7 @@ public class Login extends javax.swing.JFrame {
         labelPassword.setText("PASSWORD :");
 
         btnEnviar.setText("Enviar");
+        btnEnviar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEnviar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEnviarbtnEnviarActionPerformed(evt);

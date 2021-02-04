@@ -113,16 +113,16 @@ public class MUtilidades {
     }
 
     //Utilizado en MDETALLESCOTIZACION
-    public void obtenerNrosRequisiciones(JComboBox cb, int rif,String codigocot) {
+    public void obtenerNrosRequisiciones(JComboBox cb, int rif, String codigocot) {
         try {
             String SQL = "SELECT r.nrorequisicion\n"
                     + "FROM requisiciones r,proveedores p , suministran sumi,cotizaciones cot \n"
-                    + "WHERE cot.codigocot='"+codigocot+"'\n"
+                    + "WHERE cot.codigocot='" + codigocot + "'\n"
                     + "AND cot.codlineas=r.codlineas\n"
                     + "AND cot.codlineas=sumi.codlineas\n"
                     + "AND r.codlineas= sumi.codlineas\n"
                     + "AND p.rif=sumi.rifproveedor\n"
-                    + "AND p.rif="+rif+" "
+                    + "AND p.rif=" + rif + " "
                     + "ORDER BY r.nrorequisicion DESC ";
             PreparedStatement consulta = conexion.prepareStatement(SQL);
             ResultSet resultado = consulta.executeQuery();
@@ -202,22 +202,116 @@ public class MUtilidades {
         return null;
     }
 
-    public void ObtenerRifProveedor(JComboBox cb, String descripcionl) {
+    public void ObtenerRazonSocialProveedoresCotizacion(JComboBox cb, String descripcionl) {
         try {
             String codlineas = this.busquedaLinea(descripcionl);
-            String SQL = "SELECT r.rif FROM proveedores r,suministran sumi "
+            String SQL = "SELECT r.r_social FROM proveedores r,suministran sumi "
                     + "WHERE r.rif=sumi.rifproveedor AND sumi.codlineas='" + codlineas + "' "
                     + "ORDER BY r.rif ASC";
             PreparedStatement consulta = conexion.prepareStatement(SQL);
             ResultSet resultado = consulta.executeQuery();
             cb.addItem("Seleccione una opcion");
             while (resultado.next()) {
-                cb.addItem(resultado.getString("rif"));
+                cb.addItem(resultado.getString("r_social"));
             }
         } catch (Exception e) {
 
         }
 
     }
+    //Utilizado en la razon social del proveedor para la ventana de MCotizacion
+    public int busquedaRifProveedor(String r_social) {
+        try {
+            String SQL = "SELECT rif FROM proveedores WHERE r_social='" + r_social+"'";
+            
+            Statement consultaRif = this.conexion.createStatement();
+            ResultSet resultado = consultaRif.executeQuery(SQL);
+            resultado.next();
+            int rif;
+            return rif = resultado.getInt("rif");
 
+        } catch (Exception e) {
+
+        }
+        return 0;
+    }
+
+    //PARA MOSTRAR LOS NOMBRES DE LOS DIRECTORES EN EL DROPBOX
+    public void obtenerNDirectores(JComboBox cb) {
+        try {
+            String SQL = "SELECT * FROM empleados "
+                    + "WHERE tipoe = 'D' AND statuse = 'A' "
+                    + "ORDER BY nombre ASC";
+            PreparedStatement consulta = conexion.prepareStatement(SQL);
+            ResultSet resultado = consulta.executeQuery();
+            cb.addItem("Seleccione una opcion");
+            while (resultado.next()) {
+                cb.addItem(resultado.getString("nombre"));
+            }
+        } catch (Exception ex) {
+
+        }
+        
+    }
+
+    //PARA OBTENER LOS CODIGOS DE LOS DIRECTORES SEGUN EL NOMBRE
+    public int busquedaCDirector(String nombre) {
+
+        String SQL = "SELECT di.fichad \n"
+                + "FROM directores AS di, empleados AS em \n"
+                + "WHERE di.fichad = em.cedula AND em.nombre = '" + nombre + "'";
+
+        
+        try {
+            int rif;
+            Statement consultaDirector = this.conexion.createStatement();
+            ResultSet resultado = consultaDirector.executeQuery(SQL);
+            resultado.next();
+            return rif = resultado.getInt("fichad");
+        } catch (Exception e) {
+
+        }
+        
+        
+        
+        
+        return -1;
+    }
+
+    //PARA MOSTRAR LA RAZON SOCIAL DE LOS PROVEEDORES EN EL DROPBOX
+    public void obtenerNProveedores(JComboBox cb) {
+        try {
+            String SQL = "SELECT * FROM proveedores "
+                    + "WHERE statusp = 'A' "
+                    + "ORDER BY r_social ASC";
+            PreparedStatement consulta = conexion.prepareStatement(SQL);
+            ResultSet resultado = consulta.executeQuery();
+            cb.addItem("Seleccione una opcion");
+            while (resultado.next()) {
+                cb.addItem(resultado.getString("r_social"));
+            }
+        } catch (Exception ex) {
+
+        }
+    }
+
+    //PARA OBTENER LOS RIF DE LOS PROVEEDORES SEGUN LA RAZON SOCIAL
+    public int busquedaRProveedores(String razonsocial) {
+
+        String SQL = "SELECT rif "
+                + "FROM proveedores "
+                + "WHERE r_social = '" + razonsocial + "'";
+        int rifproveedor = 0;
+        try {
+            PreparedStatement consulta;
+            consulta = conexion.prepareStatement(SQL);
+            ResultSet resultado = consulta.executeQuery(SQL);
+            resultado.next();
+            rifproveedor = resultado.getInt("rif");
+            return rifproveedor;
+        } catch (Exception e) {
+
+        }
+        return rifproveedor;
+    }
 }

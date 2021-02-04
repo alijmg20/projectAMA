@@ -76,7 +76,7 @@ public class TipoUsuario extends javax.swing.JFrame {
         jPanel6.setBackground(new java.awt.Color(153, 153, 255));
 
         btn_jefes.setBackground(new java.awt.Color(255, 255, 255));
-        btn_jefes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/designs/Jefes_directores.png"))); // NOI18N
+        btn_jefes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/designs/Jefe-Director.png"))); // NOI18N
         btn_jefes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_jefes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -121,7 +121,7 @@ public class TipoUsuario extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(153, 153, 255));
 
         btn_proveedores.setBackground(new java.awt.Color(255, 255, 255));
-        btn_proveedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/designs/Proveedor.png"))); // NOI18N
+        btn_proveedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/designs/Proveedors.png"))); // NOI18N
         btn_proveedores.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_proveedores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
