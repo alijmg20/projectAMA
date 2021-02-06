@@ -76,8 +76,9 @@ public class MItem extends MUtilidades {
     }
     
     //ACTUALIZAR DATOS DE ITEM
-    public void actualizarDatosItem(String coditem, String nombrei, String descripcioni, String umedida, float preciou, String codlineas) {
+    public void actualizarDatosItem(String coditem, String nombrei, String descripcioni, String umedida, float preciou, String descripcionl) {
         try {
+            String codlineas = this.busquedaLinea(descripcionl);
             String SQL = "UPDATE items SET nombrei=?, descripcioni=?, umedida=?, preciou=?,codlineas=? WHERE coditem=? ";
             PreparedStatement consulta = TipoUsuario.conexion.prepareStatement(SQL);
             
@@ -85,8 +86,9 @@ public class MItem extends MUtilidades {
             consulta.setString(2, descripcioni);
             consulta.setString(3, umedida);
             consulta.setFloat(4, preciou);
-            consulta.setString(5, coditem);
-            consulta.setString(6, codlineas);
+            
+            consulta.setString(5, codlineas);
+            consulta.setString(6, coditem);
             consulta.execute();
 
             JOptionPane.showMessageDialog(null, "Item Actualizado Exitosamente", "Accion realizada", JOptionPane.INFORMATION_MESSAGE);
@@ -99,7 +101,7 @@ public class MItem extends MUtilidades {
     //ELIMINAR DATOS DE LA LINEA DE SUMINISTROS
     public void eliminarDatosItem(String coditem){
         
-        String SQL = "DELETE FROM lineas where codlineas=?";
+        String SQL = "DELETE FROM items where coditem=?";
         
         try{
             PreparedStatement consulta = TipoUsuario.conexion.prepareStatement(SQL);

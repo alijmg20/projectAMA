@@ -389,7 +389,6 @@ public class VItems extends javax.swing.JFrame {
             String itemdesc = this.IDrescipcion.getText();
             String itemum = this.IUnidadMedi.getText();
             float itempu = Float.parseFloat(this.IPrecioUni.getText());
-            
             String itemls = this.LineaSumi.getSelectedItem().toString();
             
             int decision = JOptionPane.showConfirmDialog(null, "seguro que Desea Actualizar el Item ? ");

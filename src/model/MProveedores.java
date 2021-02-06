@@ -77,7 +77,7 @@ public class MProveedores extends MUtilidades {
             
         } catch (SQLException | HeadlessException e) {
             JOptionPane.showMessageDialog(null,"Error al insertar correo: " + e.getMessage(), "Accion no realizada correo", JOptionPane.ERROR_MESSAGE);
-        }   
+        }
     }
     // INSERTAR DATOS EN TABLA NUMEROS 
              public void insertarDatosTelefonos(int rifproveedor, String telefonos) {
