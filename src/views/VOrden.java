@@ -597,7 +597,7 @@ public class VOrden extends javax.swing.JFrame {
             }
 
         } else {
-            JOptionPane.showMessageDialog(null, "Por favor Seleccione una cotizacion ", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Por favor Seleccione una Orden de Compra ", "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
 
 
