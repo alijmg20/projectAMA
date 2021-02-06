@@ -15,20 +15,20 @@ import model.MProveedores;
  */
 public class VProveedores extends javax.swing.JFrame {
 
-     private final MProveedores prov = new MProveedores();
-    String correo1i,correo2i,correo3i;
-    String tl1,tl2,tl3;
-    String li1,li2,li3;
+    private final MProveedores prov = new MProveedores();
+    String correo1i, correo2i, correo3i;
+    String tl1, tl2, tl3;
+    String li1, li2, li3;
     //Atributos de la clase2222
     private int tipo;
     private String username;
     DefaultListModel<String> model = new DefaultListModel<>();
 
-    public VProveedores() {       
+    public VProveedores() {
         initComponents();
-         this.tableProveedores.setModel(prov.mostrarDatosProveedor()); 
+        this.tableProveedores.setModel(prov.mostrarDatosProveedor());
     }
-    
+
     //sobrecarga del constructor principal
     public VProveedores(int tipo, String username) {
         initComponents();
@@ -37,7 +37,7 @@ public class VProveedores extends javax.swing.JFrame {
         prov.obtenerLinea(LineaSuminist1);
         prov.obtenerLinea(LineaSuminist2);
         prov.obtenerLinea(LineaSuminist3);
-      this.tableProveedores.setModel(prov.mostrarDatosProveedor()); 
+        this.tableProveedores.setModel(prov.mostrarDatosProveedor());
     }
 
     /**
@@ -454,7 +454,7 @@ public class VProveedores extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.dispose();
-       new MainMenu(this.tipo,this.username).setVisible(true);
+        new MainMenu(this.tipo, this.username).setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void Nuevo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Nuevo1ActionPerformed
@@ -474,64 +474,38 @@ public class VProveedores extends javax.swing.JFrame {
                 //razon social y direccion
                 prov.actualizarDatosProveedores(Integer.parseInt(this.FieldRIF.getText()), this.FieldRS.getText(), this.FieldDirec.getText());
                 //correos
-                prov.actualizarDatosCorreos(Integer.parseInt(this.FieldRIF.getText()),this.FieldMail1.getText(),this.FieldMail2.getText(),this.FieldMail3.getText(), correo1i, correo2i,correo3i);
+                prov.actualizarDatosCorreos(Integer.parseInt(this.FieldRIF.getText()), this.FieldMail1.getText(), this.FieldMail2.getText(), this.FieldMail3.getText(), correo1i, correo2i, correo3i);
                 //telefonos
-                prov.actualizarDatosTelefonos(Integer.parseInt(this.FieldRIF.getText()), this.FieldTlf1.getText(),this.FieldTlf2.getText(),this.FieldTlf3.getText(),tl1,tl2,tl3);
+                prov.actualizarDatosTelefonos(Integer.parseInt(this.FieldRIF.getText()), this.FieldTlf1.getText(), this.FieldTlf2.getText(), this.FieldTlf3.getText(), tl1, tl2, tl3);
                 //lineas de suministros
                 prov.actualizarDatosLineas(Integer.parseInt(this.FieldRIF.getText()), this.LineaSuminist1.getSelectedItem().toString(), this.LineaSuminist2.getSelectedItem().toString(), this.LineaSuminist3.getSelectedItem().toString(), li1, li2, li3);
                 //Se vuelve a mostrar la tabla actualizada:
                 this.tableProveedores.setModel(prov.mostrarDatosProveedor());
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Por favor rellene los campos faltantes", "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
-        else
-        JOptionPane.showMessageDialog(null, "Por favor rellene los campos faltantes", "Advertencia", JOptionPane.WARNING_MESSAGE);
     }//GEN-LAST:event_Actualizar1ActionPerformed
 
     private void Guardar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Guardar1ActionPerformed
-        if (!(this.FieldRIF.getText().equals("")) && !(this.FieldRS.getText().equals("")) && !(this.FieldDirec.getText().equals("")) && !(this.LineaSuminist1.getSelectedItem().toString().equals("")) && !(this.LineaSuminist2.getSelectedItem().toString().equals("")) && !(this.LineaSuminist3.getSelectedItem().toString().equals(""))) {
+
+        int RIF = Integer.parseInt(this.FieldRIF.getText());
+        String RS = this.FieldRS.getText();
+        String DIREC = this.FieldDirec.getText();
+        String MAIL1 = this.FieldMail1.getText();
+        String MAIL2 = this.FieldMail2.getText();
+        String MAIL3 = this.FieldMail3.getText();
+        String TLF1 = this.FieldTlf1.getText();
+        String TLF2 = this.FieldTlf2.getText();
+        String TLF3 = this.FieldTlf3.getText();
+        String CODL1 = this.LineaSuminist1.getSelectedItem().toString();
+        String CODL2 = this.LineaSuminist2.getSelectedItem().toString();
+        String CODL3 = this.LineaSuminist3.getSelectedItem().toString();
+
+        if (!(this.FieldRIF.getText().equals("")) && !(this.FieldRS.getText().equals("")) && !(this.FieldDirec.getText().equals(""))) {
             //Se toman los valores de los fields para convertirlos en datos para el campo:
-            int RIF = Integer.parseInt(this.FieldRIF.getText());
-            String RS = this.FieldRS.getText();
-            String DIREC = this.FieldDirec.getText();
-            String MAIL1 = this.FieldMail1.getText();
-            String MAIL2 = this.FieldMail2.getText();
-            String MAIL3 = this.FieldMail3.getText();
-            String TLF1 = this.FieldTlf1.getText();
-            String TLF2 = this.FieldTlf2.getText();
-            String TLF3 = this.FieldTlf3.getText();
-            String CODL1 = this.LineaSuminist1.getSelectedItem().toString();
-            String CODL2 = this.LineaSuminist2.getSelectedItem().toString();
-            String CODL3 = this.LineaSuminist3.getSelectedItem().toString();
+
             prov.insertarDatosProveedores(RIF, RS, DIREC, 'A');
-
-            if(!(this.FieldMail1.getText().equals(""))){
-                prov.insertarDatosCORREOS(RIF, MAIL1);
-            }
-            if(!(this.FieldMail2.getText().equals(""))){
-                prov.insertarDatosCORREOS(RIF, MAIL2);
-            }
-            if(!(this.FieldMail3.getText().equals(""))){
-                prov.insertarDatosCORREOS(RIF, MAIL3);
-            }
-            if(!(this.FieldTlf1.getText().equals(""))){
-                prov.insertarDatosTelefonos(RIF, TLF1);
-            }
-            if(!(this.FieldTlf2.getText().equals(""))){
-                prov.insertarDatosTelefonos(RIF, TLF2);
-            }
-            if(!(this.FieldTlf3.getText().equals(""))){
-                prov.insertarDatosTelefonos(RIF, TLF3);
-            }
-            if(!(this.LineaSuminist1.getSelectedItem().toString().equals(""))){
-                prov.insertarDatossuministran(RIF,CODL1);
-            }
-
-            if(!(this.LineaSuminist2.getSelectedItem().toString().equals(""))){
-                prov.insertarDatossuministran(RIF,CODL2);
-            }
-            if(!(this.LineaSuminist3.getSelectedItem().toString().equals(""))){
-                prov.insertarDatossuministran(RIF,CODL3);
-            }
             //Se insertan la fila nueva en la bd: (Funcion no hecha aun)
             //lineas.insertarDatosLineas(codlineas, descripcionl);
 
@@ -548,7 +522,6 @@ public class VProveedores extends javax.swing.JFrame {
 
             //Se vuelve a mostrar la tabla actualizada: (Funcion no hecha aun)
             //this.tableLineas.setModel(lineas.mostrarDatosLineas());
-
             this.FieldRIF.setText("");
             this.FieldRS.setText("");
             this.FieldDirec.setText("");
@@ -557,7 +530,44 @@ public class VProveedores extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Por favor rellene los campos faltantes", "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
 
+        if (!(this.FieldMail1.getText().equals(""))) {
+            prov.insertarDatosCORREOS(RIF, MAIL1);
+        }
+        
+        if (!(this.FieldMail2.getText().equals(""))) {
+            prov.insertarDatosCORREOS(RIF, MAIL2);
+        }
+        
+        if (!(this.FieldMail3.getText().equals(""))) {
+            prov.insertarDatosCORREOS(RIF, MAIL3);
+        }
+        
+        if (!(this.FieldTlf1.getText().equals(""))) {
+            prov.insertarDatosTelefonos(RIF, TLF1);
+        }
+        
+        if (!(this.FieldTlf2.getText().equals(""))) {
+            prov.insertarDatosTelefonos(RIF, TLF2);
+        }
+        
+        if (!(this.FieldTlf3.getText().equals(""))) {
+            prov.insertarDatosTelefonos(RIF, TLF3);
+        }
+        
+        if (!(this.LineaSuminist1.getSelectedItem().toString().equals(""))) {
+            prov.insertarDatossuministran(RIF, CODL1);
+        }
+
+        if (!(this.LineaSuminist2.getSelectedItem().toString().equals(""))) {
+            prov.insertarDatossuministran(RIF, CODL2);
+        }
+        
+        if (!(this.LineaSuminist3.getSelectedItem().toString().equals(""))) {
+            prov.insertarDatossuministran(RIF, CODL3);
+        }
+
         this.tableProveedores.setModel(prov.mostrarDatosProveedor());
+        
     }//GEN-LAST:event_Guardar1ActionPerformed
 
     private void LimpiarTodo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LimpiarTodo1ActionPerformed
@@ -585,10 +595,10 @@ public class VProveedores extends javax.swing.JFrame {
 
     private void VerInfo1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_VerInfo1MouseClicked
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(null, "Los datos del poveedor son\nRif: "+FieldRIF.getText()+"\n\n***Correo(s)*** "+
-            prov.arreglocorreo(Integer.parseInt(this.FieldRIF.getText()))+"\n\n***Telefono(s)*** "+
-            prov.arreglotlf(Integer.parseInt(this.FieldRIF.getText()))+"\n\n***Linea(s) a la(s) que suministran productos*** "+
-            prov.arreglolineas(Integer.parseInt(this.FieldRIF.getText())));
+        JOptionPane.showMessageDialog(null, "Los datos del poveedor son\nRif: " + FieldRIF.getText() + "\n\n***Correo(s)*** "
+                + prov.arreglocorreo(Integer.parseInt(this.FieldRIF.getText())) + "\n\n***Telefono(s)*** "
+                + prov.arreglotlf(Integer.parseInt(this.FieldRIF.getText())) + "\n\n***Linea(s) a la(s) que suministran productos*** "
+                + prov.arreglolineas(Integer.parseInt(this.FieldRIF.getText())));
     }//GEN-LAST:event_VerInfo1MouseClicked
 
     private void VerInfo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerInfo1ActionPerformed
@@ -600,23 +610,23 @@ public class VProveedores extends javax.swing.JFrame {
     }//GEN-LAST:event_FieldRIFActionPerformed
 
     private void MasMailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MasMailActionPerformed
-        if (this.FieldMail2.isEnabled()==false && !(this.FieldMail1.getText().equals(""))){
+        if (this.FieldMail2.isEnabled() == false && !(this.FieldMail1.getText().equals(""))) {
             this.FieldMail2.setEnabled(true);
             FieldMail2.setVisible(true);
         }
-        if (this.FieldMail3.isEnabled()==false && !(this.FieldMail2.getText().equals(""))){
+        if (this.FieldMail3.isEnabled() == false && !(this.FieldMail2.getText().equals(""))) {
             this.FieldMail3.setEnabled(true);
             FieldMail3.setVisible(true);
         }
     }//GEN-LAST:event_MasMailActionPerformed
 
     private void MasTlfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MasTlfActionPerformed
-        if (this.FieldTlf2.isEnabled()==false && !(this.FieldTlf1.getText().equals(""))){
+        if (this.FieldTlf2.isEnabled() == false && !(this.FieldTlf1.getText().equals(""))) {
             FieldTlf2.setVisible(true);
             this.FieldTlf2.setEnabled(true);
         }
 
-        if (this.FieldTlf3.isEnabled()==false && !(this.FieldTlf2.getText().equals(""))){
+        if (this.FieldTlf3.isEnabled() == false && !(this.FieldTlf2.getText().equals(""))) {
             FieldTlf3.setVisible(true);
             this.FieldTlf3.setEnabled(true);
         }
@@ -652,25 +662,30 @@ public class VProveedores extends javax.swing.JFrame {
         this.FieldMail1.setEnabled(true);
         this.FieldMail2.setEnabled(true);
         this.FieldMail3.setEnabled(true);
+
         int filaSeleccionada = this.tableProveedores.rowAtPoint(evt.getPoint());
         this.FieldRIF.setText(this.tableProveedores.getValueAt(filaSeleccionada, 0).toString());
         this.FieldRS.setText(this.tableProveedores.getValueAt(filaSeleccionada, 1).toString());
         this.FieldDirec.setText(this.tableProveedores.getValueAt(filaSeleccionada, 2).toString());
-        int[] data= new int[5];
-        data= prov.datalineas(Integer.parseInt(this.FieldRIF.getText()));
-        LineaSuminist1.setSelectedIndex(data[0]);
-        LineaSuminist2.setSelectedIndex(data[1]);
-        LineaSuminist3.setSelectedIndex(data[2]);
-        String [] telefonos= new String [3];
-        telefonos=prov.datatlf(Integer.parseInt(this.FieldRIF.getText()));
+
+        String[] data = new String[3];
+        data = prov.datalineas(Integer.parseInt(this.FieldRIF.getText()));
+        LineaSuminist1.setSelectedItem(data[0]);
+        LineaSuminist2.setSelectedItem(data[1]);
+        LineaSuminist3.setSelectedItem(data[2]);
+
+        String[] telefonos = new String[3];
+        telefonos = prov.datatlf(Integer.parseInt(this.FieldRIF.getText()));
         FieldTlf1.setText(telefonos[0]);
         FieldTlf2.setText(telefonos[1]);
         FieldTlf3.setText(telefonos[2]);
-        String [] correos = new String [3];
-        correos=prov.dataemail(Integer.parseInt(this.FieldRIF.getText()));
+
+        String[] correos = new String[3];
+        correos = prov.dataemail(Integer.parseInt(this.FieldRIF.getText()));
         FieldMail1.setText(correos[0]);
         FieldMail2.setText(correos[1]);
         FieldMail3.setText(correos[2]);
+
     }//GEN-LAST:event_tableProveedoresMouseClicked
 
     /**

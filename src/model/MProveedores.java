@@ -77,7 +77,7 @@ public class MProveedores extends MUtilidades {
             
         } catch (SQLException | HeadlessException e) {
             JOptionPane.showMessageDialog(null,"Error al insertar correo: " + e.getMessage(), "Accion no realizada correo", JOptionPane.ERROR_MESSAGE);
-        }
+        }   
     }
     // INSERTAR DATOS EN TABLA NUMEROS 
              public void insertarDatosTelefonos(int rifproveedor, String telefonos) {
@@ -211,24 +211,15 @@ public class MProveedores extends MUtilidades {
         return lineas;    
     } 
      
-    public int[] datalineas( int rif){ 
-        int[] linea = new int[5];
-        String[] registros = new String[1];
+    public String[] datalineas( int rif){ 
+        String[] linea = new String[3];
             String SQL = "select l.descripcionl from lineas l, suministran w where  w.codlineas=l.codlineas and w.rifproveedor="+rif;
             try {
             Statement consulta = TipoUsuario.conexion.createStatement();
             ResultSet resultados = consulta.executeQuery(SQL);
             int i=0;
             while (resultados.next()) {
-                registros[0] = resultados.getString("descripcionl");
-                if ("Alimentos".equals(registros[0])) 
-                    linea[i] = 1;
-                if ("Limpieza".equals(registros[0]))
-                     linea[i] = 2;
-                if ("Papeleria".equals(registros[0]))
-                    linea[i] = 3;
-                if ("Tecnologia".equals(registros[0]))
-                    linea[i] = 4;
+                linea[i]= resultados.getString("descripcionl");
                 i++;
             }
         } catch (Exception e) {
