@@ -6,6 +6,8 @@
 package views;
 
 import Controler.Conexion;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.MJefesDirectores;
 import model.SecurityKey;
@@ -18,7 +20,7 @@ public class VDirectores extends javax.swing.JFrame {
 
     private int tipo;
     private String username;
-    
+
     private final MJefesDirectores directores = new MJefesDirectores();
 
     public VDirectores() {
@@ -32,14 +34,14 @@ public class VDirectores extends javax.swing.JFrame {
         this.username = username;
         this.tableDirectoresUnidades.setModel(directores.mostrarDatosJefesDirectores('D'));
         directores.obtenerUnidades(cbDepartamentos);
-        
-            if(this.tipo==1){
+
+        if (this.tipo == 1) {
             this.Nuevo.setEnabled(false);
             this.Actualizar.setEnabled(false);
             this.Eliminar.setEnabled(false);
             this.Guardar.setEnabled(false);
         }
-        
+
     }
 
     /**
@@ -454,9 +456,9 @@ public class VDirectores extends javax.swing.JFrame {
             String repetirPassword = this.txtrepetirpassword.getText();
             String departamento = this.cbDepartamentos.getSelectedItem().toString();
             char estatus = 'A';
-            if(this.rbA.isSelected()){
+            if (this.rbA.isSelected()) {
                 estatus = 'A';
-            }else if (this.rbS.isSelected()){
+            } else if (this.rbS.isSelected()) {
                 estatus = 'S';
             }
             if (password.equals(repetirPassword)) {
@@ -464,10 +466,10 @@ public class VDirectores extends javax.swing.JFrame {
                 this.txtcedula.setEnabled(false);
                 int decision = JOptionPane.showConfirmDialog(null, "Seguro que desea actualizar el director financiero de la unidad ?");
                 if (decision == 0) {
-                    this.directores.actualizarDatosJefeDirectores(cedula, nombre, departamento, encriptado,estatus);
+                    this.directores.actualizarDatosJefeDirectores(cedula, nombre, departamento, encriptado, estatus);
                     this.tableDirectoresUnidades.setModel(directores.mostrarDatosJefesDirectores('D'));
                 }
-                
+
             } else {
                 JOptionPane.showMessageDialog(null, "Las credenciales no son iguales", "Error de credenciales", JOptionPane.ERROR_MESSAGE);
             }
@@ -485,16 +487,16 @@ public class VDirectores extends javax.swing.JFrame {
             String repetirPassword = this.txtrepetirpassword.getText();
             String departamento = this.cbDepartamentos.getSelectedItem().toString();
             char estatus = 'A';
-            if(this.rbA.isSelected()){
+            if (this.rbA.isSelected()) {
                 estatus = 'A';
-            }else if(this.rbS.isSelected()){
+            } else if (this.rbS.isSelected()) {
                 estatus = 'S';
             }
-            
+
             if (password.equals(repetirPassword)) {
                 String encriptado = SecurityKey.Encriptar(password);
                 this.txtcedula.setEnabled(false);
-                this.directores.insertarDatosJefesDirectores(cedula, nombre, 'D',estatus, departamento, encriptado);
+                this.directores.insertarDatosJefesDirectores(cedula, nombre, 'D', estatus, departamento, encriptado);
                 this.tableDirectoresUnidades.setModel(directores.mostrarDatosJefesDirectores('D'));
 
             } else {
@@ -537,19 +539,25 @@ public class VDirectores extends javax.swing.JFrame {
         this.txtcedula.setText(this.tableDirectoresUnidades.getValueAt(filaSeleccionada, 0).toString());
         this.txtnombre.setText(this.tableDirectoresUnidades.getValueAt(filaSeleccionada, 1).toString());
         this.cbDepartamentos.setSelectedItem(this.tableDirectoresUnidades.getValueAt(filaSeleccionada, 2).toString());
-        if(this.tableDirectoresUnidades.getValueAt(filaSeleccionada, 3).toString().equals("A")){
+        if (this.tableDirectoresUnidades.getValueAt(filaSeleccionada, 3).toString().equals("A")) {
             this.rbA.setSelected(true);
-        }else if(this.tableDirectoresUnidades.getValueAt(filaSeleccionada, 3).toString().equals("S")){
+        } else if (this.tableDirectoresUnidades.getValueAt(filaSeleccionada, 3).toString().equals("S")) {
             this.rbS.setSelected(true);
         }
-        
-        this.txtpassword.setText(this.tableDirectoresUnidades.getValueAt(filaSeleccionada, 4).toString());
-        this.txtrepetirpassword.setText(this.tableDirectoresUnidades.getValueAt(filaSeleccionada, 4).toString());
-        
+
+        try {
+            
+            this.txtpassword.setText(SecurityKey.Desencriptar(this.tableDirectoresUnidades.getValueAt(filaSeleccionada, 4).toString()));
+            this.txtrepetirpassword.setText(SecurityKey.Desencriptar(this.tableDirectoresUnidades.getValueAt(filaSeleccionada, 4).toString()));
+            
+        } catch (Exception ex) {
+            Logger.getLogger(VJefesUnidad.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }//GEN-LAST:event_tableDirectoresUnidadesMouseClicked
 
     private void txtbuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtbuscarKeyReleased
-    this.tableDirectoresUnidades.setModel(this.directores.filtrarDatos(this.txtbuscar.getText(), 'D'));
+        this.tableDirectoresUnidades.setModel(this.directores.filtrarDatos(this.txtbuscar.getText(), 'D'));
     }//GEN-LAST:event_txtbuscarKeyReleased
 
     /**

@@ -6,6 +6,8 @@
 package views;
 
 import Controler.Conexion;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.MJefesDirectores;
 import model.SecurityKey;
@@ -543,13 +545,24 @@ public class VJefesUnidad extends javax.swing.JFrame {
         this.txtcedula.setText(this.tableJefesUnidades.getValueAt(filaSeleccionada, 0).toString());
         this.txtnombre.setText(this.tableJefesUnidades.getValueAt(filaSeleccionada, 1).toString());
         this.cbDepartamentos.setSelectedItem(this.tableJefesUnidades.getValueAt(filaSeleccionada, 2).toString());
-                if(this.tableJefesUnidades.getValueAt(filaSeleccionada, 3).toString().equals("A")){
-            this.rbA.setSelected(true);
-        }else if(this.tableJefesUnidades.getValueAt(filaSeleccionada, 3).toString().equals("S")){
-            this.rbS.setSelected(true);
+        switch (this.tableJefesUnidades.getValueAt(filaSeleccionada, 3).toString()) {
+            case "A":
+                this.rbA.setSelected(true);
+                break;
+            case "S":
+                this.rbS.setSelected(true);
+                break;
         }
-        this.txtpassword.setText(this.tableJefesUnidades.getValueAt(filaSeleccionada, 4).toString());
-        this.txtrepetirpassword.setText(this.tableJefesUnidades.getValueAt(filaSeleccionada, 4).toString());
+        
+        try {
+            
+            this.txtpassword.setText(SecurityKey.Desencriptar(this.tableJefesUnidades.getValueAt(filaSeleccionada, 4).toString()));
+            this.txtrepetirpassword.setText(SecurityKey.Desencriptar(this.tableJefesUnidades.getValueAt(filaSeleccionada, 4).toString()));
+            
+        } catch (Exception ex) {
+            Logger.getLogger(VJefesUnidad.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
 
     }//GEN-LAST:event_tableJefesUnidadesMouseClicked
 
