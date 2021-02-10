@@ -5,8 +5,8 @@
         <group>
             <file>file:/C:/Users/alijm/Documents/uni/6to/bdd/Proyecto/projectAMA/src/views/MainMenu.java</file>
             <file>file:/C:/Users/alijm/Documents/uni/6to/bdd/Proyecto/projectAMA/src/Controler/Conexion.java</file>
-            <file>file:/C:/Users/alijm/Documents/uni/6to/bdd/Proyecto/projectAMA/src/views/VProveedores.java</file>
-            <file>file:/C:/Users/alijm/Documents/uni/6to/bdd/Proyecto/projectAMA/src/model/MProveedores.java</file>
+            <file>file:/C:/Users/alijm/Documents/uni/6to/bdd/Proyecto/projectAMA/src/model/MDetallesRequisicion.java</file>
+            <file>file:/C:/Users/alijm/Documents/uni/6to/bdd/Proyecto/projectAMA/src/views/VDetalleRequisicion.java</file>
         </group>
     </open-files>
 </project-private>

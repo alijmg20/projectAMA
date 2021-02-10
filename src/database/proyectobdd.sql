@@ -390,6 +390,7 @@ ALTER TABLE ordenes
 ADD CONSTRAINT CK_condicionp
 CHECK(condicionp='E' or condicionp='T');
 
+
 --16)----------------------------DETALLES DE ORDENES DE COMPRA-------------------------------------------
 
 CREATE TABLE detalles_compra(
